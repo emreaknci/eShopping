@@ -163,7 +163,7 @@ const Navbar = () => {
           <div style={{ marginLeft: 'auto' }}>
             <Tooltip title={""}>
               <IconButton onClick={handleMenuClick} sx={{ p: 0 }}>
-                <AccountCircle fontSize='large' />
+                <AccountCircle fontSize='large' style={{ color: "white" }} />
               </IconButton>
             </Tooltip>
             <Menu
@@ -191,7 +191,7 @@ const Navbar = () => {
         <List>
           {iconMap.map((item) => {
             return (
-              <ListItem onClick={()=>navigateTo(item.link)} key={item.name} disablePadding sx={{ display: 'block' }}>
+              <ListItem onClick={() => navigateTo(item.link)} key={item.name} disablePadding sx={{ display: 'block' }}>
                 <ListItemButton
                   sx={{
                     minHeight: 48,

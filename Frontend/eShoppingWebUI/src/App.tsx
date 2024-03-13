@@ -2,8 +2,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MainLayout from "./pages/MainLayout/MainLayout";
 import UserLayout from "./pages/UserLayout/UserLayout";
 import { NotFoundPage } from './pages/NotFoundPage';
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createContext, useState } from 'react';
+import { darkTheme, lightTheme } from './theme.colors';
 
 
 
@@ -20,37 +21,16 @@ const App = () => {
     localStorage.setItem('darkMode', (!theme).toString());
   }
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: theme ? 'dark' : 'light',
-      primary: {
-        main: '#ff4400',
-        dark: '#b0272f',
-        light: '#ff784e',
-      },
-      secondary: {
-        main: '#19857b',
-        dark: '#004c40',
-        light: '#4fb3bf',
-      },
-      background: {
-        default: theme ? '#121212' : '#f0f0f0',
-        paper: theme ? '#1e1e1e' : '#f0f0f0',
-        
-      },
-    },
-  });
+
 
   return (
     <>
       <ThemeContext.Provider value={{ theme, toggleTheme }}>
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={theme ? darkTheme : lightTheme}>
           <CssBaseline />
           <Router>
             <Routes >
-              <Route path="/" element={
-                <MainLayout />}
-              />
+              <Route path="/*" element={<MainLayout />} />
               <Route path="user/*" element={<UserLayout />} />
               <Route path="page-not-found" element={<NotFoundPage />} />
               <Route path="*" element={<NotFoundPage />} />

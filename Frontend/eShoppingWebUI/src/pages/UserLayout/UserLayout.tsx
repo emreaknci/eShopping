@@ -10,7 +10,7 @@ const UserLayout = () => {
     <>
       <Box sx={{ display: 'flex' }}>
         <Navbar />
-        <Box component="main" sx={{ flexGrow: 1, p: 3, paddingTop: 10 }}>
+        <Box component="main" sx={{ flexGrow: 1, p: { xs: 3, md: 3 }, pt: { xs: 10, md: 10} }}>
           <Routes>
             <Route path="/" element={<ProfilePage />} />
             <Route path="/Profile" element={<ProfilePage />} />

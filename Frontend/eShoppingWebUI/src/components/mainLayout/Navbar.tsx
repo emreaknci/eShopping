@@ -148,7 +148,7 @@ const Navbar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <AccountCircle fontSize='large' />
+                <AccountCircle fontSize='large' style={{color:"white"}} />
               </IconButton>
             </Tooltip>
             <Menu
