@@ -2,9 +2,10 @@ import { Grid, Typography, Button, Rating, Box, Paper, useTheme, Tab, Tabs, Divi
 
 import { useParams } from 'react-router-dom';
 import Styled from './DetailsPage.style';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ImageSliderComponent } from '../../../components/common/ImageSliderComponent';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { LoadingComponent } from '../../../components/common/LoadingComponent';
 
 
 const images = [
@@ -98,6 +99,14 @@ const DetailsPage = () => {
   const theme = useTheme();
   const [tabValue, setTabValue] = useState(0);
 
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
   const handleTabChange = (event: any, newValue: any) => {
     setTabValue(newValue);
   };
@@ -152,8 +161,8 @@ const DetailsPage = () => {
     );
   };
 
-  return (
-    <>
+  const renderDetails = () => {
+    return (
       <Box component="main"
         sx={{
           p: { xs: 2, sm: 5, md: 10, lg: 20, xl: 30 },
@@ -218,7 +227,7 @@ const DetailsPage = () => {
               <Box mb={2} mt={2}>
                 {tabValue === 0 && (
                   <Typography variant="body1">
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" fontWeight={"bold"} mb={1} color="primary">
                       Özellikler
                     </Typography>
                     {product.features.map((feature, index) => (
@@ -231,7 +240,7 @@ const DetailsPage = () => {
                 )}
                 {tabValue === 1 && (
                   <Typography variant="body1">
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" fontWeight={"bold"} mb={1} color="primary">
                       Garanti Bilgileri
                     </Typography>
                     <Typography variant="body1">
@@ -244,7 +253,7 @@ const DetailsPage = () => {
                   <>
                     {orderAndReturnDetails.map((detail) => (
                       <>
-                        <Typography variant="h6" fontWeight={"bold"} mb={1} color="textPrimary">
+                        <Typography variant="h6" fontWeight={"bold"} mb={1} color="primary">
                           {detail.title}
                         </Typography>
                         {detail.details.map((item, index) => (
@@ -260,7 +269,7 @@ const DetailsPage = () => {
                 )}
                 {tabValue === 3 && (
                   <Typography variant="body1">
-                    <Typography variant="h6" fontWeight={"bold"} mb={1} color="textPrimary">
+                    <Typography variant="h6" fontWeight={"bold"} mb={1} color="primary">
                       Ödeme Seçenekleri
                     </Typography>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/2560px-MasterCard_Logo.svg.png" alt="iyzico" style={{ width: "4rem", height: "auto" }} />
@@ -289,7 +298,11 @@ const DetailsPage = () => {
           </Grid>
         </Paper>
       </Box >
-
+    )
+  }
+  return (
+    <>
+      {isLoading ? <LoadingComponent /> : renderDetails()}
     </>
   );
 };
