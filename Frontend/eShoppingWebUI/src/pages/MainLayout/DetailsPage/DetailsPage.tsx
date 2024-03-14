@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import { ImageSliderComponent } from '../../../components/common/ImageSliderComponent';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { LoadingComponent } from '../../../components/common/LoadingComponent';
+import styles from '../../../styles';
+import categories from '../../../mock/category';
 
 
 const images = [
@@ -96,15 +98,36 @@ const orderAndReturnDetails = [
 ]
 const DetailsPage = () => {
   const { id } = useParams();
+
+  const [product, setProduct] = useState();
+
+
   const theme = useTheme();
   const [tabValue, setTabValue] = useState(0);
 
   const [isLoading, setIsLoading] = useState(true);
 
+
+  const getProductById = (productId: number) => {
+    setIsLoading(true);
+    console.log(categories)
+    for (const category of categories) {
+      const product = category.products.find(product => product.id == productId);
+      if (product) {
+        console.log(product)
+        setIsLoading(false);
+
+        return product;
+      }
+    }
+    setIsLoading(false);
+    return null;
+
+  };
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
+
+    setProduct(getProductById(id));
+
   }, []);
 
   const handleTabChange = (event: any, newValue: any) => {
@@ -163,35 +186,30 @@ const DetailsPage = () => {
 
   const renderDetails = () => {
     return (
-      <Box component="main"
-        sx={{
-          p: { xs: 2, sm: 5, md: 10, lg: 20, xl: 30 },
-          pt: { xs: 2, sm: 2, md: 2, lg: 2, xl: 2 }
-        }}>
+      <Box component="main" sx={styles.mainBoxPadding}>
         <Paper style={{
-          marginTop: "1rem",
           backgroundColor: theme.palette.background.paper,
           padding: "1rem",
         }}>
           <Grid container >
 
             <Grid item xs={12} md={5.5} pl={2} pr={2} style={{ display: 'flex', justifyContent: 'center' }}>
-              <ImageSliderComponent images={product.images} />
+              <ImageSliderComponent images={images} />
             </Grid>
 
             <Grid item xs={12} md={6.5} pl={2} pr={2}>
               <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
                 <Typography variant="h5" gutterBottom>
-                  Lorem ipsum dolor sit amet.
+                  {product.name}
                 </Typography>
                 <Box mb={2}>
                   <Rating value={product.rating} precision={0.5} readOnly />
                 </Box>
                 <Typography variant="body1" paragraph>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Cum maiores natus ab deleniti dolorum delectus alias vero. Ullam, necessitatibus quo!
+                  {product.description}
                 </Typography>
                 <Styled.Price>
-                  $19.99
+                  ₺ {product.price.toFixed(2)}
                 </Styled.Price>
 
                 <Box display="flex" justifyContent="space-between" alignItems="center" mt="auto">
@@ -227,16 +245,17 @@ const DetailsPage = () => {
               <Box mb={2} mt={2}>
                 {tabValue === 0 && (
                   <Typography variant="body1">
-                    <Typography variant="h6" fontWeight={"bold"} mb={1} color="primary">
+                    <Typography variant="h6" fontWeight="bold" mb={1} color="primary">
                       Özellikler
                     </Typography>
                     {product.features.map((feature, index) => (
-                      <li key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography variant="body1">{feature.name}:</Typography>
+                      <div key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <Typography variant="body1" fontWeight="bold">{feature.name}:</Typography>
                         <Typography variant="body1">{feature.value}</Typography>
-                      </li>
+                      </div>
                     ))}
                   </Typography>
+
                 )}
                 {tabValue === 1 && (
                   <Typography variant="body1">

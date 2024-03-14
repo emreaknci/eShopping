@@ -7,6 +7,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Link as MuiLink } from '@mui/material';
 import { renderTextField } from '../../../utils/FormUtils';
 import { useNavigate } from 'react-router-dom';
+import styles from '../../../styles';
 
 
 const validationSchema = Yup.object({
@@ -40,9 +41,13 @@ const RegisterPage = () => {
     },
   });
   return (
-    <Container component="main" sx={{ p: { xs: 2, sm: 10, md: 20, lg: 30 }, pt: { xs: 2, sm: 2, md: 2, lg: 2 } }}>
-      <Paper elevation={3} style={{ marginTop: "1rem", padding: "1rem", display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-
+    <Container component="main" sx={styles.mainBoxPadding}>
+      <Paper elevation={3} style={{
+        padding: "1rem",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+      }}>
         <LockOutlinedIcon fontSize={"large"} />
         <Typography component="h1" variant="h5" mt={1}>
           Kayıt Ol

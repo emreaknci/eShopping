@@ -1,13 +1,19 @@
 import './MainLayout.css';
 import { HomePage } from './HomePage';
-import { Route, Routes, } from 'react-router-dom';
+import { Route, Routes, useLocation, } from 'react-router-dom';
 import { DetailsPage } from './DetailsPage';
 import Navbar from '../../components/mainLayout/Navbar';
 import { LoginPage } from './LoginPage';
 import { RegisterPage } from './RegisterPage';
+import Footer from '../../components/mainLayout/Footer';
+import { CategoryPage } from './CategoryPage';
 
 
 const MainLayout = () => {
+  const location = useLocation();
+  const currentPath = location.pathname.toLowerCase();
+  const shouldShowFooter = !['/login', '/register'].includes(currentPath);
+
   return (
     <>
       <Navbar />
@@ -17,9 +23,10 @@ const MainLayout = () => {
         <Route path="/Login" element={<LoginPage />} />
         <Route path="/Register" element={<RegisterPage />} />
         <Route path="/Details/:id" element={<DetailsPage />} />
+        <Route path="/Category/:id" element={<CategoryPage />} />
         <Route path="*" element={<>404</>} />
       </Routes>
-      <div>MainLayoutPage Footer</div>
+      {shouldShowFooter && <Footer />}
     </>
   );
 };
