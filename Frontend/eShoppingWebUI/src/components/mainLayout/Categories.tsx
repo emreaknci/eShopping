@@ -81,7 +81,6 @@ const Categories = () => {
           allowScrollButtonsMobile
           variant="scrollable"
           scrollButtons="auto"
-          value={1}
         >
           {categories.map((category, index) => (
             <Tab

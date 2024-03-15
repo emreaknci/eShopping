@@ -114,7 +114,7 @@ const Step1 = () => {
                       </IconButton>
                     </div>
                   </TableCell>
-                  <TableCell align="center">₺{(cartContext.totalPrice).toFixed(2)}</TableCell>
+                  <TableCell align="center">₺{(item.price * item.quantity).toFixed(2)}</TableCell>
                   <TableCell align="center">
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <span>Ürünü Kaldır</span>

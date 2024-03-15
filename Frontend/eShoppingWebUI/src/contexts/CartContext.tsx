@@ -1,5 +1,5 @@
-import { createContext, useEffect, useState } from "react";
-import { number } from "yup";
+import { createContext, useContext, useEffect, useState } from "react";
+import { SnackBarContext } from "./SnackBarContext";
 
 
 export const CartContext = createContext({
@@ -14,6 +14,7 @@ export const CartContext = createContext({
 })
 
 export const CartProvider = ({ children }: any) => {
+  const snackBarContext=useContext(SnackBarContext);
   const [cartItemCount, setCartItemCount] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -56,7 +57,7 @@ export const CartProvider = ({ children }: any) => {
     }
 
     localStorage.setItem('cart', JSON.stringify(updatedCart));
-
+    snackBarContext.openSnackBar(`'${product.name}' ürünü sepete eklendi.`, "success");
   }
 
   const removeFromCart = (product: any) => {
