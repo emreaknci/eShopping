@@ -16,6 +16,9 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { useNavigate } from 'react-router-dom';
 import { AccountCircle } from '@mui/icons-material';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import Badge from '@mui/material/Badge';
+import { CartContext } from '../../contexts/CartContext';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 
@@ -25,9 +28,10 @@ const settings = [
   { name: 'Logout', link: 'logout' }
 ]
 const Navbar = () => {
+  const cartContext = useContext(CartContext);
   const themeContext = useContext(ThemeContext);
   const navigate = useNavigate();
-
+  
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -141,14 +145,22 @@ const Navbar = () => {
             ))}
           </Box>
 
+          <IconButton sx={{ ml: 1 }} color="inherit" onClick={()=>navigate("/cart")}>
+            <Badge badgeContent={cartContext.cartItemCount} color='success' >
+              <ShoppingCartOutlinedIcon style={{ color: "white" }} />
+            </Badge>
+          </IconButton>
+
           <IconButton sx={{ ml: 1 }} onClick={themeContext.toggleTheme} color="inherit">
-            {themeContext.theme === true ? <Brightness7Icon /> : <Brightness4Icon />}
+            {themeContext.theme === true
+              ? <Brightness7Icon fontSize='medium' style={{ color: "white" }} />
+              : <Brightness4Icon fontSize='medium' style={{ color: "white" }} />}
           </IconButton>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <AccountCircle fontSize='large' style={{color:"white"}} />
+                <AccountCircle fontSize='large' style={{ color: "white" }} />
               </IconButton>
             </Tooltip>
             <Menu

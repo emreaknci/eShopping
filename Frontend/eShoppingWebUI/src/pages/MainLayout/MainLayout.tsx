@@ -7,12 +7,15 @@ import { LoginPage } from './LoginPage';
 import { RegisterPage } from './RegisterPage';
 import Footer from '../../components/mainLayout/Footer';
 import { CategoryPage } from './CategoryPage';
+import { CartPage } from './CartPage';
 
 
 const MainLayout = () => {
   const location = useLocation();
   const currentPath = location.pathname.toLowerCase();
-  const shouldShowFooter = !['/login', '/register'].includes(currentPath);
+  const shouldShowFooter =
+    !['/login', '/register', "/cart"].
+      includes(currentPath);
 
   return (
     <>
@@ -22,6 +25,7 @@ const MainLayout = () => {
         <Route path="/Home" element={<HomePage />} />
         <Route path="/Login" element={<LoginPage />} />
         <Route path="/Register" element={<RegisterPage />} />
+        <Route path="/Cart" element={<CartPage />} />
         <Route path="/Details/:id" element={<DetailsPage />} />
         <Route path="/Category/:id" element={<CategoryPage />} />
         <Route path="*" element={<>404</>} />

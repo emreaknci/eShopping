@@ -18,5 +18,6 @@ export const renderTextField = (formik: any, fieldName: any, label: string, type
     onChange={formik.handleChange}
     error={(formik.touched[fieldName]) && Boolean(formik.errors[fieldName])}
     helperText={(formik.touched[fieldName]) && formik.errors[fieldName]}
+    defaultValue={formik.initialValues[fieldName]}
   />
 );

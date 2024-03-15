@@ -75,7 +75,14 @@ const Categories = () => {
   return (
     <div>
       <Box sx={{ justifyContent: "center", display: "flex" }}>
-        <Tabs>
+        <Tabs
+          textColor="primary"
+          indicatorColor="primary"
+          allowScrollButtonsMobile
+          variant="scrollable"
+          scrollButtons="auto"
+          value={1}
+        >
           {categories.map((category, index) => (
             <Tab
               key={index}

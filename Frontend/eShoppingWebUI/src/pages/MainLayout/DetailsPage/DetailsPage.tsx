@@ -2,12 +2,13 @@ import { Grid, Typography, Button, Rating, Box, Paper, useTheme, Tab, Tabs, Divi
 
 import { useParams } from 'react-router-dom';
 import Styled from './DetailsPage.style';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ImageSliderComponent } from '../../../components/common/ImageSliderComponent';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { LoadingComponent } from '../../../components/common/LoadingComponent';
 import styles from '../../../styles';
 import categories from '../../../mock/category';
+import { CartContext } from '../../../contexts/CartContext';
 
 
 const images = [
@@ -98,14 +99,15 @@ const orderAndReturnDetails = [
 ]
 const DetailsPage = () => {
   const { id } = useParams();
-
   const [product, setProduct] = useState();
-
-
-  const theme = useTheme();
   const [tabValue, setTabValue] = useState(0);
-
   const [isLoading, setIsLoading] = useState(true);
+
+  const cartContext=useContext(CartContext);
+  const theme = useTheme();
+
+
+
 
 
   const getProductById = (productId: number) => {
@@ -213,7 +215,7 @@ const DetailsPage = () => {
                 </Styled.Price>
 
                 <Box display="flex" justifyContent="space-between" alignItems="center" mt="auto">
-                  <Button variant="contained" color="primary">
+                  <Button variant="contained" color="primary" onClick={()=>cartContext.addToCart(product)}>
                     Sepete Ekle
                   </Button>
                   <IconButton color="primary" onClick={handleAddToFavorites}>

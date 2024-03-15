@@ -5,6 +5,7 @@ import { NotFoundPage } from './pages/NotFoundPage';
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createContext, useState } from 'react';
 import { darkTheme, lightTheme } from './theme.colors';
+import { CartProvider } from './contexts/CartContext';
 
 
 
@@ -25,20 +26,21 @@ const App = () => {
 
   return (
     <>
-      <ThemeContext.Provider value={{ theme, toggleTheme }}>
-        <ThemeProvider theme={theme ? darkTheme : lightTheme}>
-          <CssBaseline />
-          <Router>
-            <Routes >
-              <Route path="/*" element={<MainLayout />} />
-              <Route path="user/*" element={<UserLayout />} />
-              <Route path="page-not-found" element={<NotFoundPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Router>
-        </ThemeProvider>
-      </ThemeContext.Provider>
-
+      <CartProvider>
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+          <ThemeProvider theme={theme ? darkTheme : lightTheme}>
+            <CssBaseline />
+            <Router>
+              <Routes >
+                <Route path="/*" element={<MainLayout />} />
+                <Route path="user/*" element={<UserLayout />} />
+                <Route path="page-not-found" element={<NotFoundPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Router>
+          </ThemeProvider>
+        </ThemeContext.Provider>
+      </CartProvider>
     </>
   );
 };
