@@ -6,6 +6,7 @@ import Navbar from '../../components/userLayout/Navbar';
 import { Box } from '@mui/material';
 import { OrdersPage } from './OrdersPage';
 import { MyOrdersPage } from './MyOrdersPage';
+import { CustomersPage } from './CustomersPage';
 
 const UserLayout = () => {
   return (
@@ -19,6 +20,7 @@ const UserLayout = () => {
             <Route path="/Dashboard" element={<DashboardPage />} />
             <Route path="/Orders" element={<OrdersPage />} />
             <Route path="/my-orders" element={<MyOrdersPage />} />
+            <Route path="/customers" element={<CustomersPage />} />
             <Route path="*" element={<Navigate to={"/page-not-found"} />} />
           </Routes>
         </Box>
