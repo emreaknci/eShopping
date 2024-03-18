@@ -5,6 +5,7 @@ import { DashboardPage } from './DashboardPage';
 import Navbar from '../../components/userLayout/Navbar';
 import { Box } from '@mui/material';
 import { OrdersPage } from './OrdersPage';
+import { MyOrdersPage } from './MyOrdersPage';
 
 const UserLayout = () => {
   return (
@@ -17,6 +18,7 @@ const UserLayout = () => {
             <Route path="/Profile" element={<ProfilePage />} />
             <Route path="/Dashboard" element={<DashboardPage />} />
             <Route path="/Orders" element={<OrdersPage />} />
+            <Route path="/my-orders" element={<MyOrdersPage />} />
             <Route path="*" element={<Navigate to={"/page-not-found"} />} />
           </Routes>
         </Box>

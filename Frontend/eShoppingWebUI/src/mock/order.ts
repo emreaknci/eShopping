@@ -24,6 +24,7 @@ export type Order = {
   userFullName: string;
   orderItems: OrderItem[];
   address: OrderAddress;
+  payment: OrderPayment;
 };
 
 export type OrderAddress = {
@@ -45,8 +46,17 @@ export type OrderItem = {
   cancelledDate?: Date;
 };
 
+export type OrderPayment = {
+  id: string;
+  paymentDate: Date;
+  amount: number;
+  paymentType: string;
+  cardNumber: string;
+  shippingCost?: number;
+};
 
-export function createFakeOrderData(userCount:number, ordersPerUser: number): Order[] {
+
+export function createFakeOrderData(userCount: number, ordersPerUser: number): Order[] {
   const users: { id: string; fullName: string }[] = [];
 
   // Kullanıcıları oluştur
@@ -62,7 +72,7 @@ export function createFakeOrderData(userCount:number, ordersPerUser: number): Or
   };
   // Siparişleri oluştur
   const orders: Order[] = [];
-  for (let i = 0; i < userCount*ordersPerUser; i++) {
+  for (let i = 0; i < userCount * ordersPerUser; i++) {
     const userIndex = Math.floor(i / ordersPerUser);
     const user = users[userIndex];
 
@@ -75,6 +85,13 @@ export function createFakeOrderData(userCount:number, ordersPerUser: number): Or
       userFullName: user.fullName,
       orderItems: [],
       cancelledDate: undefined,
+      payment: {
+        id: faker.string.uuid(),
+        paymentDate: faker.date.past(),
+        amount: 0,
+        paymentType: 'Kredi Kartı',
+        cardNumber: faker.finance.creditCardNumber(),
+      },
       address: {
         address: faker.location.streetAddress(),
         city: faker.location.city(),
@@ -98,7 +115,8 @@ export function createFakeOrderData(userCount:number, ordersPerUser: number): Or
       order.orderItems.push(orderItem);
     }
     order.totalPrice = Number(order.orderItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2));
-
+    order.payment.amount = order.totalPrice;
+    order.totalPrice < 1500 ? order.payment.shippingCost = 40 : null;
     orders.push(order);
   }
 
