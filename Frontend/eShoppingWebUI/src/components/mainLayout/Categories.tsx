@@ -1,40 +1,7 @@
 import { Box, Divider, List, ListItem, ListItemText, Popover, Tab, Tabs, Typography, useTheme } from '@mui/material';
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-
-
-const categories = [
-  {
-    id: 1,
-    name: 'Telefon',
-    subcategories: ['Akıllı Telefon', 'Klasik Telefon', 'Aksesuarlar'],
-  },
-  {
-    id: 2,
-    name: 'Bilgisayar',
-    subcategories: ['Laptop', 'Masaüstü', 'Oyun Bilgisayarları'],
-  },
-  {
-    id: 3,
-    name: 'Bilgisayar Parçaları',
-    subcategories: ['RAM', 'GPU', 'CPU', 'Anakart'],
-  },
-  {
-    id: 4,
-    name: 'TV & Ses',
-    subcategories: ['Televizyon', 'Soundbar', 'Kulaklık'],
-  },
-  {
-    id: 5,
-    name: 'Ev Eşyaları',
-    subcategories: ['Buzdolabı', 'Çamaşır Makinesi', 'Fırın'],
-  },
-  {
-    id: 6,
-    name: 'Kişisel Bakım',
-    subcategories: ['Saç Kurutma Makinesi', 'Diş Fırçası', 'Elektrikli Tıraş Makinesi'],
-  },
-];
+import categories from '../../mock/category';
 
 
 function TabPanel(props: any) {

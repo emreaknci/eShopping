@@ -18,11 +18,11 @@ const ProductCardComponent = ({ product }: { product: any }) => {
   return (
     <Styled.ProductCard>
       <Styled.Media
-        image="https://img-itopya.mncdn.com/cdn/1000/oled-d7aea3.jpg"
+        image={product.images[0]}
       />
       <CardContent>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <Styled.Name variant="h5" style={{ flexGrow: 1 }}>
+          <Styled.Name variant="h5">
             {product.name}
           </Styled.Name>
           <IconButton onClick={() => navigateToDetails(product.id)}>

@@ -9,7 +9,12 @@ const ProductCard = styled(Card)({
     '&:hover': {
         boxShadow: '0 1rem 2rem rgba(0, 0, 0, 0.2)',
     },
+    height: '100%',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between"
 });
+
 
 const Name = styled(Typography)({
     fontSize: '1.5rem',
@@ -19,6 +24,9 @@ const Name = styled(Typography)({
 
 const Media = styled(CardMedia)({
     paddingTop: '60%',
+    ":hover": {
+        "scale": "1.05"
+    }
 });
 
 const Price = styled(Typography)({
