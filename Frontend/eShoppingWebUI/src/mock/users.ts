@@ -5,12 +5,12 @@ export type User = {
     fullName: string;
     email: string;
     phone: string;
-    userOrders: {
+    userOrders?: {
         id: string;
         date: string;
         totalPrice: number;
     }[];
-    addresses: {
+    addresses?: {
         id: string;
         address: string;
         city: string;
@@ -19,7 +19,7 @@ export type User = {
     }[];
 };
 
-export const createFakeUser = (userCount: number) => {
+export const createFakeUser = (userCount: number, admin = false) => {
     const users = [];
     for (let i = 0; i < userCount; i++) {
         const user: User = {
@@ -31,26 +31,29 @@ export const createFakeUser = (userCount: number) => {
             addresses: [],
         };
         users.push(user);
-        const orderCount = faker.number.int({ min: 2, max: 10 });
-        for (let k = 0; k < orderCount; k++) {
-            const order = {
-                id: faker.string.uuid(),
-                date: faker.date.recent().toISOString(),
-                totalPrice: faker.number.float({ min: 10, max: 1000 }),
-            };
-            users[i].userOrders.push(order);
-        }
 
-        const addressCount = faker.number.int({ min: 1, max: 3 });
-        for (let k = 0; k < addressCount; k++) {
-            const address = {
-                id: faker.string.uuid(),
-                address: faker.location.streetAddress(),
-                city: faker.location.city(),
-                state: faker.location.state(),
-                zip: faker.location.zipCode(),
-            };
-            users[i].addresses.push(address);
+        if (!admin) {
+            const orderCount = faker.number.int({ min: 2, max: 10 });
+            for (let k = 0; k < orderCount; k++) {
+                const order = {
+                    id: faker.string.uuid(),
+                    date: faker.date.recent().toISOString(),
+                    totalPrice: faker.number.float({ min: 10, max: 1000 }),
+                };
+                users[i].userOrders.push(order);
+            }
+
+            const addressCount = faker.number.int({ min: 1, max: 3 });
+            for (let k = 0; k < addressCount; k++) {
+                const address = {
+                    id: faker.string.uuid(),
+                    address: faker.location.streetAddress(),
+                    city: faker.location.city(),
+                    state: faker.location.state(),
+                    zip: faker.location.zipCode(),
+                };
+                users[i].addresses.push(address);
+            }
         }
     }
 
