@@ -8,6 +8,7 @@ import { OrdersPage } from './OrdersPage';
 import { MyOrdersPage } from './MyOrdersPage';
 import { CustomersPage } from './CustomersPage';
 import { AdminsPage } from './AdminsPage';
+import CategoriesPage from './CategoriesPage/CategoriesPage';
 
 const UserLayout = () => {
   return (
@@ -23,6 +24,7 @@ const UserLayout = () => {
             <Route path="/my-orders" element={<MyOrdersPage />} />
             <Route path="/customers" element={<CustomersPage />} />
             <Route path="/admins" element={<AdminsPage />} />
+            <Route path="/categories" element={<CategoriesPage />} />
             <Route path="*" element={<Navigate to={"/page-not-found"} />} />
           </Routes>
         </Box>
