@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import './CategoriesPage.css';
 import * as mock from '../../../mock/category';
 import './CategoriesPage.css';
-import { Button, Card, CardActions, CardContent, CardHeader, Collapse, Divider, FormHelperText, Grid, IconButton, InputAdornment, TextField, Typography } from '@mui/material';
+import { Button, Card, CardActionArea, CardActions, CardContent, CardHeader, Collapse, Divider, FormHelperText, Grid, IconButton, InputAdornment, TablePagination, TextField, Typography } from '@mui/material';
 import { ExpandMore, ExpandCircleDown, Delete, Add } from '@mui/icons-material';
 import SearchIcon from '@mui/icons-material/Search';
 import { renderTextField } from '../../../utils/FormUtils';
@@ -10,6 +10,8 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { SnackBarContext } from '../../../contexts/SnackBarContext';
 import { Category } from './../../../mock/category';
+import { DialogComponent } from '../../../components/common/DialogComponent';
+import { PaginationComponent } from '../../../components/common/PaginationComponent';
 
 const sxValues = {
   display: 'flex',
@@ -30,33 +32,44 @@ const validationSchema = Yup.object({
 const CategoriesPage = () => {
   const snackBarContext = useContext(SnackBarContext);
   const [categories, setCategories] = useState(mock.default);
-  const [filteredCategories, setFilteredCategories] = useState(categories);
+
+  const [filteredCategories, setFilteredCategories] = useState(mock.default);
+  const [filteredCategoriesCount, setFilteredCategoriesCount] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
+
   const [submitType, setSubmitType] = useState<SubmitType>();
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [searchText, setSearchText] = useState('');
+
   const [openForm, setOpenForm] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState();
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [editing, setEditing] = useState(false);
 
+  const [openAlert, setOpenAlert] = useState(false);
+  const [alertText, setAlertText] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
+
   useEffect(() => {
-    const filteredCategories = categories.filter((category) => {
-      const nameMatch = category.name
-        .toLowerCase()
-        .includes(searchText.toLowerCase());
+    const filterCategories = () => {
+      const filteredCategories = categories.filter((category) => {
+        const nameMatch = category.name.toLowerCase().includes(searchText.toLowerCase());
+        const subCategoryMatch = category.subcategories.some((subCategory) => subCategory.toLowerCase().includes(searchText.toLowerCase()));
+        const featureMatch = category.features.some((feature) => feature.name.toLowerCase().includes(searchText.toLowerCase()));
+        return nameMatch || subCategoryMatch || featureMatch;
+      });
 
-      const subCategoryMatch = category.subcategories
-        .some((subCategory) => subCategory
-          .toLowerCase().includes(searchText.toLowerCase()));
+      setFilteredCategoriesCount(filteredCategories.length);
 
-      const featureMatch = category.features.some((feature) =>
-        feature.name.toLowerCase().includes(searchText.toLowerCase()));
+      setFilteredCategories(filteredCategories
+        .slice((currentPage - 1) * itemsPerPage, (currentPage) * itemsPerPage));
+    }
 
-      return nameMatch || subCategoryMatch || featureMatch;
+    filterCategories();
+  }, [categories, searchText, currentPage, itemsPerPage]);
 
-    });
-    setFilteredCategories(filteredCategories);
-  }, [categories, searchText]);
+
 
   const formik = useFormik({
     initialValues: {
@@ -68,32 +81,59 @@ const CategoriesPage = () => {
     onSubmit: (values) => {
       setSubmitted(true);
       if (submitType === 'add') {
-        const newCategory: Category = {
-          id: (categories.length + 1).toString(),
-          name: values.name,
-          subcategories: values.subcategories,
-          features: values.features,
-          products: []
-        };
-        console.log(newCategory)
-        const currentCategories = [...categories];
-        currentCategories.push(newCategory);
-        setCategories(currentCategories);
-        snackBarContext.openSnackBar('Yeni kategori bilgileri eklendi!', 'success');
-      } else if (submitType === 'edit') {
-        if (selectedCategoryIndex !== undefined) {
-
-          snackBarContext.openSnackBar('Kategori bilgileri güncellendi.', 'success');
+        addCategory(values);
+      }
+      else if (submitType === 'edit') {
+        if (currentIndex !== undefined) {
+          editCategory(values);
         }
       }
+
+
       setOpenForm(false);
       setEditing(false);
       formik.resetForm();
     },
   });
 
-  const handleOpenForm=()=>{
-    setOpenForm(prev=>!prev);
+
+
+  const addCategory = (values: any) => {
+    const newCategory: Category = {
+      id: (categories.length + 1).toString(),
+      name: values.name,
+      subcategories: values.subcategories,
+      features: values.features,
+      products: []
+    };
+
+    const currentCategories = [...categories];
+    currentCategories.push(newCategory);
+    setCategories(currentCategories);
+
+    snackBarContext.openSnackBar('Yeni kategori bilgileri eklendi!', 'success');
+  }
+
+  const editCategory = (values: any) => {
+    const newCategories = [...categories];
+
+    newCategories[currentIndex] = {
+      id: newCategories[currentIndex].id,
+      name: values.name,
+      subcategories: values.subcategories,
+      features: values.features,
+      products: []
+    };
+
+    setCategories(newCategories);
+
+    snackBarContext.openSnackBar('Kategori bilgileri güncellendi.', 'success');
+  }
+
+
+
+  const handleOpenForm = () => {
+    setOpenForm(prev => !prev);
     formik.resetForm();
     formik.values.features = [{ name: '', values: [''] }];
     formik.values.subcategories = [''];
@@ -131,6 +171,37 @@ const CategoriesPage = () => {
   const handleExpandClick = (index: number) => {
     setExpandedIndex((prevIndex) => (prevIndex === index ? null : index));
   };
+
+  const handleEditCategory = (category: Category, index: any) => {
+    setOpenForm(true);
+    setEditing(true);
+    formik.setValues({
+      name: category.name,
+      subcategories: category.subcategories,
+      features: category.features,
+    });
+    setCurrentIndex(index);
+  }
+
+  const handleDeleteCategory = (index: any) => {
+    const currentItem = categories[index];
+    setOpenAlert(true);
+    setAlertText(`'${currentItem.name}' kategorisi silinecek. Onaylıyor musunuz?`);
+    setCurrentIndex(index);
+  }
+
+  const handleAlertConfirm = (index: any) => {
+    setOpenAlert(false);
+    const currentItem = categories[index];
+
+    const newCategories = categories.filter((_, i) => i !== index);
+    setCategories(newCategories);
+    snackBarContext.openSnackBar(`'${currentItem.name}' kategorisi silindi.`, 'success');
+    setExpandedIndex(null);
+  }
+
+
+
 
   const renderSubCategoryTextField = () => {
     return (
@@ -322,22 +393,28 @@ const CategoriesPage = () => {
       <>
         {filteredCategories.map((category, index) => (
           <Grid item xs={12} sm={6} key={category.id}>
-            <Card sx={{ p: 1, m: 0 }}>
+            <Card>
               <CardHeader
                 title={`Kategori: ${category.name}`}
               />
-
               <CardActions disableSpacing>
-                <IconButton
-                  aria-label="show more"
-                  onClick={() => handleExpandClick(index)}
-                >
+                <IconButton aria-label="show more" onClick={() => handleExpandClick(index)}>
                   <ExpandMore />
                 </IconButton>
                 Alt Kategoriler ve Özellikler
               </CardActions>
               <Collapse in={expandedIndex === index} timeout="auto" unmountOnExit>
-                <CardContent>
+
+                <CardActions disableSpacing>
+                  <Button fullWidth color="primary" onClick={() => handleDeleteCategory(index)}>
+                    SİL
+                  </Button>
+                  <Button fullWidth color="warning" onClick={() => handleEditCategory(category, index)}>
+                    DÜZENLE
+                  </Button>
+                </CardActions>
+
+                <CardContent sx={{ pt: 0 }}>
                   <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                       <Grid container spacing={2}>
@@ -370,6 +447,7 @@ const CategoriesPage = () => {
                           </Grid>
                         ))}
                       </Grid>
+
                     </Grid>
                   </Grid>
                 </CardContent>
@@ -455,41 +533,62 @@ const CategoriesPage = () => {
     )
   }
 
+
+
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} sx={sxValues}>
-        <Grid container >
-          <Grid item xs={12} sm={9}>
-            <Typography variant='h4'>Kategoriler</Typography>
-          </Grid>
-          <Grid item xs={12} sm={3} sx={{ pt: { xs: 2, sm: 0 } }}>
-            <Button fullWidth variant="contained" sx={{ fontWeight: 'bold' }}
-              color="primary" onClick={handleOpenForm}>
-              {openForm ? 'Kapat' : 'Yeni Kategori Ekle'}
-            </Button>
+    <>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sx={sxValues}>
+          <Grid container >
+            <Grid item xs={12} sm={9}>
+              <Typography variant='h4'>Kategoriler</Typography>
+            </Grid>
+            <Grid item xs={12} sm={3} sx={{ pt: { xs: 2, sm: 0 } }}>
+              <Button fullWidth variant="contained" sx={{ fontWeight: 'bold' }}
+                color="primary" onClick={handleOpenForm}>
+                {openForm ? 'Kapat' : 'Yeni Kategori Ekle'}
+              </Button>
+            </Grid>
           </Grid>
         </Grid>
+        <Grid item xs={12} sx={sxValues}>
+          <TextField
+            label="Kategori Ara..."
+            variant="outlined"
+            value={searchText}
+            onChange={handleSearch}
+            size="medium"
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <SearchIcon />
+              ),
+            }}
+          />
+        </Grid>
+        {openForm &&
+          renderFormCard()
+        }
+        {renderCategories()}
       </Grid>
-      <Grid item xs={12} sx={sxValues}>
-        <TextField
-          label="Kategori Ara..."
-          variant="outlined"
-          value={searchText}
-          onChange={handleSearch}
-          size="medium"
-          fullWidth
-          InputProps={{
-            endAdornment: (
-              <SearchIcon />
-            ),
-          }}
+      <PaginationComponent
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        onPageChange={(page) => {
+          setExpandedIndex(null);
+          setCurrentPage(page)
+        }}
+        pageCount={Math.ceil(filteredCategoriesCount / itemsPerPage)}
+      />
+      {openAlert && (
+        <DialogComponent
+          open={openAlert}
+          handleClose={() => setOpenAlert(false)}
+          handleConfirm={() => handleAlertConfirm(currentIndex)}
+          text={alertText}
         />
-      </Grid>
-      {openForm &&
-        renderFormCard()
-      }
-      {renderCategories()}
-    </Grid>
+      )}
+    </>
   );
 };
 

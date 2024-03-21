@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { OrderItem, OrderStatus, createFakeOrderData } from '../../../mock/order';
-import { Accordion, AccordionDetails, AccordionSummary, Button, Divider, Grid, Paper, Typography } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Divider, Grid, MenuItem, Paper, Select, TextField, Typography } from '@mui/material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import styles from './MyOrdersPage.style';
 import { DialogComponent } from '../../../components/common/DialogComponent';
+import { PaginationComponent } from '../../../components/common/PaginationComponent';
 
 const sxValues = {
   p: 2,
@@ -14,16 +15,75 @@ const sxValues = {
   height: '100%',
 };
 
-const MyOrdersPage = () => {
-  const [orders, setOrders] = useState(createFakeOrderData(1, 5)
-    .sort((a, b) =>
-      new Date(b.orderDate).getTime() - new Date(a.orderDate).getTime())
-  );
+const calculateDateRange = (day: number) => {
+  const start = new Date();
+  const end = new Date();
+  end.setDate(end.getDate() - day);
+  return { startDate: start, endDate: end };
+}
 
+const dateOptions = [
+  { value: "default", label: "Tarih Aralığı Seçiniz" },
+  { value: "last30Days", label: "Son 30 Gün", ...calculateDateRange(30) },
+  { value: "last3Months", label: "Son 3 Ay", ...calculateDateRange(90) },
+  { value: "last6Months", label: "Son 6 Ay", ...calculateDateRange(180) },
+  { value: "lastYear", label: "Son 1 Yıl", ...calculateDateRange(365) },
+  { value: "last2Years", label: "Son 2 Yıl", ...calculateDateRange(365 * 2) },
+  { value: "last5Years", label: "Son 5 Yıl", ...calculateDateRange(365 * 5) },
+];
+
+
+
+const MyOrdersPage = () => {
+  const [orders, setOrders] = useState(createFakeOrderData(1, 30)
+    .sort((a, b) => new Date(b.orderDate).getTime() - new Date(a.orderDate).getTime()));
+  const [filteredOrders, setFilteredOrders] = useState(orders);
+  const [filteredOrdersCount, setFilteredOrdersCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [dateOption, setDateOption] = useState("default");
+  const [filterStatus, setFilterStatus] = useState('All');
   const [openAlert, setOpenAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
   const [confirmAction, setConfirmAction] = useState('');
   const [currentItemId, setCurrentItemId] = useState(null);
+
+  useEffect(() => {
+    const filterByDate = orders.filter(order => {
+      if (dateOption === "default") {
+        return true;
+      }
+      const orderDate = new Date(order.orderDate);
+      const selectedDateOption = dateOptions.find(option => option.value === dateOption);
+      if (selectedDateOption && 'endDate' in selectedDateOption) {
+        return orderDate.getTime() >= selectedDateOption.endDate.getTime();
+      }
+      return false;
+    });
+
+    const filteredOrders = filterByDate.filter(order => {
+      const statusMatch = filterStatus === 'All' || order.status === filterStatus;
+
+      return statusMatch;
+    });
+
+
+    setFilteredOrdersCount(filteredOrders.length);
+
+    if (currentPage > Math.ceil(filteredOrders.length / itemsPerPage)) {
+      setCurrentPage(1);
+    }
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const slicedOrders = filteredOrders.slice(startIndex, endIndex);
+    setFilteredOrders(slicedOrders);
+
+  }, [orders, currentPage, itemsPerPage, dateOption, filterStatus]);
+
+
+
+
 
   const handleConfirm = (itemId: any) => {
     setOpenAlert(false);
@@ -173,7 +233,7 @@ const MyOrdersPage = () => {
   const renderOrders = () => {
     return (
       <>
-        {orders.map((order, index) => (
+        {filteredOrders.map((order, index) => (
           <Grid item xs={12} key={index}>
             <Accordion sx={{ mb: 2 }}>
               <AccordionSummary
@@ -182,13 +242,15 @@ const MyOrdersPage = () => {
                 id={`order-${index}`}
               >
                 <Grid container alignItems="center" justifyContent="center">
-                  <Grid item md={1}>
+                  <Grid item sm={1}>
                     <InventoryIcon color="primary" sx={{ fontSize: "2rem" }} />
                   </Grid>
-                  <Grid item md={7}>
-                    <Typography align="center">{order.id}</Typography>
+                  <Grid item sm={7}>
+                    <Typography align="center">{order.id.substring(0, 3)}*****{order.id.substring(order.id.length - 3, order.id.length)}</Typography>
+                    <Typography align="center"><Divider /></Typography>
+                    <Typography align="center">{order.orderDate.toLocaleDateString()}</Typography>
                   </Grid>
-                  <Grid item md={3}>
+                  <Grid item sm={3}>
                     <Typography align="center" sx={{ ...styles.orderStatusStyles(order.status) }}>
                       Siparişiniz {order.status}
                     </Typography>
@@ -240,15 +302,61 @@ const MyOrdersPage = () => {
       </>
     )
   }
+
   return (
     <Grid container spacing={3} justifyContent="center">
       <Grid item xs={12} md={10} lg={8} >
         <Paper sx={{ ...sxValues }}>
           <Grid container spacing={3}>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               <Typography variant="h5" fontWeight="bold">Siparişlerim</Typography>
+
+
+
             </Grid>
+            <Grid item xs={12} sm={6} justifyContent={"flex-end"} display={"flex"}>
+              <Box mr={1}>
+                <Select
+                  labelId="dateOptionLabel"
+                  id="dateOptionId"
+                  defaultValue={"default"}
+                  onChange={(e) => setDateOption(e.target.value)}
+                >
+                  {dateOptions.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </Box>
+              <Box ml={1}>
+                <Select
+                  labelId="orderStatusLabel"
+                  id="orderStatusId"
+                  value={filterStatus}
+                  onChange={(e) => setFilterStatus(e.target.value)}
+
+                >
+                  <MenuItem value="All">Hepsi</MenuItem>
+                  {Object.values(OrderStatus).map(status => (
+                    <MenuItem key={status} value={status}>{status}</MenuItem>
+                  ))}
+
+                </Select>
+              </Box>
+
+
+            </Grid>
+
             {renderOrders()}
+            <Grid item xs={12}>
+              <PaginationComponent
+                itemsPerPage={itemsPerPage}
+                currentPage={currentPage}
+                onPageChange={(page) => { setCurrentPage(page) }}
+                pageCount={Math.ceil(filteredOrdersCount / itemsPerPage)}
+              />
+            </Grid>
           </Grid>
         </Paper>
       </Grid>

@@ -5,6 +5,7 @@ import { Avatar, Card, CardActions, CardContent, CardHeader, Collapse, Grid, Ico
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import SearchIcon from '@mui/icons-material/Search';
+import { PaginationComponent } from '../../../components/common/PaginationComponent';
 
 
 const sxValues = {
@@ -17,9 +18,12 @@ const CustomersPage = () => {
   const theme = useTheme();
   const [customers, setCustomers] = useState(createFakeUser(10));
   const [filteredCustomers, setFilteredCustomers] = useState(customers);
+  const [filteredCategoriesCount, setFilteredCategoriesCount] = useState(customers.length);
+  const [currentPage, setCurrentPage] = useState(1);
+
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [searchText, setSearchText] = useState('');
-
+  const [itemsPerPage, setItemsPerPage] = useState(4);
   const handleSearch = (e: any) => {
     setSearchText(e.target.value);
   }
@@ -31,19 +35,23 @@ const CustomersPage = () => {
       const phoneMatch = customer.phone.includes(searchText);
       return emailMatch || fullnameMatch || phoneMatch;
     });
-    setFilteredCustomers(filteredCustomers);
-  }, [customers, searchText]);
+    setFilteredCategoriesCount(filteredCustomers.length);
+
+    setFilteredCustomers(filteredCustomers
+      .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
+  }, [customers, searchText, currentPage, itemsPerPage]);
 
   const handleExpandClick = (index: number) => {
     setExpandedIndex((prevIndex) => (prevIndex === index ? null : index));
   };
 
   return (
-    <Grid container spacing={3}>
-      <Grid item xs={12} sx={sxValues}>
-        <Typography variant='h4'>Müşteriler</Typography>
-      </Grid>
-      <Grid item xs={12} sx={sxValues}>
+    <>
+      <Grid container spacing={3}>
+        <Grid item xs={12} sx={sxValues}>
+          <Typography variant='h4'>Müşteriler</Typography>
+        </Grid>
+        <Grid item xs={12} sx={sxValues}>
           <TextField
             label="Müşteri Ara..."
             variant="outlined"
@@ -57,61 +65,72 @@ const CustomersPage = () => {
               ),
             }}
           />
-      </Grid>
-      {filteredCustomers.map((customer, index) => (
-        <Grid item xs={12} sm={12} md={6} sx={sxValues} key={index}>
-          <Card>
-            <CardHeader
-              avatar={
-                <Avatar
-                  sx={{
-                    bgcolor: `${theme.palette.primary.main}`,
-                    color: "white"
-                  }}
-                />
-              }
-              title={customer.email}
-              subheader={customer.id}
-            />
-            <CardContent>
-              <Typography variant="body1" color="text.primary">
-                Müşteri: {customer.fullName}
-              </Typography>
-              <Typography variant="body1" color="text.primary">
-                Telefon: {customer.phone}
-              </Typography>
-
-            </CardContent>
-            <CardActions disableSpacing>
-              <IconButton
-                aria-label="show more"
-                onClick={() => handleExpandClick(index)}
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-              Adresler ve Siparişler
-            </CardActions>
-            <Collapse in={expandedIndex === index} timeout="auto" unmountOnExit>
-              <CardContent>
-                <Typography variant='h5'>Adresler:</Typography>
-                {customer.addresses?.map((address, index) => (
-                  <Typography paragraph key={index}>
-                    {index + 1} -  {address.address}, {address.city}, {address.state}
-                  </Typography>
-                ))}
-                <br />
-                <Typography variant='h5'>Siparişler:</Typography>
-                {customer.userOrders?.map((order, index) => (
-                  <Typography paragraph key={index}>
-                    {index + 1} -  {order.id}, {order.date}, {order.totalPrice}
-                  </Typography>
-                ))}
-              </CardContent>
-            </Collapse>
-          </Card>
         </Grid>
-      ))}
-    </Grid>
+        {filteredCustomers.map((customer, index) => (
+          <Grid item xs={12} sm={12} md={6} sx={sxValues} key={index}>
+            <Card>
+              <CardHeader
+                avatar={
+                  <Avatar
+                    sx={{
+                      bgcolor: `${theme.palette.primary.main}`,
+                      color: "white"
+                    }}
+                  />
+                }
+                title={customer.email}
+                subheader={customer.id}
+              />
+              <CardContent>
+                <Typography variant="body1" color="text.primary">
+                  Müşteri: {customer.fullName}
+                </Typography>
+                <Typography variant="body1" color="text.primary">
+                  Telefon: {customer.phone}
+                </Typography>
+
+              </CardContent>
+              <CardActions disableSpacing>
+                <IconButton
+                  aria-label="show more"
+                  onClick={() => handleExpandClick(index)}
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+                Adresler ve Siparişler
+              </CardActions>
+              <Collapse in={expandedIndex === index} timeout="auto" unmountOnExit>
+                <CardContent>
+                  <Typography variant='h5'>Adresler:</Typography>
+                  {customer.addresses?.map((address, index) => (
+                    <Typography paragraph key={index}>
+                      {index + 1} -  {address.address}, {address.city}, {address.state}
+                    </Typography>
+                  ))}
+                  <br />
+                  <Typography variant='h5'>Siparişler:</Typography>
+                  {customer.userOrders?.map((order, index) => (
+                    <Typography paragraph key={index}>
+                      {index + 1} -  {order.id}, {order.date}, {order.totalPrice}
+                    </Typography>
+                  ))}
+                </CardContent>
+              </Collapse>
+            </Card>
+          </Grid>
+        ))}
+
+      </Grid>
+      <PaginationComponent
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        onPageChange={(page) => {
+          setExpandedIndex(null);
+          setCurrentPage(page)
+        }}
+        pageCount={Math.ceil(filteredCategoriesCount / itemsPerPage)}
+      />
+    </>
   );
 };
 

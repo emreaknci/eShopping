@@ -1,5 +1,6 @@
 import { faker, tr } from '@faker-js/faker';
 
+
 export enum OrderStatus {
   Pending = 'Bekliyor',
   Preparing = 'Hazırlanıyor',
