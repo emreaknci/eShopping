@@ -14,7 +14,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { Menu, MenuItem, Tooltip } from '@mui/material';
+import { Grid, Menu, MenuItem, SwipeableDrawer, Tooltip, useMediaQuery } from '@mui/material';
 import { useState, useContext } from 'react';
 import { ThemeContext } from '../../App';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
@@ -97,15 +97,17 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const iconMap = [
+const adminIconMap = [
   { name: 'Dashboard', icon: <DashboardIcon />, link: 'dashboard' },
-  { name: 'Profilim', icon: <AccountCircle />, link: 'profile' },
-  { name: 'Siparişlerim', icon: <ShoppingBasketIcon />, link: 'my-orders' },
   { name: 'Siparişler', icon: <ShoppingBasketIcon />, link: 'orders' },
   { name: 'Ürünler', icon: <InventoryIcon />, link: 'products' },
   { name: 'Kategoriler', icon: <CategoryIcon />, link: 'categories' },
   { name: 'Adminler', icon: <SupervisorAccountIcon />, link: 'admins' },
   { name: 'Müşteriler', icon: <PersonSearchIcon />, link: 'customers' },
+];
+const customerIconMap = [
+  { name: 'Profilim', icon: <AccountCircle />, link: 'profile' },
+  { name: 'Siparişlerim', icon: <ShoppingBasketIcon />, link: 'my-orders' },
 ];
 
 
@@ -115,6 +117,8 @@ const Navbar = () => {
 
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const navigate = useNavigate();
 
@@ -126,6 +130,7 @@ const Navbar = () => {
     setOpen(false);
   };
 
+
   const handleMenuClick = (event: any) => {
     setAnchorEl(event.currentTarget);
   };
@@ -135,61 +140,89 @@ const Navbar = () => {
   };
   const navigateTo = (page: string) => {
     navigate(page);
+    handleDrawerClose();
   }
-  return (
-    <>
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Navbar
-          </Typography>
 
-          <IconButton sx={{ ml: 1 }} onClick={themeContext.toggleTheme} color="inherit">
-            {themeContext.theme === true ? <Brightness7Icon /> : <Brightness4Icon />}
-          </IconButton>
+  const largeScreenDrawer = (
+    <Drawer variant="permanent" open={open}>
+      <DrawerHeader>
+        <IconButton onClick={handleDrawerClose}>
+          {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+        </IconButton>
+      </DrawerHeader>
+      <Divider />
+      <List>
+        {adminIconMap.map((item) => {
+          return (
+            <ListItem onClick={() => navigateTo(item.link)} key={item.name} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+          )
+        })}
+      </List>
+      <Divider />
+      <List>
+        {customerIconMap.map((item) => {
+          return (
+            <ListItem onClick={() => navigateTo(item.link)} key={item.name} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+          )
+        }
+        )}
+      </List>
+      <Divider />
+    </Drawer>
+  )
 
-          <div style={{ marginLeft: 'auto' }}>
-            <Tooltip title={""}>
-              <IconButton onClick={handleMenuClick} sx={{ p: 0 }}>
-                <AccountCircle fontSize='large' style={{ color: "white" }} />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-            >
-              <MenuItem onClick={() => navigateTo("/")}>Siteye Git</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Çıkış</MenuItem>
-            </Menu>
-          </div>
+  const smallScreenDrawer = () => {
+    const iOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-        </Toolbar>
-      </AppBar>
-
-
-
-      <Drawer variant="permanent" open={open}>
+    return (
+      <SwipeableDrawer disableBackdropTransition={!iOS} disableDiscovery={iOS} open={open} onOpen={handleDrawerOpen} onClose={handleDrawerClose} >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
+
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
-          {iconMap.map((item) => {
+          {adminIconMap.map((item) => {
             return (
               <ListItem onClick={() => navigateTo(item.link)} key={item.name} disablePadding sx={{ display: 'block' }}>
                 <ListItemButton
@@ -212,14 +245,80 @@ const Navbar = () => {
                 </ListItemButton>
               </ListItem>
             )
-
-          }
-          )}
-
+          })}
         </List>
         <Divider />
+        <List>
+          {customerIconMap.map((item) => {
+            return (
+              <ListItem onClick={() => navigateTo(item.link)} key={item.name} disablePadding sx={{ display: 'block' }}>
+                <ListItemButton
+                  sx={{
+                    minHeight: 48,
+                    justifyContent: open ? 'initial' : 'center',
+                    px: 2.5,
+                  }}
+                >
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : 'auto',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {item.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            )
+          }
+          )}
+        </List>
+        <Divider />
+      </SwipeableDrawer >
+    )
+  }
 
-      </Drawer>
+  return (
+    <>
+      <AppBar position="fixed" >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={() => { open ? handleDrawerClose() : handleDrawerOpen() }}
+            edge="start"
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            Navbar
+          </Typography>
+          <div style={{ marginLeft: 'auto' }}>
+            <IconButton sx={{ ml: 1 }} onClick={themeContext.toggleTheme} color="inherit">
+              {themeContext.theme === true ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+            <Tooltip title={""}>
+              <IconButton onClick={handleMenuClick} sx={{ p: 0 }}>
+                <AccountCircle fontSize='large' style={{ color: "white" }} />
+              </IconButton>
+            </Tooltip>
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+            >
+              <MenuItem onClick={() => navigateTo("/")}>Siteye Git</MenuItem>
+              <MenuItem onClick={handleMenuClose}>Çıkış</MenuItem>
+            </Menu>
+          </div>
+
+        </Toolbar>
+      </AppBar>
+
+
+      {isSmallScreen ? smallScreenDrawer() : largeScreenDrawer}
     </>
   );
 }

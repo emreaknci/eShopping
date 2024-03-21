@@ -92,6 +92,13 @@ const CategoriesPage = () => {
     },
   });
 
+  const handleOpenForm=()=>{
+    setOpenForm(prev=>!prev);
+    formik.resetForm();
+    formik.values.features = [{ name: '', values: [''] }];
+    formik.values.subcategories = [''];
+  }
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
@@ -107,6 +114,8 @@ const CategoriesPage = () => {
   const handleCancel = () => {
     setOpenForm(false);
     formik.resetForm();
+    formik.values.features = [{ name: '', values: [''] }];
+    formik.values.subcategories = [''];
   }
 
   const handleReset = () => {
@@ -372,7 +381,7 @@ const CategoriesPage = () => {
     )
   }
 
-  const renderAddCategoryCard = () => {
+  const renderFormCard = () => {
     return (
       <Grid item xs={12} sx={sxValues}>
         <Card >
@@ -455,7 +464,7 @@ const CategoriesPage = () => {
           </Grid>
           <Grid item xs={12} sm={3} sx={{ pt: { xs: 2, sm: 0 } }}>
             <Button fullWidth variant="contained" sx={{ fontWeight: 'bold' }}
-              color="primary" onClick={() => setOpenForm(prev => !prev)}>
+              color="primary" onClick={handleOpenForm}>
               {openForm ? 'Kapat' : 'Yeni Kategori Ekle'}
             </Button>
           </Grid>
@@ -477,7 +486,7 @@ const CategoriesPage = () => {
         />
       </Grid>
       {openForm &&
-        renderAddCategoryCard()
+        renderFormCard()
       }
       {renderCategories()}
     </Grid>
