@@ -20,7 +20,11 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Badge from '@mui/material/Badge';
 import { CartContext } from '../../contexts/CartContext';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+const pages = [{ name: 'Ana Sayfa', link: '/' },
+// { name: 'Products', link: '/products' },
+// { name: 'About', link: '/about' },
+// { name: 'Contact', link: '/contact' }
+];
 
 const settings = [
   { name: 'Profile', link: '/user/Profile' },
@@ -31,7 +35,7 @@ const Navbar = () => {
   const cartContext = useContext(CartContext);
   const themeContext = useContext(ThemeContext);
   const navigate = useNavigate();
-  
+
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -60,7 +64,11 @@ const Navbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <AdbIcon onClick={() => navigate('/')}
+            sx={{
+              display: { xs: 'none', md: 'flex' }, mr: 1
+              , cursor: "pointer"
+            }} />
           <Typography
             variant="h6"
             noWrap
@@ -73,7 +81,9 @@ const Navbar = () => {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              cursor: 'pointer'
             }}
+            onClick={() => navigate('/')}
           >
             LOGO
           </Typography>
@@ -108,13 +118,18 @@ const Navbar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.name} onClick={() => {
+                  handleCloseNavMenu();
+                  navigate(page.link);
+                }}>
+                  <Typography textAlign="center">{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+
+          <AdbIcon onClick={() => navigate('/')}
+            sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, cursor: "pointer" }} />
           <Typography
             variant="h5"
             noWrap
@@ -129,29 +144,34 @@ const Navbar = () => {
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
+              cursor: 'pointer'
             }}
+            onClick={() => navigate('/')}
           >
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page, index) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.name + index}
+                onClick={() => {
+                  handleCloseNavMenu();
+                  navigate(page.link);
+                }}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
 
-          <IconButton sx={{ ml: 1 }} color="inherit" onClick={()=>navigate("/cart")}>
+          <IconButton sx={{ ml: 1 }} color="inherit" onClick={() => navigate("/cart")}>
             <Badge badgeContent={cartContext.cartItemCount} color='success' >
               <ShoppingCartOutlinedIcon style={{ color: "white" }} />
             </Badge>
           </IconButton>
 
-          <IconButton sx={{ ml: 1 }} onClick={themeContext.toggleTheme} color="inherit">
+          <IconButton sx={{ mr: 1 }} onClick={themeContext.toggleTheme} color="inherit">
             {themeContext.theme === true
               ? <Brightness7Icon fontSize='medium' style={{ color: "white" }} />
               : <Brightness4Icon fontSize='medium' style={{ color: "white" }} />}

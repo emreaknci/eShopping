@@ -292,8 +292,10 @@ const Navbar = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Navbar
+          <Typography onClick={() => { navigate("/") }}
+            sx={{ cursor: "pointer" }}
+            variant="h6" noWrap component="div">
+            eShopping
           </Typography>
           <div style={{ marginLeft: 'auto' }}>
             <IconButton sx={{ ml: 1 }} onClick={themeContext.toggleTheme} color="inherit">
