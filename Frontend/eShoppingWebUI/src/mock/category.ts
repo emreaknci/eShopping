@@ -12,8 +12,10 @@ export interface Product {
   id: string;
   name: string;
   price: number;
+  unitOfStock: number;
   description: string;
   rating: number;
+  category:Category;
   features: ProductFeature[];
   comments: Comment[];
   images: string[];
@@ -36,7 +38,7 @@ export interface Comment {
 }
 
 
-const createFakeCategories = (categoryCount: number, productsPerCategory: number): Category[] => {
+export const createFakeCategories = (categoryCount: number, productsPerCategory: number): Category[] => {
   const categories: Category[] = [];
 
   for (let i = 0; i < categoryCount; i++) {
@@ -62,8 +64,10 @@ const createFakeCategories = (categoryCount: number, productsPerCategory: number
         price: faker.number.int({ min: 10, max: 1000 }),
         description: faker.lorem.paragraph(),
         rating: 0,
+        unitOfStock: faker.number.int({ min: 0, max: 100 }),
         features: [],
         comments: [],
+        category: category,
         images: Array.from({ length: faker.number.int({ min: 1, max: 5 }) }, () => faker.image.urlPicsumPhotos())
       };
 
@@ -95,6 +99,8 @@ const createFakeCategories = (categoryCount: number, productsPerCategory: number
 
   return categories;
 };
+
+
 
 const categories = createFakeCategories(5, 10);
 export default categories;
