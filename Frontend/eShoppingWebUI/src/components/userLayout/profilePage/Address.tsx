@@ -1,12 +1,12 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { Button, Card, CardContent, Grid, Paper, Typography } from '@mui/material';
 import { renderTextField } from '../../../utils/FormUtils';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { SnackBarContext } from '../../../contexts/SnackBarContext';
 import { DialogComponent } from '../../../components/common/DialogComponent';
 import AddHomeWorkIcon from '@mui/icons-material/AddHomeWork';
 import HomeWorkIcon from '@mui/icons-material/HomeWork';
+import { toast } from 'react-toastify';
 
 
 type AddressType = {
@@ -20,7 +20,6 @@ type AddressType = {
 }
 type SubmitType = 'reset' | 'add' | 'cancel' | 'edit';
 const Address = ({ sxValues }: { sxValues: any }) => {
-    const snackBarContext = useContext(SnackBarContext);
     const [submitType, setSubmitType] = useState<SubmitType>();
     const [selectedAddressIndex, setSelectedAddressIndex] = useState<number>();
     const [submitted, setSubmitted] = useState(false);
@@ -75,13 +74,13 @@ const Address = ({ sxValues }: { sxValues: any }) => {
             setSubmitted(true);
             if (submitType === 'add') {
                 setAddresses([...addresses, values]);
-                snackBarContext.openSnackBar('Adres bilgileri eklendi!', 'success');
+                toast.success('Adres bilgileri eklendi!');
             } else if (submitType === 'edit') {
                 if (selectedAddressIndex !== undefined) {
                     const updatedAddresses = [...addresses];
                     updatedAddresses[selectedAddressIndex] = values;
                     setAddresses(updatedAddresses);
-                    snackBarContext.openSnackBar('Adres bilgileri güncellendi!', 'success');
+                    toast.success('Adres bilgileri güncellendi!');
                 }
             }
             setShowForm(false);

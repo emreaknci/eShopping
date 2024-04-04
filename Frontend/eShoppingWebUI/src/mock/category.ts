@@ -45,7 +45,7 @@ export const createFakeCategories = (categoryCount: number, productsPerCategory:
     const category: Category = {
       id: faker.string.uuid(),
       name: faker.commerce.department(),
-      subcategories: faker.random.words(3).split(' '),
+      subcategories: faker.lorem.words(3).split(' '),
       products: [],
       features: []
     };

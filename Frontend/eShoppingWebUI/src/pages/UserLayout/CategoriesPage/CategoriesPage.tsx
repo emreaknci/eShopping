@@ -8,10 +8,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import { renderTextField } from '../../../utils/FormUtils';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { SnackBarContext } from '../../../contexts/SnackBarContext';
 import { Category } from './../../../mock/category';
 import { DialogComponent } from '../../../components/common/DialogComponent';
 import { PaginationComponent } from '../../../components/common/PaginationComponent';
+import { toast } from 'react-toastify';
 
 const sxValues = {
   display: 'flex',
@@ -30,7 +30,6 @@ const validationSchema = Yup.object({
 });
 
 const CategoriesPage = () => {
-  const snackBarContext = useContext(SnackBarContext);
   const [categories, setCategories] = useState(mock.default);
 
   const [filteredCategories, setFilteredCategories] = useState(mock.default);
@@ -111,7 +110,7 @@ const CategoriesPage = () => {
     currentCategories.push(newCategory);
     setCategories(currentCategories);
 
-    snackBarContext.openSnackBar('Yeni kategori bilgileri eklendi!', 'success');
+    toast.success('Yeni kategori bilgileri eklendi!');
   }
 
   const editCategory = (values: any) => {
@@ -127,7 +126,7 @@ const CategoriesPage = () => {
 
     setCategories(newCategories);
 
-    snackBarContext.openSnackBar('Kategori bilgileri güncellendi.', 'success');
+    toast.success('Kategori bilgileri güncellendi!');
   }
 
 
@@ -196,7 +195,7 @@ const CategoriesPage = () => {
 
     const newCategories = categories.filter((_, i) => i !== index);
     setCategories(newCategories);
-    snackBarContext.openSnackBar(`'${currentItem.name}' kategorisi silindi.`, 'success');
+    toast.success(`'${currentItem.name}' kategorisi silindi.`);
     setExpandedIndex(null);
   }
 

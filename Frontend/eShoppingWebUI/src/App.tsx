@@ -6,7 +6,8 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { createContext, useState } from 'react';
 import { darkTheme, lightTheme } from './theme.colors';
 import { CartProvider } from './contexts/CartContext';
-import { SnackBarProvider } from './contexts/SnackBarContext';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -27,23 +28,34 @@ const App = () => {
 
   return (
     <>
-      <SnackBarProvider>
-        <CartProvider>
-          <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            <ThemeProvider theme={theme ? darkTheme : lightTheme}>
-              <CssBaseline />
-              <Router>
-                <Routes >
-                  <Route path="/*" element={<MainLayout />} />
-                  <Route path="user/*" element={<UserLayout />} />
-                  <Route path="page-not-found" element={<NotFoundPage />} />
-                  <Route path="*" element={<NotFoundPage />} />
-                </Routes>
-              </Router>
-            </ThemeProvider>
-          </ThemeContext.Provider>
-        </CartProvider>
-      </SnackBarProvider>
+      <CartProvider>
+        <ToastContainer
+          position="top-right"
+          autoClose={1}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <ThemeContext.Provider value={{ theme, toggleTheme }}>
+          <ThemeProvider theme={theme ? darkTheme : lightTheme}>
+            <CssBaseline />
+            <Router>
+              <Routes >
+                <Route path="/*" element={<MainLayout />} />
+                <Route path="user/*" element={<UserLayout />} />
+                <Route path="page-not-found" element={<NotFoundPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </Router>
+          </ThemeProvider>
+        </ThemeContext.Provider>
+        <ToastContainer />
+      </CartProvider>
+
     </>
   );
 };

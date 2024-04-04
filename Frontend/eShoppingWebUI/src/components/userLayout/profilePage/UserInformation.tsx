@@ -3,12 +3,11 @@ import { Button, Grid, Paper, Typography } from '@mui/material';
 import { renderTextField } from '../../../utils/FormUtils';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { SnackBarContext } from '../../../contexts/SnackBarContext';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { toast } from 'react-toastify';
 
 
 const UserInformation = ({ sxValues }: { sxValues: any }) => {
-    const snackBarContext = useContext(SnackBarContext);
     const [user, setUser] = useState({
         firstName: 'John',
         lastName: 'Doe',
@@ -49,7 +48,7 @@ const UserInformation = ({ sxValues }: { sxValues: any }) => {
                     email: values.email,
                     phone: values.phone,
                 });
-                snackBarContext.openSnackBar('Kullanıcı bilgileri güncellendi!', 'success');
+                toast.success('Kullanıcı bilgileri güncellendi!');
             }
             setSubmitted(true);
             setEditing(false);

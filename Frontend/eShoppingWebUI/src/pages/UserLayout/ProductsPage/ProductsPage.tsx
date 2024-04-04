@@ -11,6 +11,7 @@ import { KeyboardArrowUp, KeyboardArrowDown, Search } from '@mui/icons-material'
 import { DialogComponent } from '../../../components/common/DialogComponent';
 import './ProductsPage.css';
 import { Product, createFakeCategories } from '../../../mock/category';
+import { useNavigate } from 'react-router-dom';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState(createFakeCategories(20, 5).flatMap(category => category.products));
@@ -27,6 +28,7 @@ const ProductsPage = () => {
   const [confirmAction, setConfirmAction] = useState('');
   const [currentItemId, setCurrentItemId] = useState(null);
 
+  const navigate = useNavigate();
 
 
   const handleCancelItem = (itemId: any) => {
@@ -239,7 +241,7 @@ const ProductsPage = () => {
           </Grid>
           <Grid item xs={12} sm={3} sx={{ pt: { xs: 2, sm: 0 } }}>
             <Button fullWidth variant="contained" sx={{ fontWeight: 'bold' }}
-              color="primary" >
+              color="primary" onClick={() => navigate("/user/add-new-product")}>
               Yeni Ürün Ekle
             </Button>
           </Grid>

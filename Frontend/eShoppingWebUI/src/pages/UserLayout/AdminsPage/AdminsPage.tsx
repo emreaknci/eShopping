@@ -4,7 +4,7 @@ import { createFakeUser } from '../../../mock/users';
 import SearchIcon from '@mui/icons-material/Search';
 import { Grid, TextField, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TablePagination } from '@mui/material';
 import { DialogComponent } from '../../../components/common/DialogComponent';
-import { SnackBarContext } from '../../../contexts/SnackBarContext';
+import { toast } from 'react-toastify';
 
 const AdminsPage = () => {
   const [admins, setAdmins] = useState(createFakeUser(10, true));
@@ -16,7 +16,6 @@ const AdminsPage = () => {
   const [currentUser, setCurrentUser] = useState();
   const [openAlert, setOpenAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
-  const snackbarContext = useContext(SnackBarContext);
 
   useEffect(() => {
     const filteredAdmins = admins.filter((admin) => {
@@ -51,7 +50,7 @@ const AdminsPage = () => {
   const handleConfirm = () => {
     setAdmins(admins.filter((admin) => admin.id !== currentUser.id));
     setOpenAlert(false);
-    snackbarContext.openSnackBar(`'${currentUser.fullName}' kullanıcısından yetki alındı.`, 'success');
+    toast.success(`'${currentUser.fullName}' kullanıcısından yetki alındı.`);
   }
 
   return (
