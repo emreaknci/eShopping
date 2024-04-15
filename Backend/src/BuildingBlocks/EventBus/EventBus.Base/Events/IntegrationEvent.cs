@@ -16,9 +16,9 @@ namespace EventBus.Base.Events
         }
 
         [JsonConstructor]
-        public IntegrationEvent(Guid ıd, DateTime createdDate)
+        public IntegrationEvent(Guid id, DateTime createdDate)
         {
-            Id = ıd;
+            Id = id;
             CreatedDate = createdDate;
         }
 
