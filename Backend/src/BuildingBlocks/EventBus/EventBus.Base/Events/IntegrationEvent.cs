@@ -15,7 +15,7 @@ namespace EventBus.Base.Events
             CreatedDate = DateTime.Now;
         }
 
-        [Newtonsoft.Json.JsonConstructor]
+        [JsonConstructor]
         public IntegrationEvent(Guid ıd, DateTime createdDate)
         {
             Id = ıd;
