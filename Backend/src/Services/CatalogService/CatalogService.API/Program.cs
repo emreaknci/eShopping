@@ -12,7 +12,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddCatalogServices(builder.Configuration);
 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -23,7 +22,14 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
 app.UseStaticFiles();
 app.MapControllers();
 
-app.Run();
+app.Start();
+
+app.RegisterWithConsul();
+
+app.WaitForShutdown();
+
+

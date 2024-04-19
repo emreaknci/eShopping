@@ -2,6 +2,7 @@
 using CatalogService.API.Dtos.ForBrand;
 using CatalogService.API.Models;
 using CatalogService.API.Utils.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,6 +38,16 @@ namespace CatalogService.API.Controllers
             }
 
             return Ok(Result<List<BrandListDto>>.SuccessResult(brandDtos));
+        }
+        [HttpGet("{id}")]
+        public IActionResult GetBrandById([FromQuery] int id)
+        {
+            var brand = _catalogContext.Brands.FirstOrDefault(x => x.Id == id);
+
+            if (brand == null)
+                return NotFound(Result<Brand>.FailureResult("Kategori Bulunamadı"));
+
+            return Ok(Result<Brand>.SuccessResult(brand));
         }
 
         [HttpPost]

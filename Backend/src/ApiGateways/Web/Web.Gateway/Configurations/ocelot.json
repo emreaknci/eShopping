@@ -1,0 +1,57 @@
+{
+  "Routes": [
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "CatalogService",
+
+      "DownstreamPathTemplate": "/api/{everything}",
+      "DownstreamScheme": "http",
+     
+      "UpstreamPathTemplate": "/catalog/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "IdentityService",
+
+      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/auth/{everything}",
+      "UpstreamHttpMethod": [ "Post" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "IdentityService",
+
+      "DownstreamPathTemplate": "/api/user/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/user/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    }
+  ],
+
+
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000",
+    "RequestIdKey": "OcRequestId",
+    "DownstreamScheme": "http",
+    "ReRoutesCaseSensitive": false,
+    "UseServiceDiscovery": true,
+    "RateLimitOptions": {
+      "DisableRateLimitHeaders": false,
+      "HttpStatusCode": 429,
+      "QuotaExceededMessage": "Too Many Requests",
+      "RateLimitCounterPrefix": "oc"
+    },
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500,
+      "Type": "Consul"
+    }
+  }
+}

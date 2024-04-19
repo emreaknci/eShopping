@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Test01", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "IdentityService.API", Version = "v1" });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",
@@ -55,4 +55,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.Start();
+
+app.RegisterWithConsul();
+
+app.WaitForShutdown();
