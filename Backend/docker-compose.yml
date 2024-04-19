@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  s_consul:
+    container_name: c_consul
+    image: "consul:1.15.4"
+    ports:
+      - 8500:8500
+      - 8600:8600/tcp
+      - 8600:8600/udp
+  s_rabbitmq:
+    container_name: c_rabbitmq
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"  
+    volumes:
+      - rabbitmq_volume:/var/lib/rabbitmq
+  s_identitydb:
+    container_name: c_identity_postgresql
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: eShopping.IdentityDb
+    ports:
+      - "2001:5432"
+    volumes:
+      - identitydb_volume:/var/lib/postgresql/data
+
+  s_catalogdb:
+    container_name: c_catalog_postgresql
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: eShopping.CatalogDb
+    ports:
+      - "2000:5432"
+    volumes:
+      - catalogdb_volume:/var/lib/postgresql/data
+
+volumes:
+    identitydb_volume:
+    catalogdb_volume:
+    rabbitmq_volume:      
