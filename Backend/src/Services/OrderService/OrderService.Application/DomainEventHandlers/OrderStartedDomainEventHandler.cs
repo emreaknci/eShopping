@@ -23,7 +23,7 @@ namespace OrderService.Application.DomainEventHandlers
         {
             var cardTypeId = (orderStartedEvent.CardTypeId != 0) ? orderStartedEvent.CardTypeId : 1;
 
-            var buyer = await _buyerRepository.GetSingleAsync(i => i.FullName == orderStartedEvent.UserName, i => i.PaymentMethods);
+            var buyer = await _buyerRepository.GetSingleAsync(i => i.UserId == orderStartedEvent.UserId, i => i.PaymentMethods);
 
             bool buyerOriginallyExisted = buyer != null;
             if (buyerOriginallyExisted)
