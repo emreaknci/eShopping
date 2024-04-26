@@ -10,7 +10,8 @@ namespace OrderService.Domain.AggregateModels.BuyerAggregate
 {
     public class Buyer : BaseEntity, IAggregateRoot
     {
-        public string Name { get; set; }
+        public int UserId { get; set; }
+        public string FullName { get; set; }
 
         private List<PaymentMethod> _paymentMethods;
         public IEnumerable<PaymentMethod> PaymentMethods => _paymentMethods.AsReadOnly();
@@ -20,9 +21,10 @@ namespace OrderService.Domain.AggregateModels.BuyerAggregate
             _paymentMethods = new List<PaymentMethod>();
         }
 
-        public Buyer(string name) : this()
+        public Buyer(int userId, string fullName) : this()
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            UserId = userId;
+            FullName = fullName ?? throw new ArgumentNullException(nameof(fullName));
         }
 
         public PaymentMethod VerifyOrAddPaymentMethod(int cardTypeId, string alias, string cardNumber, string securityNumber, string cardHolderName, DateTime expiration, Guid orderId)
@@ -49,7 +51,7 @@ namespace OrderService.Domain.AggregateModels.BuyerAggregate
             return base.Equals(obj) ||
                 (obj is Buyer buyer &&
                 Id.Equals(buyer.Id) &&
-                Name == buyer.Name);
+                FullName == buyer.FullName);
             ;
         }
     }
