@@ -12,7 +12,7 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
     {
         private readonly List<OrderItemDto> _orderItems;
 
-        public int UserId { get; private set; }
+        public string UserId { get; private set; }
         public string UserName { get; private set; }
         public string City { get; private set; }
         public string Street { get; private set; }
@@ -31,7 +31,7 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
             _orderItems = new List<OrderItemDto>();
         }
 
-        public CreateOrderCommand(List<BasketItem> basketItems, int userId, string userName, string city, string street,string state,string country,string zipcode ,string cardNumber, string cardHolderName, DateTime cardExpiration, string cardSecurityNumber, int cardTypeId) : this()
+        public CreateOrderCommand(List<BasketItem> basketItems, string userId, string userName, string city, string street,string state,string country,string zipcode ,string cardNumber, string cardHolderName, DateTime cardExpiration, string cardSecurityNumber, int cardTypeId) : this()
         {
             var dtoList =basketItems.Select(item=>new OrderItemDto
             {

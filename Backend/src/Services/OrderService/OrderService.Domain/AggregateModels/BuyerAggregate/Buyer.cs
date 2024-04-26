@@ -10,7 +10,7 @@ namespace OrderService.Domain.AggregateModels.BuyerAggregate
 {
     public class Buyer : BaseEntity, IAggregateRoot
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string FullName { get; set; }
 
         private List<PaymentMethod> _paymentMethods;
@@ -21,7 +21,7 @@ namespace OrderService.Domain.AggregateModels.BuyerAggregate
             _paymentMethods = new List<PaymentMethod>();
         }
 
-        public Buyer(int userId, string fullName) : this()
+        public Buyer(string userId, string fullName) : this()
         {
             UserId = userId;
             FullName = fullName ?? throw new ArgumentNullException(nameof(fullName));

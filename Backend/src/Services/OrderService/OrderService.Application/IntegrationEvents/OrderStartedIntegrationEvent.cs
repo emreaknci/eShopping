@@ -9,10 +9,10 @@ namespace OrderService.Application.IntegrationEvents
 {
     public class OrderStartedIntegrationEvent : IntegrationEvent
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string UserName { get; set; }
 
-        public OrderStartedIntegrationEvent(int userId, string userName)
+        public OrderStartedIntegrationEvent(string userId, string userName)
         {
             UserId = userId;
             UserName = userName;
