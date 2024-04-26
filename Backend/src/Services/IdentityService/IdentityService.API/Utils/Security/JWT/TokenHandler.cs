@@ -32,6 +32,7 @@ namespace IdentityService.API.Utils.Security.JWT
         {
             return new[]
             {
+                new Claim(ClaimTypes.Name, user.FirstName +" " + user.LastName),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Role, user.Role.ToString())
             };

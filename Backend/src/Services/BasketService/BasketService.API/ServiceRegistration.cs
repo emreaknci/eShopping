@@ -1,6 +1,7 @@
 ﻿using BasketService.API.Core.Application.Repository;
 using BasketService.API.Core.Application.Services;
 using BasketService.API.Extensions;
+using BasketService.API.Infrastructure.Repository;
 using BasketService.API.Infrastructure.Services;
 using BasketService.API.IntegrationEvents.EventHandlers;
 using Consul;

@@ -8,7 +8,6 @@ services:
       - 8500:8500
       - 8600:8600/tcp
       - 8600:8600/udp
-
   s_rabbitmq:
     container_name: c_rabbitmq
     image: "rabbitmq:3-management"
@@ -17,7 +16,6 @@ services:
       - "15672:15672"  
     volumes:
       - rabbitmq_volume:/var/lib/rabbitmq
-
   s_identitydb:
     container_name: c_identity_postgresql
     image: postgres:latest
@@ -29,7 +27,6 @@ services:
       - "2001:5432"
     volumes:
       - identitydb_volume:/var/lib/postgresql/data
-
   s_catalogdb:
     container_name: c_catalog_postgresql
     image: postgres:latest
@@ -41,7 +38,6 @@ services:
       - "2000:5432"
     volumes:
       - catalogdb_volume:/var/lib/postgresql/data
-    
   s_basketdb:
     container_name: c_basket_redis
     image: "redis:latest"
@@ -49,8 +45,6 @@ services:
       - "6379:6379"
     volumes:
       - basketdb_volume:/data
-
-
 
 
 volumes:

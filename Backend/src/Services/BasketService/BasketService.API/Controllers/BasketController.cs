@@ -79,18 +79,20 @@ namespace BasketService.API.Controllers
             if (!basketResult.Success)
                 return BadRequest(basketResult);
 
-            var eventMessage = new OrderCreatedIntegrationEvent(userId, "", basketCheckout.ShippingAddress, basketCheckout.PaymentDetails, basketCheckout.Buyer, basketResult.Data);
+            var userName = _identityService.GetUserName();
 
-            //try
-            //{
-            //    _eventBus.Publish(eventMessage);
-            //}
-            //catch
-            //{
-            //    _logger.LogError("ERROR Publishing integration event: {IntegrationEventId} from {AppName}", eventMessage.Id, "BasketService");
+            var eventMessage = new OrderCreatedIntegrationEvent(userId, userName, basketCheckout.ShippingAddress, basketCheckout.PaymentDetails, basketCheckout.Buyer, basketResult.Data);
 
-            //    throw;
-            //}
+            try
+            {
+                _eventBus.Publish(eventMessage);
+            }
+            catch
+            {
+                _logger.LogError("ERROR Publishing integration event: {IntegrationEventId} from {AppName}", eventMessage.Id, "BasketService");
+
+                throw;
+            }
 
             return Accepted();
         }

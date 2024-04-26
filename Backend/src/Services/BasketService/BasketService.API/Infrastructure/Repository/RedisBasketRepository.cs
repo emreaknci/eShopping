@@ -5,7 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
-namespace BasketService.API.Infrastructure.Services
+namespace BasketService.API.Infrastructure.Repository
 {
     public class RedisBasketRepository : IBasketRepository
     {
