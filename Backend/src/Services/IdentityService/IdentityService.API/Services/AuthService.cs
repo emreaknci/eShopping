@@ -18,6 +18,15 @@ namespace IdentityService.API.Services
             _tokenHandler = tokenHandler;
         }
 
+        public async Task<Result<bool>> ChangePermission(int userId, Role role)
+        {
+            var result = await _userService.ChangePermission(userId, role);
+
+            return result.Success
+                ? Result<bool>.SuccessResult(true)
+                : Result<bool>.FailureResult(result.Message);
+        }
+
         public async Task<Result<AccessToken>> LoginAsync(LoginDto dto)
         {
 

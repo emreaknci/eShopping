@@ -22,6 +22,15 @@ builder.Services.AddOcelot()
     .AddConsul()
     .AddCacheManager(x => x.WithDictionaryHandle());
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
@@ -33,9 +42,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 await app.UseOcelot();

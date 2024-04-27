@@ -9,6 +9,8 @@ namespace IdentityService.API.Services
     {
         Task<Result<UserDto>> RegisterAsync(RegisterDto dto,Role role);
         Task<Result<AccessToken>> LoginAsync(LoginDto dto);
+
+        Task<Result<bool>> ChangePermission (int userId,Role role); 
     }
 
 

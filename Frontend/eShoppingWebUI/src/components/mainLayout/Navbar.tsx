@@ -19,23 +19,37 @@ import { AccountCircle } from '@mui/icons-material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import Badge from '@mui/material/Badge';
 import { CartContext } from '../../contexts/CartContext';
+import { AuthContext } from '../../contexts/AuthContext';
+import { toast } from 'react-toastify';
 
 const pages = [{ name: 'Ana Sayfa', link: '/' },
-// { name: 'Products', link: '/products' },
-// { name: 'About', link: '/about' },
-// { name: 'Contact', link: '/contact' }
+  // { name: 'Products', link: '/products' },
+  // { name: 'About', link: '/about' },
+  // { name: 'Contact', link: '/contact' }
 ];
 
-const settings = [
-  { name: 'Profile', link: '/user/Profile' },
-  { name: 'Dashboard', link: 'user/dashboard' },
-  { name: 'Logout', link: 'logout' }
+interface MenuItem {
+  id: number;
+  name: string;
+  link?: string;
+  onClick?: any;
+}
+
+const authenticatedSettings: MenuItem[] = [
+  { id: 1, name: 'Profilim', link: '/user/Profile' },
+  { id: 2, name: 'Çıkış Yap', onClick: (logout: any) => { logout() } }
 ]
+
+const unAuthenticatedSettings: MenuItem[] = [
+  { id: 3, name: 'Giriş Yap', link: '/login' },
+  { id: 4, name: 'Kayıt Ol', link: '/register' }
+]
+
 const Navbar = () => {
+  const authContext = useContext(AuthContext);
   const cartContext = useContext(CartContext);
   const themeContext = useContext(ThemeContext);
   const navigate = useNavigate();
-
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -59,6 +73,17 @@ const Navbar = () => {
     navigate(link);
     handleCloseUserMenu();
   };
+
+  const handleSettingClick = (setting: any) => {
+    if (setting.onClick) {
+      if (setting.name == "Çıkış Yap") {
+        setting.onClick(authContext.logout);
+        toast.success("Çıkış başarıyla yapıldı!");
+        return;
+      }
+    }
+    return;
+  }
 
   return (
     <AppBar position="static">
@@ -165,11 +190,11 @@ const Navbar = () => {
             ))}
           </Box>
 
-          <IconButton sx={{ ml: 1 }} color="inherit" onClick={() => navigate("/cart")}>
+          {authContext.isAuthenticated && authContext.isTokenChecked && authContext.isTokenChecked && <IconButton sx={{ ml: 1 }} color="inherit" onClick={() => navigate("/cart")}>
             <Badge badgeContent={cartContext.cartItemCount} color='success' >
               <ShoppingCartOutlinedIcon style={{ color: "white" }} />
             </Badge>
-          </IconButton>
+          </IconButton>}
 
           <IconButton sx={{ mr: 1 }} onClick={themeContext.toggleTheme} color="inherit">
             {themeContext.theme === true
@@ -199,8 +224,20 @@ const Navbar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting.name} onClick={() => navigateTo(setting.link)}>
+              {authContext.isAuthenticated && authContext.isTokenChecked && authenticatedSettings.map((setting) => (
+                <MenuItem key={setting.name} onClick={() =>
+                  setting.onClick
+                    ? handleSettingClick(setting)
+                    : navigateTo(setting.link!)
+                }>
+                  <Typography textAlign="center">
+                    {setting.name}
+                  </Typography>
+                </MenuItem>
+              ))}
+
+              {!authContext.isAuthenticated && authContext.isTokenChecked && unAuthenticatedSettings.map((setting) => (
+                <MenuItem key={setting.name} onClick={() => navigateTo(setting.link!)}>
                   <Typography textAlign="center">
                     {setting.name}
                   </Typography>

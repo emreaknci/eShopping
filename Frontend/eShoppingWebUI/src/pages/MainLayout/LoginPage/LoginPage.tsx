@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './LoginPage.css';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -8,6 +8,8 @@ import { Link as MuiLink } from '@mui/material';
 import { renderTextField } from '../../../utils/FormUtils';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../../styles';
+import { LoginDto } from '../../../dtos/loginDto';
+import { AuthContext } from '../../../contexts/AuthContext';
 
 
 const validationSchema = Yup.object({
@@ -16,6 +18,7 @@ const validationSchema = Yup.object({
 });
 
 const LoginPage = () => {
+  const authContext = useContext(AuthContext);
   const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
 
@@ -27,10 +30,18 @@ const LoginPage = () => {
     validationSchema,
     onSubmit: (values) => {
       setSubmitted(true);
-      // login
-      console.log('values:', values);
+      login();
+      // navigate("/");
     },
   });
+
+  const login = async () => {
+    const loginDto: LoginDto = {
+      email: formik.values.email,
+      password: formik.values.password
+    }
+    await authContext.login(loginDto);
+  }
 
   return (
     <Container component="main" sx={styles.mainBoxPadding}>

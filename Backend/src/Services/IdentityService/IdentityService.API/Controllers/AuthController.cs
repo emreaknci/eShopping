@@ -51,5 +51,29 @@ namespace IdentityService.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpPost("revoke-auth")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RevokeAuth([FromQuery] int userId)
+        {
+            var result = await _authService.ChangePermission(userId, Role.User);
+
+            if (!result.Success)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
+
+        [HttpPost("grant-auth")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> GrantAuth([FromQuery] int userId)
+        {
+            var result = await _authService.ChangePermission(userId, Role.Admin);
+
+            if (!result.Success)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
     }
 }

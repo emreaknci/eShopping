@@ -8,6 +8,9 @@ import { Link as MuiLink } from '@mui/material';
 import { renderTextField } from '../../../utils/FormUtils';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../../styles';
+import AuthService from '../../../services/auth.service';
+import { RegisterDto } from '../../../dtos/registerDto';
+import { toast } from 'react-toastify';
 
 
 const validationSchema = Yup.object({
@@ -34,12 +37,29 @@ const RegisterPage = () => {
       confirmPassword: '',
     },
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       setSubmitted(true);
-      // register
-      console.log('values:', values);
+      await register();
     },
   });
+
+  const register = async () => {
+    const registerDto: RegisterDto = {
+      firstName: formik.values.firstName,
+      lastName: formik.values.lastName,
+      email: formik.values.email,
+      password: formik.values.password,
+      confirmPassword: formik.values.confirmPassword
+    }
+    await AuthService.register(registerDto).then(res => {
+      console.log(res.data)
+      toast.success('Kayıt başarılı! Giriş yapabilirsiniz.');
+    }).catch(err => {
+      toast.error(err.response.data?.message);
+    })
+  }
+
+
   return (
     <Container component="main" sx={styles.mainBoxPadding}>
       <Paper elevation={3} style={{

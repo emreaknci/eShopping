@@ -1,31 +1,15 @@
 using Microsoft.AspNetCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using OrderService.API;
 using OrderService.API.Extensions;
 using OrderService.Infrastructure.Context;
 
-static IWebHost BuildWebHost(IConfiguration configuration, string[] args) =>
-    WebHost.CreateDefaultBuilder(args)
-        .UseDefaultServiceProvider((hostingContext, opt) =>
-        {
-            opt.ValidateOnBuild = false;
-        })
-        .ConfigureAppConfiguration(i => i.AddConfiguration(configuration))
-        .UseStartup<Program>()
-        .Build();
+  
 
 var builder = WebApplication.CreateBuilder(args);
 
-var host = BuildWebHost(builder.Configuration, args);
 
-host.MigrateDbContext<OrderDbContext>((context, services) =>
-{
-    var logger = services.GetService<ILogger<OrderDbContext>>();
-    var dbContextSeeder = new OrderDbContextSeed();
-    dbContextSeeder.SeedAsync(context, logger)
-        .Wait();
-
-});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -75,6 +59,15 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.SubscribeToEventBus();
+
+app.MigrateDbContext<OrderDbContext>((context, services) =>
+{
+    var logger = services.GetService<ILogger<OrderDbContext>>();
+    var dbContextSeeder = new OrderDbContextSeed();
+    dbContextSeeder.SeedAsync(context, logger)
+        .Wait();
+
+});
 
 app.Start();
 

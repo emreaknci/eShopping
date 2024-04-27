@@ -1,6 +1,6 @@
 import './UserLayout.css';
 import { ProfilePage } from './ProfilePage';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 import { DashboardPage } from './DashboardPage';
 import Navbar from '../../components/userLayout/Navbar';
 import { Box } from '@mui/material';
@@ -11,27 +11,43 @@ import { AdminsPage } from './AdminsPage';
 import CategoriesPage from './CategoriesPage/CategoriesPage';
 import { ProductsPage } from './ProductsPage';
 import { AddNewProductPage } from './ProductsPage/AddNewProductPage';
+import { useContext, useEffect } from 'react';
+import { AuthContext } from '../../contexts/AuthContext';
+import { AddNewAdminPage } from './AdminsPage/AddNewAdminPage';
 
 const UserLayout = () => {
+  const authContext = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!authContext.isAuthenticated && authContext.isTokenChecked) {
+      navigate("/");
+    }
+  }, [authContext.isAuthenticated, authContext.isTokenChecked, navigate])
   return (
     <>
       <Box sx={{ display: 'flex' }}>
         <Navbar />
         <Box component="main" sx={{ flexGrow: 1, p: { xs: 3, md: 3 }, pt: { xs: 10, md: 10 } }}>
-          <Routes>
-            <Route path="/" element={<ProfilePage />} />
-            <Route path="/Profile" element={<ProfilePage />} />
-            <Route path="/Dashboard" element={<DashboardPage />} />
-            <Route path="/Orders" element={<OrdersPage />} />
-            <Route path="/my-orders" element={<MyOrdersPage />} />
-            <Route path="/customers" element={<CustomersPage />} />
-            <Route path="/admins" element={<AdminsPage />} />
-            <Route path="/categories" element={<CategoriesPage />} />
-            <Route path="/products" element={<ProductsPage />} />
-            <Route path="/add-new-product" element={<AddNewProductPage />} />
-            {/* <Route path="*" element={<Navigate to={"/page-not-found"} />} /> */}
-            <Route path="*" element={<Navigate to={"/user"} />} />
-          </Routes>
+          {authContext.isAuthenticated &&
+            <Routes>
+              <Route path="/" element={<ProfilePage />} />
+              <Route path="/Profile" element={<ProfilePage />} />
+              <Route path="/my-orders" element={<MyOrdersPage />} />
+
+              {authContext.isAdmin && <>
+                <Route path="/Dashboard" element={<DashboardPage />} />
+                <Route path="/Orders" element={<OrdersPage />} />
+                <Route path="/customers" element={<CustomersPage />} />
+                <Route path="/admins" element={<AdminsPage />} />
+                <Route path="/categories" element={<CategoriesPage />} />
+                <Route path="/products" element={<ProductsPage />} />
+                <Route path="/add-new-product" element={<AddNewProductPage />} />
+                <Route path="/add-new-admin" element={<AddNewAdminPage />} />
+              </>}
+              <Route path="*" element={<Navigate to={"/user"} />} />
+            </Routes>
+          }
         </Box>
       </Box>
     </>

@@ -27,6 +27,17 @@ services:
       - "2001:5432"
     volumes:
       - identitydb_volume:/var/lib/postgresql/data
+  s_orderdb:
+    container_name: c_order_postgresql
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: eShopping.OrderDb
+    ports:
+      - "2002:5432"
+    volumes:
+      - orderdb_volume:/var/lib/postgresql/data
   s_catalogdb:
     container_name: c_catalog_postgresql
     image: postgres:latest
@@ -52,3 +63,4 @@ volumes:
     catalogdb_volume:
     rabbitmq_volume:      
     basketdb_volume:
+    orderdb_volume:

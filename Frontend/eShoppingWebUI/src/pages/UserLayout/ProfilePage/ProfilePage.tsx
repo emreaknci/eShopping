@@ -20,13 +20,18 @@ const sxValues = {
 const ProfilePage = () => {
   return (
     <>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      
+      }}>
         <Grid item xs={12} sm={12} md={6}>
           <UserInformation sxValues={sxValues} />
         </Grid>
-        <Grid item xs={12} sm={12} md={6}>
+        {/* <Grid item xs={12} sm={12} md={6}>
           <Address sxValues={sxValues} />
-        </Grid>
+        </Grid> */}
       </Grid>
     </>
   );

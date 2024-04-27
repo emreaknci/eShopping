@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import './CustomersPage.css';
-import { createFakeUser } from '../../../mock/users';
 import { Avatar, Card, CardActions, CardContent, CardHeader, Collapse, Grid, IconButton, TextField, Typography, useTheme } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import SearchIcon from '@mui/icons-material/Search';
 import { PaginationComponent } from '../../../components/common/PaginationComponent';
-
+import UserService from '../../../services/user.service';
+import { UserDto } from '../../../dtos/userDto';
+import { Role } from '../../../models/role';
+import { toast } from 'react-toastify';
 
 const sxValues = {
   display: 'flex',
@@ -16,29 +18,50 @@ const sxValues = {
 };
 const CustomersPage = () => {
   const theme = useTheme();
-  const [customers, setCustomers] = useState(createFakeUser(10));
+  const [customers, setCustomers] = useState<UserDto[]>();
   const [filteredCustomers, setFilteredCustomers] = useState(customers);
-  const [filteredCategoriesCount, setFilteredCategoriesCount] = useState(customers.length);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPageCount, setTotalPageCount] = useState(1);
 
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [searchText, setSearchText] = useState('');
+  const [searchTextClicked, setSearchTextClicked] = useState(true);
   const [itemsPerPage, setItemsPerPage] = useState(4);
+
   const handleSearch = (e: any) => {
     setSearchText(e.target.value);
   }
 
   useEffect(() => {
-    const filteredCustomers = customers.filter((customer) => {
-      const emailMatch = customer.email.toLowerCase().includes(searchText.toLowerCase());
-      const fullnameMatch = customer.fullName.toLowerCase().includes(searchText.toLowerCase());
-      const phoneMatch = customer.phone.includes(searchText);
-      return emailMatch || fullnameMatch || phoneMatch;
-    });
-    setFilteredCategoriesCount(filteredCustomers.length);
+    const getCustomers = async () => {
+      await UserService.getAllByRole(Role.User)
+        .then((res) => {
+          const result = res.data;
+          setCustomers(result.data!);
+          setFilteredCustomers(result.data!);
+          setTotalPageCount(result.data!.length / itemsPerPage);
+        })
+        .catch((err) => {
+          toast.error(err.response.data.message || 'Bir hata oluştu. Lütfen tekrar deneyin.');
+        })
+        .finally(() => {
+          setSearchTextClicked(false);
+        });
+    }
+    getCustomers();
 
-    setFilteredCustomers(filteredCustomers
-      .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
+
+  }, [currentPage, itemsPerPage, searchText, searchTextClicked]);
+
+  useEffect(() => {
+    const filteredCustomers = customers?.filter((customer) => {
+      const emailMatch = customer.email?.toLowerCase().includes(searchText.toLowerCase());
+      const fullnameMatch = customer.firstName?.toLowerCase().includes(searchText.toLowerCase()) || customer.lastName?.toLowerCase().includes(searchText.toLowerCase());
+      return emailMatch || fullnameMatch;
+    });
+
+    filteredCustomers && setFilteredCustomers(filteredCustomers.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage));
+    filteredCustomers && setTotalPageCount(filteredCustomers.length / itemsPerPage);
   }, [customers, searchText, currentPage, itemsPerPage]);
 
   const handleExpandClick = (index: number) => {
@@ -66,7 +89,7 @@ const CustomersPage = () => {
             }}
           />
         </Grid>
-        {filteredCustomers.map((customer, index) => (
+        {filteredCustomers && filteredCustomers.map((customer, index) => (
           <Grid item xs={12} sm={12} md={6} sx={sxValues} key={index}>
             <Card>
               <CardHeader
@@ -79,16 +102,15 @@ const CustomersPage = () => {
                   />
                 }
                 title={customer.email}
-                subheader={customer.id}
+                subheader={`#${customer.id}`}
               />
               <CardContent>
                 <Typography variant="body1" color="text.primary">
-                  Müşteri: {customer.fullName}
+                  Müşteri: {customer.firstName} {customer.lastName}
                 </Typography>
                 <Typography variant="body1" color="text.primary">
-                  Telefon: {customer.phone}
+                  Email: {customer.email}
                 </Typography>
-
               </CardContent>
               <CardActions disableSpacing>
                 <IconButton
@@ -97,11 +119,11 @@ const CustomersPage = () => {
                 >
                   <ExpandMoreIcon />
                 </IconButton>
-                Adresler ve Siparişler
+                Siparişler
               </CardActions>
               <Collapse in={expandedIndex === index} timeout="auto" unmountOnExit>
                 <CardContent>
-                  <Typography variant='h5'>Adresler:</Typography>
+                  {/* <Typography variant='h5'>Adresler:</Typography>
                   {customer.addresses?.map((address, index) => (
                     <Typography paragraph key={index}>
                       {index + 1} -  {address.address}, {address.city}, {address.state}
@@ -113,7 +135,7 @@ const CustomersPage = () => {
                     <Typography paragraph key={index}>
                       {index + 1} -  {order.id}, {order.date}, {order.totalPrice}
                     </Typography>
-                  ))}
+                  ))} */}
                 </CardContent>
               </Collapse>
             </Card>
@@ -121,15 +143,15 @@ const CustomersPage = () => {
         ))}
 
       </Grid>
-      <PaginationComponent
+      {filteredCustomers && <PaginationComponent
         itemsPerPage={itemsPerPage}
         currentPage={currentPage}
         onPageChange={(page) => {
           setExpandedIndex(null);
           setCurrentPage(page)
         }}
-        pageCount={Math.ceil(filteredCategoriesCount / itemsPerPage)}
-      />
+        pageCount={Math.ceil(totalPageCount)}
+      />}
     </>
   );
 };

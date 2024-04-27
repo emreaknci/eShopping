@@ -15,7 +15,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Grid, Menu, MenuItem, SwipeableDrawer, Tooltip, useMediaQuery } from '@mui/material';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { ThemeContext } from '../../App';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
@@ -27,6 +27,8 @@ import SupervisorAccountIcon from '@mui/icons-material/SupervisorAccount';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthContext';
+import { toast } from 'react-toastify';
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -114,6 +116,7 @@ const customerIconMap = [
 const Navbar = () => {
   const theme = useTheme();
   const themeContext = useContext(ThemeContext);
+  const authContext = useContext(AuthContext);
 
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -143,6 +146,13 @@ const Navbar = () => {
     handleDrawerClose();
   }
 
+  const handleLogout = () => {
+    authContext.logout();
+    handleMenuClose();
+    navigate("/");
+    toast.success("Çıkış başarıyla yapıldı!");
+  }
+
   const largeScreenDrawer = (
     <Drawer variant="permanent" open={open}>
       <DrawerHeader>
@@ -152,7 +162,7 @@ const Navbar = () => {
       </DrawerHeader>
       <Divider />
       <List>
-        {adminIconMap.map((item) => {
+        {authContext.isAdmin && adminIconMap.map((item) => {
           return (
             <ListItem onClick={() => navigateTo(item.link)} key={item.name} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
@@ -222,7 +232,7 @@ const Navbar = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {adminIconMap.map((item) => {
+          {authContext.isAdmin && adminIconMap.map((item) => {
             return (
               <ListItem onClick={() => navigateTo(item.link)} key={item.name} disablePadding sx={{ display: 'block' }}>
                 <ListItemButton
@@ -312,7 +322,7 @@ const Navbar = () => {
               onClose={handleMenuClose}
             >
               <MenuItem onClick={() => navigateTo("/")}>Siteye Git</MenuItem>
-              <MenuItem onClick={handleMenuClose}>Çıkış</MenuItem>
+              <MenuItem onClick={() => handleLogout()}>Çıkış</MenuItem>
             </Menu>
           </div>
 

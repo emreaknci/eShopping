@@ -3,11 +3,12 @@ import MainLayout from "./pages/MainLayout/MainLayout";
 import UserLayout from "./pages/UserLayout/UserLayout";
 import { NotFoundPage } from './pages/NotFoundPage';
 import { CssBaseline, ThemeProvider } from '@mui/material';
-import { createContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { darkTheme, lightTheme } from './theme.colors';
 import { CartProvider } from './contexts/CartContext';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AuthContext, AuthProvider } from './contexts/AuthContext';
 
 
 
@@ -28,34 +29,35 @@ const App = () => {
 
   return (
     <>
-      <CartProvider>
-        <ToastContainer
-          position="top-right"
-          autoClose={1}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
-          <ThemeProvider theme={theme ? darkTheme : lightTheme}>
-            <CssBaseline />
-            <Router>
-              <Routes >
-                <Route path="/*" element={<MainLayout />} />
-                <Route path="user/*" element={<UserLayout />} />
-                <Route path="page-not-found" element={<NotFoundPage />} />
-                <Route path="*" element={<NotFoundPage />} />
-              </Routes>
-            </Router>
-          </ThemeProvider>
-        </ThemeContext.Provider>
-        <ToastContainer />
-      </CartProvider>
-
+      <ToastContainer
+        position="top-right"
+        autoClose={1}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+      <AuthProvider>
+        <CartProvider>
+          <ThemeContext.Provider value={{ theme, toggleTheme }}>
+            <ThemeProvider theme={theme ? darkTheme : lightTheme}>
+              <CssBaseline />
+              <Router>
+                <Routes >
+                  <Route path="/*" element={<MainLayout />} />
+                  <Route path="user/*" element={<UserLayout />} />
+                  {/* <Route path="page-not-found" element={<NotFoundPage />} /> */}
+                  <Route path="*" element={<MainLayout />} />
+                </Routes>
+              </Router>
+            </ThemeProvider>
+          </ThemeContext.Provider>
+        </CartProvider>
+      </AuthProvider>
+      <ToastContainer />
     </>
   );
 };

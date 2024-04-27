@@ -1,7 +1,9 @@
 ﻿using IdentityService.API.Dtos;
+using IdentityService.API.Models;
 using IdentityService.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace IdentityService.API.Controllers
 {
@@ -17,12 +19,38 @@ namespace IdentityService.API.Controllers
             _userService = userService;
         }
 
-        [HttpGet("get-all-with-pagination")]
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetCurrenUser()
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var result = await _userService.GetByIdAsync(int.Parse(userId));
+
+            if (!result.Success)
+                return BadRequest(result);
+            return Ok(result);
+
+        }
+
+        [HttpGet("get-all-by-role")]
         [Authorize(Roles = "Admin")]
-        public IActionResult GetUsersWithPagination(int pageNumber = 1, int pageSize = 10)
+        public IActionResult GetUsersByRole(Role role)
+        {
+            var result = _userService.GetAllByRole(role);
+
+            if (!result.Success)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
+
+        [HttpGet("get-all-with-pagination-by-role")]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GetUsersWithPaginationByRole(Role role, string searchText="", int pageNumber = 1, int pageSize = 10)
         {
 
-            var result =  _userService.GetUsersWithPagination(pageNumber, pageSize);
+            var result = _userService.GetUsersWithPaginationByRole(role, searchText,pageNumber, pageSize );
 
             if (!result.Success)
                 return BadRequest(result);
@@ -63,6 +91,7 @@ namespace IdentityService.API.Controllers
 
             return Ok(result);
         }
+
 
         [HttpDelete]
         public async Task<IActionResult> DeleteUser(int id)
