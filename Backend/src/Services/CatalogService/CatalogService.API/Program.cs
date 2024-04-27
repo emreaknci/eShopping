@@ -1,4 +1,6 @@
 using CatalogService.API;
+using CatalogService.API.Context;
+using CatalogService.API.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,14 @@ app.UseAuthorization();
 
 app.UseStaticFiles();
 app.MapControllers();
+
+app.MigrateDbContext<CatalogDbContext>((context, services) =>
+{
+    var logger = services.GetService<ILogger<CatalogDbContext>>();
+    var dbContextSeeder = new CatalogDbContextSeed();
+    dbContextSeeder.SeedAsync(context, logger)
+        .Wait();
+});
 
 app.Start();
 

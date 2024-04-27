@@ -4,7 +4,7 @@ using Polly;
 
 namespace OrderService.API.Extensions
 {
-    public static class HostExtension
+    public static class WebApplicationDatabaseMigrationExtensions
     {
         public static WebApplication MigrateDbContext<TContext>(this WebApplication host, Action<TContext, IServiceProvider> seeder) where TContext : DbContext
         {
