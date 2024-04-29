@@ -20,29 +20,29 @@ const ImageSliderComponent = ({ images }: { images: any }) => {
   };
 
   return (
-    <Box position="relative" >
+    <Box position="relative">
       <CardMedia
         component="img"
         image={images[currentImage]}
         style={{
           margin: 'auto',
-          width: '100%',
+          width: '20rem',
+          height: '20rem',
           maxWidth: '100%',
         }}
-
         onClick={handleNextImage}
       />
-      <Box display="flex" justifyContent="center" mt={2} >
+      <Box display="flex" justifyContent="center" mt={2}>
         {images.map((image: any, index: number) => (
-          <Box key={index} mr={index === images.length - 1 ? 0 : .5} ml={index === 0 ? 0 : .5}>
+          <Box key={index} mr={index === images.length - 1 ? 0 : 0.5} ml={index === 0 ? 0 : 0.5}>
             <CardMedia
               component="img"
-              image={images[index]}
+              image={image}
               style={{
                 cursor: 'pointer',
                 border: index === currentImage ? '2px solid #B0272F' : 'none',
-                width: '100%',
-                height: 'auto',
+                width: '3rem',
+                height: '3rem',
                 maxWidth: '100%',
               }}
               onClick={() => handleImageClick(index)}

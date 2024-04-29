@@ -20,17 +20,85 @@ namespace CatalogService.API.Controllers
         {
             _catalogContext = catalogContext;
         }
-
-        [HttpGet]
-        public IActionResult GetProducts(int pageNumber = 1, int pageSize = 10)
+        public enum SortType
         {
-            var totalCount = _catalogContext.Products.Where(p => !p.IsDeleted).Count();
+            DEFAULT = 0,
+            DESC_PRICE = 1,
+            INC_PRICE = 2,
+            NEW_TO_OLD = 3,
+            OLD_TO_NEW = 4
+        }
 
-            var products = _catalogContext.Products
-                                         .Where(p => !p.IsDeleted)
-                                         .Skip((pageNumber - 1) * pageSize)
-                                         .Take(pageSize)
-                                         .ToList();
+        public record ProductFilterOptions
+        {
+            public int PageNumber { get; set; } = 1;
+            public int PageSize { get; set; } = 10;
+            public SortType SortType { get; set; } = SortType.DEFAULT;
+            public decimal? MinPrice { get; set; }
+            public decimal? MaxPrice { get; set; }
+            public List<int>? BrandIds { get; set; }
+            public List<int>? FeatureValueIds { get; set; }
+            public List<int>? CategoryIds { get; set; }
+
+        }
+        [HttpPost("get-products")]
+        public IActionResult GetProducts([FromBody] ProductFilterOptions options)
+        {
+            IQueryable<Product> query = _catalogContext.Products.Where(p => !p.IsDeleted);
+
+            if (options.MaxPrice.HasValue && options.MaxPrice.Value != 0)
+            {
+                query = query.Where(p => p.Price <= options.MaxPrice);
+            }
+
+            if (options.BrandIds != null && options.BrandIds.Any() && options.BrandIds.First() != 0)
+            {
+                query = query.Where(p => options.BrandIds.Contains(p.BrandId));
+            }
+
+            if (options.BrandIds != null && options.BrandIds.Any())
+            {
+                query = query.Where(p => options.BrandIds.Contains(p.BrandId));
+            }
+
+            switch (options.SortType)
+            {
+                case SortType.DESC_PRICE:
+                    query = query.OrderByDescending(p => p.Price);
+                    break;
+                case SortType.INC_PRICE:
+                    query = query.OrderBy(p => p.Price);
+                    break;
+                case SortType.NEW_TO_OLD:
+                    query = query.OrderByDescending(p => p.CreatedDate);
+                    break;
+                case SortType.OLD_TO_NEW:
+                    query = query.OrderBy(p => p.CreatedDate);
+                    break;
+                default:
+                    query = query.OrderByDescending(p => p.Id);
+                    break;
+            }
+            if (options.FeatureValueIds != null && options.FeatureValueIds.Any())
+            {
+                query = query.Where(p => _catalogContext.ProductFeatures
+                                .Where(pf => options.FeatureValueIds.Contains(pf.FeatureValueId))
+                                .Select(pf => pf.ProductId).Contains(p.Id));
+            }
+
+            if (options.CategoryIds != null && options.CategoryIds.Any())
+            {
+                query = query.Where(p => _catalogContext.ProductCategories
+                                              .Where(pc => options.CategoryIds.Contains(pc.CategoryId))
+                                              .Select(pc => pc.ProductId).Contains(p.Id));
+            }
+
+            var totalCount = query.Count();
+
+            var products = query
+                            .Skip((options.PageNumber - 1) * options.PageSize)
+                            .Take(options.PageSize)
+                            .ToList();
 
             if (!products.Any())
                 return NotFound(PaginatedResult<ProductListDto>.FailureResult("Ürün Bulunamadı"));
@@ -51,7 +119,7 @@ namespace CatalogService.API.Controllers
                 });
             }
 
-            return Ok(PaginatedResult<ProductListDto>.SuccessResult(productDtos, pageNumber, pageSize, totalCount));
+            return Ok(PaginatedResult<ProductListDto>.SuccessResult(productDtos, options.PageNumber, options.PageSize, totalCount));
         }
 
         [HttpGet("detail")]
@@ -109,6 +177,7 @@ namespace CatalogService.API.Controllers
             return Ok(Result<ProductDetailDto>.SuccessResult(productDetailDto));
         }
 
+  
         [HttpPost]
         public IActionResult CreateProduct([FromForm] ProductCreateDto dto)
         {
@@ -126,8 +195,13 @@ namespace CatalogService.API.Controllers
             AddProductCategories(dto, product.Id);
             UploadCoverImage(dto.CoverImage, product.Id);
             UploadImages(dto.Images, product.Id);
-            AddBrandCategory(product.BrandId, product.Id);
             AddProductFeatures(dto.FeaturesValueIds, product.Id);
+
+            foreach (var categoryId in dto.CategoryIds)
+            {
+                AddProductCategory(categoryId, product.Id);
+                AddBrandCategory(product.BrandId, categoryId);
+            }
 
             return Ok(Result<ProductCreateDto>.SuccessResult(dto));
         }
@@ -227,19 +301,32 @@ namespace CatalogService.API.Controllers
                 _catalogContext.SaveChanges();
             }
         }
-        private void AddBrandCategory(int brandId, int productId)
+        private void AddProductCategory(int categoryId, int productId)
         {
-            var brandCategory = _catalogContext.BrandCategories.FirstOrDefault(bc => bc.BrandId == brandId);
-            if (brandCategory == null) return;
-
+            var checkIfProductCategoryExists= _catalogContext.ProductCategories.FirstOrDefault(pc => pc.CategoryId == categoryId && pc.ProductId == productId);
+            if (checkIfProductCategoryExists != null) return;
             var productCategory = new ProductCategory
             {
                 ProductId = productId,
-                CategoryId = brandCategory.CategoryId
+                CategoryId = categoryId
             };
 
             _catalogContext.ProductCategories.Add(productCategory);
             _catalogContext.SaveChanges();
+        }
+
+        private void AddBrandCategory (int brandId, int categoryId)
+        {
+            var checkIfBrandCategoryExists = _catalogContext.BrandCategories.FirstOrDefault(bc => bc.CategoryId == categoryId && bc.BrandId == brandId);
+            if (checkIfBrandCategoryExists != null) return;
+            var brandCategory = new BrandCategory
+            {
+                BrandId = brandId,
+                CategoryId = categoryId
+            };
+
+            _catalogContext.BrandCategories.Add(brandCategory);
+            _catalogContext.SaveChanges();   
         }
         private void AddProductFeatures(ICollection<int> featureValueIds, int productId)
         {
@@ -260,7 +347,7 @@ namespace CatalogService.API.Controllers
         private void UpdateProductCategories(ProductUpdateDto dto, int productId)
         {
             var productCategoriesToDelete = _catalogContext.ProductCategories.Where(pc => pc.ProductId == productId && dto.CategoryIdsToDelete!.Contains(pc.CategoryId)).ToList();
-            
+
             if (productCategoriesToDelete.Any())
             {
                 _catalogContext.ProductCategories.RemoveRange(productCategoriesToDelete);
@@ -316,7 +403,7 @@ namespace CatalogService.API.Controllers
             _catalogContext.ProductFeatures.AddRange(productFeatures);
             _catalogContext.SaveChanges();
 
-           
+
         }
         private void DeleteProductFeatures(ICollection<int> featureValueIdsToDelete, int productId)
         {

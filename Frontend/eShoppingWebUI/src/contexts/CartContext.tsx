@@ -1,5 +1,6 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { AuthContext } from "./AuthContext";
 
 
 export const CartContext = createContext({
@@ -17,6 +18,7 @@ export const CartProvider = ({ children }: any) => {
   const [cartItemCount, setCartItemCount] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
+  const authContext=useContext(AuthContext)
 
   useEffect(() => {
     const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -36,11 +38,14 @@ export const CartProvider = ({ children }: any) => {
 
 
   const addToCart = (product: any) => {
+    if(!authContext.isAuthenticated){
+      toast.info('Sepete ürün eklemek için giriş yapmalısınız.')
+      return;
+    }
     const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
     let updatedCart = [...existingCart];
     let found = false;
     const { id, price, name } = product;
-
 
     updatedCart = updatedCart.map((item: any) => {
       if (item.id === product.id) {

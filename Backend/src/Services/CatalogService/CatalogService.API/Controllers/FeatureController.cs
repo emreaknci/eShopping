@@ -126,5 +126,34 @@ namespace CatalogService.API.Controllers
             return Ok(Result<List<FeatureListDto>>.SuccessResult(dtos));
         }
 
+        [HttpGet("get-by-ids")]
+        public IActionResult GetFeaturesByIds([FromHeader] List<int> ids)
+        {
+            List<FeatureListDto> dtos = _catalogContext.Features
+                .Include(f => f.FeatureValues)
+                .Where(f => ids.Contains(f.Id) && !f.IsDeleted)
+                .Select(f => new FeatureListDto
+                {
+                    Id = f.Id,
+                    Name = f.Name,
+                    Values = f.FeatureValues
+                        .Where(v => !v.IsDeleted)
+                        .Select(v => new FeatureValueListDto
+                        {
+                            Id = v.Id,
+                            Value = v.Value
+                        })
+                        .ToList()
+                })
+                .ToList();
+
+            if (dtos.Count == 0 || dtos == null)
+            {
+                return NotFound(Result<List<FeatureListDto>>.FailureResult("Özellik bulunamadı"));
+            }
+
+            return Ok(Result<List<FeatureListDto>>.SuccessResult(dtos));
+        }
+
     }
 }

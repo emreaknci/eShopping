@@ -6,8 +6,19 @@
 
       "DownstreamPathTemplate": "/api/{everything}",
       "DownstreamScheme": "http",
-     
+
       "UpstreamPathTemplate": "/catalog/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "CatalogService",
+
+      "DownstreamPathTemplate": "/images/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/catalog-images/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
       "UpstreamScheme": "http"
     },

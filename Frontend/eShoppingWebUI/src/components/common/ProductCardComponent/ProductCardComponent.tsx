@@ -5,10 +5,13 @@ import LaunchIcon from '@mui/icons-material/Launch';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../../../contexts/CartContext';
 import { useContext } from 'react';
+import { ProductListDto } from '../../../dtos/products/productListDto';
 
 
+const baseImagePath = import.meta.env.VITE_API_GATEWAY + '/' + import.meta.env.VITE_CATALOG_IMAGES + '/';
 
-const ProductCardComponent = ({ product }: { product: any }) => {
+const ProductCardComponent = ({ product }: { product: ProductListDto }) => {
+  
   const cartContext = useContext(CartContext);
   const navigate = useNavigate();
 
@@ -18,12 +21,12 @@ const ProductCardComponent = ({ product }: { product: any }) => {
   return (
     <Styled.ProductCard>
       <Styled.Media
-        image={product.images[0]}
+        image={baseImagePath + product.imageUrl ?? 'https://via.placeholder.com/150'}
       />
       <CardContent>
         <div style={{ display: 'flex', alignItems: 'center' }}>
           <Styled.Name variant="h5">
-            {product.name}
+            {product.brandName} - {product.name}
           </Styled.Name>
           <IconButton onClick={() => navigateToDetails(product.id)}>
             <LaunchIcon fontSize="medium" />

@@ -7,74 +7,11 @@ import { ImageSliderComponent } from '../../../components/common/ImageSliderComp
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { LoadingComponent } from '../../../components/common/LoadingComponent';
 import styles from '../../../styles';
-import categories from '../../../mock/category';
 import { CartContext } from '../../../contexts/CartContext';
+import { ProductDetailDto } from '../../../dtos/products/productDetailDto';
+import ProductService from '../../../services/product.service';
+import { toast } from 'react-toastify';
 
-
-const images = [
-  'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-  'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-  'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
-  'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-  'https://images.unsplash.com/photo-1537944434965-cf4679d1a598?auto=format&fit=crop&w=400&h=250&q=60',
-  'https://images.unsplash.com/photo-1538032746644-0212e812a9e7?auto=format&fit=crop&w=400&h=250&q=60',
-  'https://images.unsplash.com/photo-1537996194471-e657df975ab4?auto=format&fit=crop&w=400&h=250',
-  'https://images.unsplash.com/photo-1512341689857-198e7e2f3ca8?auto=format&fit=crop&w=400&h=250&q=60',
-];
-const product = {
-  name: 'Ürün Adı',
-  images: images,
-  description: 'Ürün açıklaması burada yer alacak.',
-  price: 1600,
-  features: [
-    { name: 'Ekran', value: '15.6" FHD' },
-    { name: 'İşlemci', value: 'Intel Core i7' },
-    { name: 'RAM', value: '16 GB DDR4' },
-    { name: 'Depolama', value: '512 GB SSD' },
-    { name: 'Ekran Kartı', value: 'NVIDIA GeForce GTX 1650' },
-    { name: 'İşletim Sistemi', value: 'Windows 10' },
-    { name: 'Ekran', value: '15.6" FHD' },
-    { name: 'İşlemci', value: 'Intel Core i7' },
-    { name: 'RAM', value: '16 GB DDR4' },
-    { name: 'Depolama', value: '512 GB SSD' },
-    { name: 'Ekran Kartı', value: 'NVIDIA GeForce GTX 1650' },
-    { name: 'İşletim Sistemi', value: 'Windows 10' },
-  ],
-  comments: [
-    {
-      userId: 1,
-      userName: 'Ahmet',
-      comment: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.Dolores doloremque quasi molestiae suscipit quaerat amet necessitatibus quas obcaecati quo laudantium nemo praesentium maiores molestias pariatur, nihil debitis ex! Blanditiis, minus!  ',
-      rating: 4.5
-    },
-    {
-      userId: 2,
-      userName: 'Mehmet',
-      comment: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.Dolores doloremque quasi molestiae suscipit quaerat amet necessitatibus quas obcaecati quo laudantium nemo praesentium maiores molestias pariatur, nihil debitis ex! Blanditiis, minus!  ',
-      rating: 3.5
-    },
-    {
-      userId: 3,
-      userName: 'Ali',
-      comment: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.Dolores doloremque quasi molestiae suscipit quaerat amet necessitatibus quas obcaecati quo laudantium nemo praesentium maiores molestias pariatur, nihil debitis ex! Blanditiis, minus!  ',
-      rating: 5
-    },
-    {
-      userId: 4,
-      userName: 'Veli',
-      comment: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.Dolores doloremque quasi molestiae suscipit quaerat amet necessitatibus quas obcaecati quo laudantium nemo praesentium maiores molestias pariatur, nihil debitis ex! Blanditiis, minus!  ',
-      rating: 2
-    },
-    {
-      userId: 5,
-      userName: 'Ayşe',
-      comment: 'Lorem ipsum dolor sit amet consectetur adipisicing elit.Dolores doloremque quasi molestiae suscipit quaerat amet necessitatibus quas obcaecati quo laudantium nemo praesentium maiores molestias pariatur, nihil debitis ex! Blanditiis, minus!  ',
-      rating: 1
-    },
-
-  ],
-  rating: 4.5,
-};
 
 const orderAndReturnDetails = [
   {
@@ -97,72 +34,67 @@ const orderAndReturnDetails = [
     ]
   }
 ]
+
+const baseImagePath = import.meta.env.VITE_API_GATEWAY + '/' + import.meta.env.VITE_CATALOG_IMAGES + '/';
+
 const DetailsPage = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState();
   const [tabValue, setTabValue] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [images, setImages] = useState<string[]>([]);
 
-  const cartContext=useContext(CartContext);
+  const [product, setProduct] = useState<ProductDetailDto>();
+
+  const cartContext = useContext(CartContext);
   const theme = useTheme();
 
-
-
-
-
-  const getProductById = (productId: number) => {
+  const getProductById = async (productId: number) => {
     setIsLoading(true);
-    console.log(categories)
-    for (const category of categories) {
-      const product = category.products.find(product => product.id == productId);
-      if (product) {
-        console.log(product)
-        setIsLoading(false);
 
-        return product;
-      }
-    }
-    setIsLoading(false);
-    return null;
+    await ProductService.getProductById(productId)
+      .then((response) => {
+        const data = response.data.data!;
+        setImages(data.images.map((image) => baseImagePath + image.url));
+        setProduct(response.data.data!);
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.data.data?.message ?? "Ürün detayları getirilirken bir hata oluştu.");
+      }).finally(() => {
+        setIsLoading(false);
+      })
+
 
   };
   useEffect(() => {
-
-    setProduct(getProductById(id));
-
-  }, []);
+    getProductById(Number(id));
+  }, [id]);
 
   const handleTabChange = (event: any, newValue: any) => {
     setTabValue(newValue);
   };
   const handleAddToFavorites = () => {
-    // Favorilere ekleme eylemi burada gerçekleştirilebilir.
-    alert('Ürün favorilere eklendi!');
+    toast.success("Favorilere eklendi.");
   };
   const generatePaymentPlan = (price: number) => {
-    const interestRate = 3.66;
-
-    const calculateInstallment = (price: number, interestRate: number, installment: number) => {
+    const calculateInstallment = (price: number, installment: number) => {
       const installmentRows = [];
-
-      for (let i = 2; i <= installment; i++) {
-        const annualInterestRate = interestRate * i;
-        const interestAmount = (price * annualInterestRate) / 100;
-        const totalAmount = price + interestAmount;
-        const monthlyInstallment = totalAmount / i;
-
+  
+      for (let i = 1; i <= installment; i++) {
+        const monthlyInstallment = price / i;
+  
         installmentRows.push(
           <tr key={i}>
-            <td>{i}</td>
+            <td>{i === 1 ? "Peşin" : `${i} Taksit`}</td>
             <td>{monthlyInstallment.toFixed(2)}</td>
-            <td>{totalAmount.toFixed(2)}</td>
+            <td>{(monthlyInstallment * i).toFixed(2)}</td>
           </tr>
         );
       }
-
+  
       return installmentRows;
     };
-
+  
     return (
       <table>
         <thead>
@@ -173,14 +105,7 @@ const DetailsPage = () => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Peşin</td>
-            <td>{price}</td>
-            <td>{price}</td>
-          </tr>
-          {price <= 1000 && calculateInstallment(price, interestRate, 3)}
-          {(price > 1000 && price <= 10000) && calculateInstallment(price, interestRate, 6)}
-
+          {calculateInstallment(price, 6)}
         </tbody>
       </table>
     );
@@ -188,118 +113,126 @@ const DetailsPage = () => {
 
   const renderDetails = () => {
     return (
-      <Box component="main" sx={styles.mainBoxPadding}>
+      <Box component="main" sx={{
+        px: { xs: 3, sm:5 , md: 20, lg: 30, xl: 50},
+        py: { xs: 3, sm: 5, md: 5, lg: 5}
+      }}>
         <Paper style={{
           backgroundColor: theme.palette.background.paper,
           padding: "1rem",
         }}>
-          <Grid container >
+          {product &&
+            <Grid container >
 
-            <Grid item xs={12} md={5.5} pl={2} pr={2} style={{ display: 'flex', justifyContent: 'center' }}>
-              <ImageSliderComponent images={images} />
-            </Grid>
+              <Grid item xs={12} md={5.5} pl={2} pr={2} style={{ display: 'flex', justifyContent: 'center' }}>
+                <ImageSliderComponent images={images} />
+              </Grid>
 
-            <Grid item xs={12} md={6.5} pl={2} pr={2}>
-              <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
-                <Typography variant="h5" gutterBottom>
-                  {product.name}
-                </Typography>
-                <Box mb={2}>
-                  <Rating value={product.rating} precision={0.5} readOnly />
-                </Box>
-                <Typography variant="body1" paragraph>
-                  {product.description}
-                </Typography>
-                <Styled.Price>
-                  ₺ {product.price.toFixed(2)}
-                </Styled.Price>
-
-                <Box display="flex" justifyContent="space-between" alignItems="center" mt="auto">
-                  <Button variant="contained" color="primary" onClick={()=>cartContext.addToCart(product)}>
-                    Sepete Ekle
-                  </Button>
-                  <IconButton color="primary" onClick={handleAddToFavorites}>
-                    <FavoriteIcon />
-                  </IconButton>
-                </Box>
-              </Box>
-            </Grid>
-
-            <Grid item xs={12} pt={2} pl={2} pr={2}>
-              <Box sx={{ borderBottom: 1, borderColor: 'divider', justifyContent: "center", display: "flex" }}>
-                <Tabs
-                  value={tabValue}
-                  onChange={handleTabChange}
-                  textColor="primary"
-                  indicatorColor="primary"
-                  allowScrollButtonsMobile
-                  variant="scrollable"
-                  scrollButtons="auto"
-                >
-                  <Tab label="Teknik Özellikler" />
-                  <Tab label="Garanti Bilgileri" />
-                  <Tab label="Teslimat ve İade Koşulları" />
-                  <Tab label="Ödeme Seçenekleri" />
-                  <Tab label="Yorumlar" />
-                </Tabs>
-              </Box>
-
-              <Box mb={2} mt={2}>
-                {tabValue === 0 && (
-                  <Typography variant="body1">
-                    <Typography variant="h6" fontWeight="bold" mb={1} color="primary">
-                      Özellikler
-                    </Typography>
-                    {product.features.map((feature, index) => (
-                      <div key={index} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Typography variant="body1" fontWeight="bold">{feature.name}:</Typography>
-                        <Typography variant="body1">{feature.value}</Typography>
-                      </div>
-                    ))}
+              <Grid item xs={12} md={6.5} pl={2} pr={2}>
+                <Box display="flex" flexDirection="column" justifyContent="space-between" height="100%">
+                  <Typography variant="h5" gutterBottom>
+                    {product.name}
                   </Typography>
-
-                )}
-                {tabValue === 1 && (
-                  <Typography variant="body1">
-                    <Typography variant="h6" fontWeight={"bold"} mb={1} color="primary">
-                      Garanti Bilgileri
-                    </Typography>
-                    <Typography variant="body1">
-                      xx.com'da satışa sunulan tüm ürünler en az 2 yıl olmak üzere üretici ya da distribütör garantisi altındadır. Bu süre bazı markalar tarafından sunulan ek garantilerle uzatılabilir.
-
-                    </Typography>
+                  <Box mb={2}>
+                    {/* <Rating value={product.rating} precision={0.5} readOnly /> */}
+                    <Rating value={3.5} precision={0.5} readOnly />
+                  </Box>
+                  <Typography variant="body1" paragraph>
+                    {product.description}
                   </Typography>
-                )}
-                {tabValue === 2 && (
+                  <Styled.Price>
+                    ₺ {product.price.toFixed(2)}
+                  </Styled.Price>
+
+                  <Box display="flex" justifyContent="space-between" alignItems="center" mt="auto">
+                    <Button variant="contained"
+                      color="primary" onClick={() => cartContext.addToCart(product)}>
+                      Sepete Ekle
+                    </Button>
+                    <IconButton color="primary" onClick={handleAddToFavorites}>
+                      <FavoriteIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
+              </Grid>
+
+              <Grid item xs={12} pt={2} pl={2} pr={2}>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider', justifyContent: "center", display: "flex" }}>
+                  <Tabs
+                    value={tabValue}
+                    onChange={handleTabChange}
+                    textColor="primary"
+                    indicatorColor="primary"
+                    allowScrollButtonsMobile
+                    variant="scrollable"
+                    scrollButtons="auto"
+                  >
+                    <Tab label="Teknik Özellikler" />
+                    <Tab label="Garanti Bilgileri" />
+                    <Tab label="Teslimat ve İade Koşulları" />
+                    <Tab label="Ödeme Seçenekleri" />
+                    <Tab label="Yorumlar" />
+                  </Tabs>
+                </Box>
+
+                <Box mb={2} mt={2}>
+                  {tabValue === 0 && (
+                   <>
+                   <Typography variant="h6" fontWeight="bold" mb={1} color="primary">
+                     Özellikler
+                   </Typography>
+                   <table>
+                     <tbody>
+                       {product.features.map((feature, index) => (
+                         <tr key={index}>
+                           <td style={{ fontWeight: 'bold' }}>{feature.name}:</td>
+                           <td>{feature.value}</td>
+                         </tr>
+                       ))}
+                     </tbody>
+                   </table>
+                 </>
+
+                  )}
+                  {tabValue === 1 && (
+                    <>
+                      <Typography variant="h6" fontWeight={"bold"} mb={1} color="primary">
+                        Garanti Bilgileri
+                      </Typography>
+                      <Typography variant="body1">
+                        xx.com'da satışa sunulan tüm ürünler en az 2 yıl olmak üzere üretici ya da distribütör garantisi altındadır. Bu süre bazı markalar tarafından sunulan ek garantilerle uzatılabilir.
+                      </Typography>
+                    </>
+                  )}
+                  {tabValue === 2 && (
+                    <>
+                      {orderAndReturnDetails.map((detail, outerIndex) => (
+                        <div key={detail.title}>
+                          <Typography variant="h6" fontWeight={"bold"} mb={1} color="primary">
+                            {detail.title}
+                          </Typography>
+                          {detail.details.map((item, innerIndex) => (
+                            <div key={`${outerIndex}-${innerIndex}`}>
+                              <Typography variant="body1">{item}</Typography>
+                              <br />
+                            </div>
+                          ))}
+                        </div>
+                      ))}
+                    </>
+                  )}
+                  {tabValue === 3 && (
+                    <>
+                      <Typography variant="h6" fontWeight={"bold"} mb={1} color="primary">
+                        Ödeme Seçenekleri
+                      </Typography>
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/2560px-MasterCard_Logo.svg.png" alt="iyzico" style={{ width: "4rem", height: "auto" }} />
+                      {generatePaymentPlan(product.price)}
+                    </>
+
+                  )}
+                  {/* {tabValue === 4 && (
                   <>
-                    {orderAndReturnDetails.map((detail) => (
-                      <>
-                        <Typography variant="h6" fontWeight={"bold"} mb={1} color="primary">
-                          {detail.title}
-                        </Typography>
-                        {detail.details.map((item, index) => (
-                          <>
-                            <Typography key={index} variant="body1">{item}</Typography>
-                            <br />
-                          </>
-                        ))}
-                      </>
-                    ))}
-
-                  </>
-                )}
-                {tabValue === 3 && (
-                  <Typography variant="body1">
-                    <Typography variant="h6" fontWeight={"bold"} mb={1} color="primary">
-                      Ödeme Seçenekleri
-                    </Typography>
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/MasterCard_Logo.svg/2560px-MasterCard_Logo.svg.png" alt="iyzico" style={{ width: "4rem", height: "auto" }} />
-                    {generatePaymentPlan(product.price)}
-                  </Typography>
-
-                )}
-                {tabValue === 4 && (
-                  <Typography variant="body1">
                     {product.comments.map((comment, index) => (
                       <Box key={index} mb={2} mt={2}>
                         <Typography variant="h6" color="textPrimary" style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -311,12 +244,11 @@ const DetailsPage = () => {
                       </Box>
                     ))}
 
-                  </Typography>
-                )}
-              </Box>
-            </Grid>
-
-          </Grid>
+                  </>
+                )} */}
+                </Box>
+              </Grid>
+            </Grid>}
         </Paper>
       </Box >
     )
