@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }: any) => {
             setIsAdmin(JwtHelper.isAdministrator(accessToken.token));
             toast.success("Giriş başarılı");
         }).catch(err => {
-            toast.error(err.response.data?.message);
+            toast.error(err.response.data?.message || "Giriş yapılırken bir hata oluştu");
         })
     }
 
