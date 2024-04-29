@@ -27,6 +27,7 @@ const HomePage = () => {
     await CategoryService.getCategoriesWithProducts()
       .then((response) => {
         setCategories(response.data.data!);
+        console.log(response.data.data!)
       }).catch((error) => {
         console.log(error);
       }).finally(() => {

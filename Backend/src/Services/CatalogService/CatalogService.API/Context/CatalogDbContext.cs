@@ -1,4 +1,5 @@
-﻿using CatalogService.API.Models;
+﻿using CatalogService.API.Context.EntityConfigurations;
+using CatalogService.API.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading;
 
@@ -12,6 +13,8 @@ namespace CatalogService.API.Context
         {
             _configuration = configuration;
         }
+        public const string DEFAULT_SCHEMA = "public";
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -45,6 +48,27 @@ namespace CatalogService.API.Context
                 };
             }
             return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //modelBuilder.ApplyConfiguration(new BrandCategoryEntityConfiguration());
+            //modelBuilder.ApplyConfiguration(new BrandEntityConfiguration());
+            //modelBuilder.ApplyConfiguration(new CategoryEntityConfiguration());
+            //modelBuilder.ApplyConfiguration(new CategoryFeatureEntityConfiguration());
+            //modelBuilder.ApplyConfiguration(new FeatureEntityConfiguration());
+            //modelBuilder.ApplyConfiguration(new FeatureValueEntityConfiguration());
+            //modelBuilder.ApplyConfiguration(new ProductCategoryEntityConfiguration());
+            //modelBuilder.ApplyConfiguration(new ProductEntityConfiguration());
+            //modelBuilder.ApplyConfiguration(new ProductFeatureEntityConfiguration());
+            //modelBuilder.ApplyConfiguration(new ProductImageEntityConfiguration());
+
+
+            modelBuilder.Entity<Feature>().HasData(SeedData.Features());
+            modelBuilder.Entity<FeatureValue>().HasData(SeedData.FeatureValues());
+            modelBuilder.Entity<Brand>().HasData(SeedData.Brands());
+            modelBuilder.Entity<Category>().HasData(SeedData.Categories());
+            modelBuilder.Entity<CategoryFeature>().HasData(SeedData.CategoryFeatures());
         }
 
         public DbSet<Brand> Brands { get; set; }

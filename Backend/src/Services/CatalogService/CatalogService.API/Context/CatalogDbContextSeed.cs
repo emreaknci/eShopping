@@ -5,87 +5,83 @@ using Polly.Retry;
 
 namespace CatalogService.API.Context
 {
-    public class CatalogDbContextSeed
+    public class SeedData
     {
-        public async Task SeedAsync(CatalogDbContext context, ILogger<CatalogDbContext> logger)
+        public static IEnumerable<Brand> Brands()
         {
-            var policy = CreatePolicy(logger, nameof(CatalogDbContext));
+            var brands = new List<Brand>();
 
-            await policy.ExecuteAsync(async () =>
+            foreach (var item in brands)
             {
-                if (!context.Features.Any())
-                {
-                    foreach (var item in Features)
-                    {
-                        item.IsDeleted = false;
-                        item.Status = true;
-                        item.CreatedDate = DateTime.Now;
+                item.IsDeleted = false;
+                item.Status = true;
+                item.CreatedDate = DateTime.UtcNow;
 
-                        context.Features.Add(item);
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-                if (!context.FeatureValues.Any())
-                {
-                    foreach (var item in FeatureValues)
-                    {
-                        item.IsDeleted = false;
-                        item.Status = true;
-                        item.CreatedDate = DateTime.Now;
-
-                        context.FeatureValues.Add(item);
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-
-                if (!context.Categories.Any())
-                {
-                    foreach (var item in Categories)
-                    {
-                        item.IsDeleted = false;
-                        item.Status = true;
-                        item.CreatedDate = DateTime.Now;
-
-                        context.Categories.Add(item);
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-
-
-                if (!context.CategoryFeatures.Any())
-                {
-                    foreach (var item in CategoryFeatures)
-                    {
-                        item.IsDeleted = false;
-                        item.Status = true;
-                        item.CreatedDate = DateTime.Now;
-
-                        context.CategoryFeatures.Add(item);
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-
-                if (!context.Brands.Any())
-                {
-                    foreach (var item in Brands)
-                    {
-                        item.IsDeleted = false;
-                        item.Status = true;
-                        item.CreatedDate = DateTime.Now;
-
-                        context.Brands.Add(item);                
-                    }
-
-                    await context.SaveChangesAsync();
-                }
-            });
+                brands.Add(item);
+            }
+            return brands;
         }
 
-        private IEnumerable<Brand> Brands => new List<Brand>
+        public static IEnumerable<Category> Categories()
+        {
+            var categories = new List<Category>();
+
+            foreach (var item in categories)
+            {
+                item.IsDeleted = false;
+                item.Status = true;
+                item.CreatedDate = DateTime.UtcNow;
+
+                categories.Add(item);
+            }
+            return categories;
+        }
+
+        public static IEnumerable<Feature> Features()
+        {
+            var features = new List<Feature>();
+
+            foreach (var item in features)
+            {
+                item.IsDeleted = false;
+                item.Status = true;
+                item.CreatedDate = DateTime.UtcNow;
+
+                features.Add(item);
+            }
+            return features;
+        }
+
+        public static IEnumerable<CategoryFeature> CategoryFeatures()
+        {
+            var categoryFeatures = new List<CategoryFeature>();
+
+            foreach (var item in categoryFeatures)
+            {
+                item.IsDeleted = false;
+                item.Status = true;
+                item.CreatedDate = DateTime.UtcNow;
+
+                categoryFeatures.Add(item);
+            }
+            return categoryFeatures;
+        }
+
+        public static IEnumerable<FeatureValue> FeatureValues()
+        {
+            var featureValues = new List<FeatureValue>();
+
+            foreach (var item in featureValues)
+            {
+                item.IsDeleted = false;
+                item.Status = true;
+                item.CreatedDate = DateTime.UtcNow;
+
+                featureValues.Add(item);
+            }
+            return featureValues;
+        }
+        private IEnumerable<Brand> brands => new List<Brand>
         {
             new () {Id=1, Name = "Apple" },
             new () {Id=2, Name = "Samsung" },
@@ -122,7 +118,7 @@ namespace CatalogService.API.Context
             new () {Id=33, Name = "JBL" },
         };
 
-        private IEnumerable<Category> Categories => new List<Category>
+        private IEnumerable<Category> categories => new List<Category>
         {
             new () {Id=1, Name = "Telefon" },
             new () {Id=2, Name = "Bilgisayar" },
@@ -135,7 +131,7 @@ namespace CatalogService.API.Context
             new () {Id=9, Name = "Hoparlör",ParentCategoryId=3 },
         };
 
-        private IEnumerable<Feature> Features = new List<Feature>()
+        private IEnumerable<Feature> features = new List<Feature>()
         {
             new (){Id=1, Name="Ekran Boyutu"},
             new (){Id=2, Name="Dahili Hafıza"},
@@ -152,7 +148,7 @@ namespace CatalogService.API.Context
             new (){Id=13, Name="Hoparlör Gücü"},
         };
 
-        private IEnumerable<CategoryFeature> CategoryFeatures = new List<CategoryFeature>()
+        private IEnumerable<CategoryFeature> categoryFeatures = new List<CategoryFeature>()
         {
             new () {Id=1, CategoryId=1, FeatureId=2},
             new () {Id=2, CategoryId=1, FeatureId=3},
@@ -185,7 +181,7 @@ namespace CatalogService.API.Context
             new () {Id=22, CategoryId=9, FeatureId=13},
         };
 
-        private IEnumerable<FeatureValue> FeatureValues = new List<FeatureValue>()
+        private IEnumerable<FeatureValue> featureValues = new List<FeatureValue>()
         {
             new () {Id=1, FeatureId=1, Value="6.5 inch"},
             new () {Id=2, FeatureId=1, Value="6.7 inch"},
@@ -280,18 +276,5 @@ namespace CatalogService.API.Context
             new () {Id=79, FeatureId=13, Value="30 W"},
             new () {Id=80, FeatureId=13, Value="50 W"},
         };
-
-        private AsyncRetryPolicy CreatePolicy(ILogger<CatalogDbContext> logger, string prefix, int retries = 3)
-        {
-            return Policy.Handle<PostgresException>().
-                WaitAndRetryAsync(
-                retryCount: retries,
-                sleepDurationProvider: retry => TimeSpan.FromSeconds(5),
-                onRetry: (exception, timespan, retryCount, context) =>
-                {
-                    logger.LogWarning(exception, "[{prefix}] Exception {ExceptionType} with message {Message} detected on attempt {retryCount} of {retries}", prefix, exception.GetType().Name, exception.Message, retryCount, retries);
-                });
-
-        }
     }
 }

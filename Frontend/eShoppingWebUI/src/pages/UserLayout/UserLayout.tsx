@@ -14,6 +14,8 @@ import { AddNewProductPage } from './ProductsPage/AddNewProductPage';
 import { useContext, useEffect } from 'react';
 import { AuthContext } from '../../contexts/AuthContext';
 import { AddNewAdminPage } from './AdminsPage/AddNewAdminPage';
+import { AddCategoryPage } from './CategoriesPage/AddCategoryPage';
+import { AddFeaturePage } from './CategoriesPage/AddFeaturePage';
 
 const UserLayout = () => {
   const authContext = useContext(AuthContext);
@@ -44,6 +46,8 @@ const UserLayout = () => {
                 <Route path="/products" element={<ProductsPage />} />
                 <Route path="/add-new-product" element={<AddNewProductPage />} />
                 <Route path="/add-new-admin" element={<AddNewAdminPage />} />
+                <Route path="/add-new-category" element={<AddCategoryPage />} />
+                <Route path="/add-new-feature" element={<AddFeaturePage />} />
               </>}
               <Route path="*" element={<Navigate to={"/user"} />} />
             </Routes>

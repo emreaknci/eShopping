@@ -5,6 +5,7 @@
         public int ProductId { get; set; }
         public int FeatureValueId { get; set; }
         public virtual FeatureValue? FeatureValue { get; set; }
+        public virtual Product? Product { get; set; }
     }
 
 }

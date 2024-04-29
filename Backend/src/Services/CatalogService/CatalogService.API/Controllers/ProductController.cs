@@ -195,7 +195,7 @@ namespace CatalogService.API.Controllers
             AddProductCategories(dto, product.Id);
             UploadCoverImage(dto.CoverImage, product.Id);
             UploadImages(dto.Images, product.Id);
-            AddProductFeatures(dto.FeaturesValueIds, product.Id);
+            AddProductFeatures(dto.FeatureValueIds, product.Id);
 
             foreach (var categoryId in dto.CategoryIds)
             {

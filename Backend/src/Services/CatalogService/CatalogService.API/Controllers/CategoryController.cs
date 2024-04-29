@@ -38,13 +38,26 @@ namespace CatalogService.API.Controllers
                     Id = category.Id,
                     Name = category.Name,
                     Features = _catalogContext.CategoryFeatures
-                    .Where(cf => cf.CategoryId == category.Id || cf.CategoryId == category.ParentCategoryId)
+                    .Where(cf => cf.CategoryId == category.Id)
                     .Select(cf => new FeatureDto
                     {
                         Id = cf.Feature.Id,
                         Name = cf.Feature.Name
                     }).ToList(),
-                    ParentCategoryId = category.ParentCategoryId ?? null
+                    ParentCategoryId = category.ParentCategoryId ?? null,
+                    SubCategories = _catalogContext.Categories.Where(c => c.ParentCategoryId == category.Id).Select(c => new CategoryListDto
+                    {
+                        Id = c.Id,
+                        Name = c.Name,
+                        ParentCategoryId = c.ParentCategoryId ?? null,
+                        Features = _catalogContext.CategoryFeatures 
+                        .Where(cf => cf.CategoryId == c.Id || cf.CategoryId == c.ParentCategoryId)
+                        .Select(cf => new FeatureDto
+                        {
+                            Id = cf.Feature.Id,
+                            Name = cf.Feature.Name
+                        }).ToList(),
+                    }).ToList(),
                 };
                 categoryListDtos.Add(categoryListDto);
             }
@@ -93,6 +106,28 @@ namespace CatalogService.API.Controllers
             return Ok(Result<CategoryListDto>.SuccessResult(categoryListDto));
         }
 
+        [HttpGet("get-category-names")]
+        public IActionResult GetCategoryNames()
+        {
+            var categories = _catalogContext.Categories.Where(c => c.ParentCategoryId == null).ToList();
+            if (categories == null || !categories.Any())
+                return NotFound(Result<List<CategoryDto>>.FailureResult("Kategori Bulunamadı"));
+
+            List<CategoryDto> categoryDtos = new List<CategoryDto>();
+
+            foreach (var category in categories)
+            {
+                var categorytDto = new CategoryDto
+                {
+                    Id = category.Id,
+                    Name = category.Name
+                };
+                categoryDtos.Add(categorytDto);
+            }
+
+            return Ok(Result<List<CategoryDto>>.SuccessResult(categoryDtos));
+        }
+
         [HttpGet("get-categories-with-products")]
         public IActionResult GetCategoriesWithProducts()
         {
@@ -130,7 +165,7 @@ namespace CatalogService.API.Controllers
 
                 categoryListDto.Products.ForEach(p =>
                 {
-                    p.ImageUrl = _catalogContext.ProductImages.FirstOrDefault(pi => pi.IsCoverImage || pi.ProductId == p.Id)?.Url;
+                    p.ImageUrl = _catalogContext.ProductImages.Where(pi=>pi.ProductId==p.Id).FirstOrDefault(pi=>pi.IsCoverImage)?.Url;
                 });
 
                 categoryListDtos.Add(categoryListDto);

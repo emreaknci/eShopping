@@ -20,20 +20,26 @@ namespace CatalogService.API.Controllers
         }
 
         [HttpPost("add-feature")]
-        public IActionResult CreateFeature([FromBody] FeatureCreateDto dto)
+        public async Task<IActionResult> CreateFeature([FromBody] FeatureCreateDto dto)
         {
             var feature = new Feature
             {
                 Name = dto.Name,
             };
             feature = _catalogContext.Features.Add(feature).Entity;
-            _catalogContext.SaveChanges();
+            var saved = await _catalogContext.SaveChangesAsync();
+            if (saved == 0)
+                return BadRequest(Result<List<FeatureListDto>>.FailureResult("Özellik eklenirken bir hata oluştu"));
+
 
             _catalogContext.FeatureValues.AddRange(
                 dto.Values
                 .Select(value => new FeatureValue { Value = value, FeatureId = feature.Id })
                 );
-            _catalogContext.SaveChanges();
+            saved =await _catalogContext.SaveChangesAsync();
+
+            if (saved == 0)
+                return BadRequest(Result<List<FeatureListDto>>.FailureResult("Özellik değerleri eklenirken bir hata oluştu"));
 
             var featureListDtos = _catalogContext.Features
                 .Include(f => f.FeatureValues)

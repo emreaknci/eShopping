@@ -7,7 +7,7 @@
         public string? Description { get; set; }
         public decimal Price { get; set; }
         public ICollection<int>? CategoryIds { get; set; }
-        public ICollection<int>? FeaturesValueIds { get; set; }
+        public ICollection<int>? FeatureValueIds { get; set; }
         public ICollection<IFormFile>? Images { get; set; }
         public IFormFile? CoverImage { get; set; }
     }

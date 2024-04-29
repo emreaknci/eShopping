@@ -15,6 +15,9 @@ const ProductService = {
     async getProductById(id: number): Promise<AxiosResponse<Result<ProductDetailDto>>> {
         return await BaseService.get(`/${productEndpoint}/detail?id=${id}`);
     },
+    async addProduct (formData: FormData): Promise<AxiosResponse<Result<ProductDetailDto>>> {
+        return await BaseService.post(`/${productEndpoint}/`, formData,{headers: {'Content-Type': 'multipart/form-data'}});
+    },
 }
 
 export default ProductService;
