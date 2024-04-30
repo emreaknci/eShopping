@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from '../../../styles';
 import { LoginDto } from '../../../dtos/loginDto';
 import { AuthContext } from '../../../contexts/AuthContext';
+import { CustomTextFieldComponent } from '../../../components/common/CustomTextFieldComponent';
 
 
 const validationSchema = Yup.object({
@@ -56,8 +57,8 @@ const LoginPage = () => {
           Giriş Yap
         </Typography>
         <form onSubmit={formik.handleSubmit} style={{ width: '100%', marginTop: 16 }}>
-          {renderTextField(formik, 'email', 'E-posta')}
-          {renderTextField(formik, 'password', 'Şifre', 'password')}
+          <CustomTextFieldComponent formik={formik} fieldName="email" label="E-posta" />
+          <CustomTextFieldComponent formik={formik} fieldName="password" label="Şifre" type="password" />
           <Typography variant="body2" style={{ marginTop: "1rem", justifyContent: "flex-end" }}>
             Hesabın yok mu?{' '}
             <MuiLink style={{ cursor: "pointer" }}

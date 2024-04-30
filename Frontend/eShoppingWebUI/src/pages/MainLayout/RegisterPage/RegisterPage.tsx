@@ -11,6 +11,7 @@ import styles from '../../../styles';
 import AuthService from '../../../services/auth.service';
 import { RegisterDto } from '../../../dtos/registerDto';
 import { toast } from 'react-toastify';
+import { CustomTextFieldComponent } from '../../../components/common/CustomTextFieldComponent';
 
 
 const validationSchema = Yup.object({
@@ -73,11 +74,11 @@ const RegisterPage = () => {
           Kayıt Ol
         </Typography>
         <form onSubmit={formik.handleSubmit} style={{ width: '100%', marginTop: 16 }}>
-          {renderTextField(formik, 'firstName', 'Ad')}
-          {renderTextField(formik, 'lastName', 'Soyad')}
-          {renderTextField(formik, 'email', 'E-posta')}
-          {renderTextField(formik, 'password', 'Şifre', 'password')}
-          {renderTextField(formik, 'confirmPassword', 'Şifre Onayı', 'password')}
+          <CustomTextFieldComponent formik={formik} fieldName='firstName' label='Ad' />
+          <CustomTextFieldComponent formik={formik} fieldName='lastName' label='Soyad' />
+          <CustomTextFieldComponent formik={formik} fieldName='email' label='E-posta'/>
+          <CustomTextFieldComponent formik={formik} fieldName='password' label='Şifre' type='password'/>
+          <CustomTextFieldComponent formik={formik} fieldName='confirmPassword' label='Şifre Onayı' type='password'/>
           <Typography variant="body2" style={{ marginTop: '1rem', justifyContent: 'flex-end' }}>
             Zaten bir hesabın var mı?{' '}
             <MuiLink style={{ cursor: "pointer" }}
