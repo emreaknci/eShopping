@@ -1,6 +1,13 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "./AuthContext";
+import { BasketItem } from "../models/baskets/basketItem";
+import BasketService from "../services/basket.service";
+import { JwtHelper } from "../utils/JwtHelper";
+import StorageService from "../services/storage.service";
+import { ProductListDto } from "../dtos/products/productListDto";
+import { ProductDetailDto } from "../dtos/products/productDetailDto";
+import { CustomerBasket } from "../models/baskets/customerBasket";
 
 
 export const CartContext = createContext({
@@ -9,113 +16,158 @@ export const CartContext = createContext({
   clearCart: () => { },
   increaseQuantity: (product: any) => { },
   decreaseQuantity: (product: any) => { },
-  cartItems: [],
+  customerCart: undefined as CustomerBasket | undefined,
   cartItemCount: 0,
   totalPrice: 0
 })
 
 export const CartProvider = ({ children }: any) => {
   const [cartItemCount, setCartItemCount] = useState(0);
-  const [cartItems, setCartItems] = useState([]);
+  const [customerCart, setCustomerBasket] = useState<CustomerBasket>();
   const [totalPrice, setTotalPrice] = useState(0);
-  const authContext=useContext(AuthContext)
+  const authContext = useContext(AuthContext)
+
 
   useEffect(() => {
-    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    setCartItems(existingCart);
-    setCartItemCount(existingCart.length);
-    calculateTotalPrice()
-  }, [localStorage.getItem('cart')]);
+    const getCartById = async (customerId: string) => {
+      await BasketService.getBasketById(customerId)
+        .then((response) => {
+          const data = response.data.data!;
+          console.log(data)
+          setCustomerBasket(data);
+          setCartItemCount(data.items.length);
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
+    if (authContext.isAuthenticated && StorageService.getAccessToken()) {
+      const customerId = JwtHelper.getTokenInfos(StorageService.getAccessToken()!).nameidentifier;
+      if (customerId) {
+        getCartById(customerId);
+      }
+    }
+  }, [authContext]);
 
-  const calculateTotalPrice = () => {
-    let total = 0;
-    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    existingCart.forEach((item: any) => {
-      total += item.price * item.quantity;
-    });
-    setTotalPrice(total);
-  }
+  useEffect(()=>{
+    if(customerCart){
+      let total = 0;
+      customerCart.items.forEach((item)=>{
+        total += item.unitPrice * item.quantity;
+      })
+      setTotalPrice(total);
+    }
+
+  },[customerCart])
 
 
-  const addToCart = (product: any) => {
-    if(!authContext.isAuthenticated){
+
+  const addToCart = async (product: ProductListDto | ProductDetailDto) => {
+    if (!authContext.isAuthenticated) {
       toast.info('Sepete ürün eklemek için giriş yapmalısınız.')
       return;
     }
-    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    let updatedCart = [...existingCart];
-    let found = false;
-    const { id, price, name } = product;
 
-    updatedCart = updatedCart.map((item: any) => {
-      if (item.id === product.id) {
-        found = true;
-        return { ...item, quantity: item.quantity + 1 };
-      }
-      return item;
-    });
-
-    if (!found) {
-      updatedCart.push({ id, price, name, quantity: 1 });
-      setCartItemCount(cartItemCount + 1);
+    const checkIfProductExists = customerCart?.items.find(x => x.productId === product.id);
+    if (checkIfProductExists) {
+      increaseQuantity(checkIfProductExists);
+      return;
     }
 
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-    toast.success(`'${product.name}' ürünü sepete eklendi.`)
-  }
-
-  const removeFromCart = (product: any) => {
-    console.log(product)
-    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const updatedCart = existingCart.filter((item: any) => item.id !== product.id);
-
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-    setCartItemCount(updatedCart.length);
-
-  }
-
-  const increaseQuantity = (product: any) => {
-    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    const updatedCart = existingCart.map((item: any) => {
-      if (item.id === product.id) {
-        return { ...item, quantity: item.quantity + 1 };
-      }
-      return item;
-    });
-
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-    setCartItems(updatedCart);
-  }
-
-  const decreaseQuantity = (product: any) => {
-    const existingCart = JSON.parse(localStorage.getItem('cart') || '[]');
-    let updatedCart;
-
-    if (product.quantity === 1) {
-      updatedCart = existingCart.filter((item: any) => item.id !== product.id);
-    } else {
-      updatedCart = existingCart.map((item: any) => {
-        if (item.id === product.id) {
-          return { ...item, quantity: item.quantity - 1 };
-        }
-        return item;
-      });
-
+    const basketItem: BasketItem = {
+      productId: product.id,
+      productName: product.name!,
+      unitPrice: product.price,
+      quantity: 1,
     }
-    localStorage.setItem('cart', JSON.stringify(updatedCart));
-    setCartItems(updatedCart);
+
+    if ('imageUrl' in product) {
+      basketItem.pictureUrl = product.imageUrl!;
+    }
+    if ('images' in product) {
+      basketItem.pictureUrl = product.images.filter((x) => x.isCoverImage)[0].url;
+    }
+
+    await BasketService.addItemToBasket(basketItem)
+      .then((response) => {
+        setCustomerBasket(response.data.data!);
+        setCartItemCount(response.data.data!.items.length);
+        toast.success(`'${product.name}' ürünü sepete eklendi.`)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
-  const clearCart = () => {
-    localStorage.setItem('cart', JSON.stringify([]));
-    setCartItemCount(0);
-    setCartItems([]);
+  const removeFromCart = async (basketItem: BasketItem) => {
+    const getCurrentItems = customerCart?.items;
+    const getCurrentItem = getCurrentItems?.find(x => x.productId === basketItem.productId);
+    if (getCurrentItem) {
+      getCurrentItems?.splice(getCurrentItems.indexOf(getCurrentItem), 1);
+      customerCart && await BasketService.updateBasket(customerCart)
+        .then((response) => {
+          setCustomerBasket(response.data.data!);
+          setCartItemCount(response.data.data!.items.length);
+        }).catch((error) => {
+          console.log(error)
+        })
+    }
+
+  }
+
+  const increaseQuantity = async (basketItem: BasketItem) => {
+    const getCurrentItems = customerCart?.items;
+    const getCurrentItem = getCurrentItems?.find(x => x.productId === basketItem.productId);
+    if (getCurrentItem) {
+      getCurrentItem.quantity++;
+      customerCart && await BasketService.updateBasket(customerCart)
+        .then((response) => {
+          setCustomerBasket(response.data.data!);
+          setCartItemCount(response.data.data!.items.length);
+        }).catch((error) => {
+          console.log(error)
+        })
+    }
+  }
+
+  const decreaseQuantity = async (basketItem: BasketItem) => {
+    const getCurrentItems = customerCart?.items;
+    const getCurrentItem = getCurrentItems?.find(x => x.productId === basketItem.productId);
+    if (getCurrentItem) {
+      getCurrentItem.quantity--;
+      if (getCurrentItem.quantity === 0) {
+        getCurrentItems?.splice(getCurrentItems.indexOf(getCurrentItem), 1);
+      }
+      const checkIfAllItemsQuantityZero = getCurrentItems?.every(x => x.quantity === 0);
+      if (checkIfAllItemsQuantityZero) {
+        clearCart();
+        return;
+      }
+      customerCart && await BasketService.updateBasket(customerCart)
+        .then((response) => {
+          setCustomerBasket(response.data.data!);
+          setCartItemCount(response.data.data!.items.length);
+        }).catch((error) => {
+          console.log(error)
+        })
+    }
+  }
+
+  const clearCart = async () => {
+    await BasketService.deleteBasket(customerCart!.buyerId.toString())
+      .then((response) => {
+        setCustomerBasket(undefined);
+        setCartItemCount(0);
+        setTotalPrice(0);
+      }).catch((error) => {
+        console.log(error)
+      })
   }
   return (
     <CartContext.Provider value={{
       addToCart, removeFromCart,
       clearCart, cartItemCount,
-      cartItems,
+      customerCart,
       increaseQuantity, decreaseQuantity,
       totalPrice
     }}>

@@ -27,6 +27,7 @@ const CustomTextFieldComponent = (props: CustomTextFieldProps) => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
+    console.log(value)
     if (props.type === "number" && (props.fieldName === "unitOfStock" || props.fieldName === "price")) {
       const newValue = Math.max(parseInt(value), 0).toString();
       props.formik.setFieldValue(props.fieldName, newValue);
@@ -49,7 +50,7 @@ const CustomTextFieldComponent = (props: CustomTextFieldProps) => {
             variant={props.variant || 'standard'}
             autoComplete="off"
             value={props.formik.values[props.fieldName]}
-            onChange={handleChange} // Değişiklik burada
+            onChange={handleChange}
             error={(props.formik.touched[props.fieldName]) && Boolean(props.formik.errors[props.fieldName])}
             helperText={(props.formik.touched[props.fieldName]) && props.formik.errors[props.fieldName]}
             disabled={props.disabled}
