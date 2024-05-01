@@ -21,7 +21,7 @@ namespace OrderService.Infrastructure.Repositories
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
-        public IUnitOfWork UnitOfWork { get; }
+        public IUnitOfWork UnitOfWork => _dbContext;
 
         public async Task<T> AddAsync(T entity)
         {

@@ -9,13 +9,13 @@ namespace OrderService.Application.IntegrationEvents
 {
     public class OrderStartedIntegrationEvent : IntegrationEvent
     {
-        public string UserId { get; set; }
-        public string UserName { get; set; }
+        public string OrderId { get; set; }
+        public Dictionary<int,int> OrderItems { get; set; } // ProductId, Quantity
 
-        public OrderStartedIntegrationEvent(string userId, string userName)
+        public OrderStartedIntegrationEvent(string orderId,  Dictionary<int, int> orderItems)
         {
-            UserId = userId;
-            UserName = userName;
+            OrderId = orderId;
+            OrderItems = orderItems;
         }
 
     }

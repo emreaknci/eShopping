@@ -27,7 +27,7 @@ namespace BasketService.API
 
             services.AddHttpContextAccessor();
 
-            services.AddScoped<IBasketRepository, RedisBasketRepository>();
+            services.AddTransient<IBasketRepository, RedisBasketRepository>();
             services.AddTransient<IIdentityService, IdentityService>();
 
             services.AddSingleton<IEventBus>(sp =>

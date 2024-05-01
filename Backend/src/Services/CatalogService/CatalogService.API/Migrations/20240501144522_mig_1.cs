@@ -4,8 +4,6 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
-
 namespace CatalogService.API.Migrations
 {
     /// <inheritdoc />
@@ -80,6 +78,7 @@ namespace CatalogService.API.Migrations
                     Name = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     Price = table.Column<decimal>(type: "numeric", nullable: false),
+                    UnitsInStock = table.Column<int>(type: "integer", nullable: false),
                     BrandId = table.Column<int>(type: "integer", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
@@ -267,10 +266,10 @@ namespace CatalogService.API.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Brands",
-                columns: new[] { "Id", "CreatedDate", "IsDeleted", "Name", "Status", "UpdatedDate" },
-                values: new object[,]
-                {
+             table: "Brands",
+             columns: new[] { "Id", "CreatedDate", "IsDeleted", "Name", "Status", "UpdatedDate" },
+             values: new object[,]
+             {
                     { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Apple", true, null },
                     { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Samsung", true, null },
                     { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "Lenovo", true, null },
@@ -304,7 +303,7 @@ namespace CatalogService.API.Migrations
                     { 31, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "HyperX", true, null },
                     { 32, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "A4Tech", true, null },
                     { 33, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, "JBL", true, null }
-                });
+             });
 
             migrationBuilder.InsertData(
                 table: "Categories",

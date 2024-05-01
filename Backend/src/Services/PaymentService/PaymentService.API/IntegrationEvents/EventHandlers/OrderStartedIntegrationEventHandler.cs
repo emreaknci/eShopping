@@ -19,13 +19,13 @@ namespace PaymentService.API.IntegrationEvents.EventHandlers
 
         public Task Handle(OrderStartedIntegrationEvent @event)
         {
-            
+
             string keyword = "PaymentSuccess";
             bool paymentSuccessFlag = configuration.GetValue<bool>(keyword);
 
             IntegrationEvent paymentEvent = paymentSuccessFlag
                 ? new OrderPaymentSucceededIntegrationEvent(@event.OrderId)
-                : new OrderPaymentFailedIntegrationEvent(@event.OrderId,"Ödeme alınırken bir hata ile karşılaşıldı. Lütfen daha sonra tekrar deneyiniz");
+                : new OrderPaymentFailedIntegrationEvent(@event.OrderId, "Ödeme alınırken bir hata ile karşılaşıldı. Lütfen daha sonra tekrar deneyiniz", @event.OrderItems);
 
             logger.LogInformation($"PaymentService'deki OrderStartedIntegrationEventHandler tetiklendi. Ödeme Durumu: {paymentSuccessFlag}, Sipariş ID: {@event.OrderId}");
 

@@ -6,6 +6,7 @@
         public int BrandId { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
+        public int UnitsInStock { get; set; }
         public ICollection<int>? CategoryIds { get; set; }
         public ICollection<int>? FeatureValueIds { get; set; }
         public ICollection<IFormFile>? Images { get; set; }

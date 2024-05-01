@@ -12,6 +12,7 @@ import { Address } from '../../../models/baskets/address';
 import { PaymentDetails } from '../../../models/baskets/paymentDetails';
 import PaymentSucceeded from '../../../components/mainLayout/cartPage/PaymentSucceeded';
 import Step3 from '../../../components/mainLayout/cartPage/Step3';
+import { BasketCheckout } from '../../../dtos/baskets/basketCheckout';
 
 const CartPage = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -65,6 +66,21 @@ const CartPage = () => {
     setActiveStep(step);
   };
 
+  const handlePayment = async () => {
+    const basketCheckout: BasketCheckout = {
+      paymentDetails: paymentDetails!,
+      shippingAddress: shippingAddress!,
+      buyer: cartContext.customerCart?.buyerId?.toString() || ''
+    }
+    basketCheckout.paymentDetails.cardSecurityNumber = basketCheckout.paymentDetails.cardSecurityNumber.toString();
+    basketCheckout.paymentDetails.numberOfInstallments = parseInt(basketCheckout.paymentDetails.numberOfInstallments.toString());
+
+    console.log('basketCheckout:', basketCheckout);
+
+    await cartContext.checkout(basketCheckout);
+
+  }
+
 
 
   return (
@@ -94,6 +110,9 @@ const CartPage = () => {
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
                 <PaymentComponent />
+                {activeStep == 2 && canContinue && <Button variant='contained' onClick={handlePayment} sx={{ mt: 2, width: '100%' }}>
+                  Ödemeyi Tamamla
+                </Button>}
               </Grid>
             </Grid>
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>

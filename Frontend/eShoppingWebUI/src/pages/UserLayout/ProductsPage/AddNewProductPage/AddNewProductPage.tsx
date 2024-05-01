@@ -21,6 +21,7 @@ const validationSchema = Yup.object({
   name: Yup.string().required('Ürün adı zorunludur'),
   price: Yup.number().required('Ürün fiyatı zorunludur').notOneOf([0], 'Ürün fiyatı 0 olamaz'),
   description: Yup.string().required('Ürün açıklaması zorunludur'),
+  unitsInStock: Yup.number().required('Stok adedi zorunludur').notOneOf([0], 'Stok adedi 0 olamaz'),
   brandId: Yup.string().required('Marka zorunludur'),
   categoryIds: Yup.array().of(Yup.string()).required('Kategori zorunludur').min(1, 'En az 1 kategori seçiniz'),
   featureValueIds: Yup.array().of(Yup.string()).required('Özellik zorunludur'),
@@ -55,6 +56,7 @@ const AddNewProductPage = () => {
     initialValues: {
       name: '',
       price: 0,
+      unitsInStock: 0,
       description: '',
       brandId: '',
       categoryIds: [] as number[],
@@ -79,6 +81,7 @@ const AddNewProductPage = () => {
       formData.append('price', values.price.toString());
       formData.append('description', values.description);
       formData.append('brandId', values.brandId);
+      formData.append('unitsInStock', values.unitsInStock.toString());
       values.categoryIds.forEach((categoryId) => {
         formData.append('categoryIds', categoryId.toString());
       });
@@ -254,6 +257,9 @@ const AddNewProductPage = () => {
               </Grid>
               <Grid item xs={12} >
                 <CustomTextFieldComponent formik={formik} type='number' fieldName='price' label='Ürün Fiyatı' />
+              </Grid>
+              <Grid item xs={12} >
+                <CustomTextFieldComponent formik={formik} type='number' fieldName='unitsInStock' label='Stok Miktarı' />
               </Grid>
               {brands && <Grid item xs={12}>
                 <InputLabel id="brand">Marka Seçiniz</InputLabel>

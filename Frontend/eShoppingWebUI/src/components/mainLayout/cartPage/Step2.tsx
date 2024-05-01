@@ -22,6 +22,18 @@ const Step2 = ({ shippingAddress,setShippingAddress, setCanContinue }: {
 }) => {
   const cartContext = useContext(CartContext);
 
+  useEffect(() => {
+    const randomAddress : Address = 
+    {
+      city: 'İstanbul',
+      street: 'Bağdat Caddesi',
+      state: 'Kadıköy',
+      country: 'Türkiye',
+      zipCode: '34724',
+    }
+    setShippingAddress(randomAddress)
+  },[])
+
   const formik = useFormik({
     initialValues:{
       city: shippingAddress?.city || '',

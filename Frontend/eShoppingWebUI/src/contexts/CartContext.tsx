@@ -8,6 +8,7 @@ import StorageService from "../services/storage.service";
 import { ProductListDto } from "../dtos/products/productListDto";
 import { ProductDetailDto } from "../dtos/products/productDetailDto";
 import { CustomerBasket } from "../models/baskets/customerBasket";
+import { BasketCheckout } from "../dtos/baskets/basketCheckout";
 
 
 export const CartContext = createContext({
@@ -16,6 +17,7 @@ export const CartContext = createContext({
   clearCart: () => { },
   increaseQuantity: (product: any) => { },
   decreaseQuantity: (product: any) => { },
+  checkout:(basketCheckout:BasketCheckout)=>{},
   customerCart: undefined as CustomerBasket | undefined,
   cartItemCount: 0,
   totalPrice: 0
@@ -28,19 +30,19 @@ export const CartProvider = ({ children }: any) => {
   const authContext = useContext(AuthContext)
 
 
+  const getCartById = async (customerId: string) => {
+    await BasketService.getBasketById(customerId)
+      .then((response) => {
+        const data = response.data.data!;
+        console.log(data)
+        setCustomerBasket(data);
+        setCartItemCount(data.items.length);
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
   useEffect(() => {
-    const getCartById = async (customerId: string) => {
-      await BasketService.getBasketById(customerId)
-        .then((response) => {
-          const data = response.data.data!;
-          console.log(data)
-          setCustomerBasket(data);
-          setCartItemCount(data.items.length);
-        })
-        .catch((error) => {
-          console.log(error)
-        })
-    }
     if (authContext.isAuthenticated && StorageService.getAccessToken()) {
       const customerId = JwtHelper.getTokenInfos(StorageService.getAccessToken()!).nameidentifier;
       if (customerId) {
@@ -153,6 +155,19 @@ export const CartProvider = ({ children }: any) => {
     }
   }
 
+  const checkout=async(basketCheckout:BasketCheckout)=>{
+    await BasketService.checkout(basketCheckout)
+    .then((response)=>{
+      setCustomerBasket(undefined);
+      setCartItemCount(0);
+      setTotalPrice(0);
+      getCartById(basketCheckout.buyer.toString());
+      toast.success('Sipariş oluşturuldu! Bizi tercih ettiğiniz için teşekkür ederiz')
+    }).catch((error)=>{
+      console.log(error)
+    })
+  }
+
   const clearCart = async () => {
     await BasketService.deleteBasket(customerCart!.buyerId.toString())
       .then((response) => {
@@ -168,6 +183,7 @@ export const CartProvider = ({ children }: any) => {
       addToCart, removeFromCart,
       clearCart, cartItemCount,
       customerCart,
+      checkout,
       increaseQuantity, decreaseQuantity,
       totalPrice
     }}>

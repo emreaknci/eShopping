@@ -3,6 +3,7 @@ using System;
 using CatalogService.API.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CatalogService.API.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    partial class CatalogDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240501144522_mig_1")]
+    partial class mig_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -47,7 +50,7 @@ namespace CatalogService.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Brands", (string)null);
+                    b.ToTable("Brands");
                 });
 
             modelBuilder.Entity("CatalogService.API.Models.BrandCategory", b =>
@@ -82,7 +85,7 @@ namespace CatalogService.API.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("BrandCategories", (string)null);
+                    b.ToTable("BrandCategories");
                 });
 
             modelBuilder.Entity("CatalogService.API.Models.Category", b =>
@@ -115,7 +118,7 @@ namespace CatalogService.API.Migrations
 
                     b.HasIndex("ParentCategoryId");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("CatalogService.API.Models.CategoryFeature", b =>
@@ -150,7 +153,7 @@ namespace CatalogService.API.Migrations
 
                     b.HasIndex("FeatureId");
 
-                    b.ToTable("CategoryFeatures", (string)null);
+                    b.ToTable("CategoryFeatures");
                 });
 
             modelBuilder.Entity("CatalogService.API.Models.Feature", b =>
@@ -178,7 +181,7 @@ namespace CatalogService.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Features", (string)null);
+                    b.ToTable("Features");
                 });
 
             modelBuilder.Entity("CatalogService.API.Models.FeatureValue", b =>
@@ -211,7 +214,7 @@ namespace CatalogService.API.Migrations
 
                     b.HasIndex("FeatureId");
 
-                    b.ToTable("FeatureValues", (string)null);
+                    b.ToTable("FeatureValues");
                 });
 
             modelBuilder.Entity("CatalogService.API.Models.Product", b =>
@@ -253,7 +256,7 @@ namespace CatalogService.API.Migrations
 
                     b.HasIndex("BrandId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("CatalogService.API.Models.ProductCategory", b =>
@@ -288,7 +291,7 @@ namespace CatalogService.API.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductCategories", (string)null);
+                    b.ToTable("ProductCategories");
                 });
 
             modelBuilder.Entity("CatalogService.API.Models.ProductFeature", b =>
@@ -323,7 +326,7 @@ namespace CatalogService.API.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductFeatures", (string)null);
+                    b.ToTable("ProductFeatures");
                 });
 
             modelBuilder.Entity("CatalogService.API.Models.ProductImage", b =>
@@ -360,7 +363,7 @@ namespace CatalogService.API.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.ToTable("ProductImages", (string)null);
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("CatalogService.API.Models.BrandCategory", b =>

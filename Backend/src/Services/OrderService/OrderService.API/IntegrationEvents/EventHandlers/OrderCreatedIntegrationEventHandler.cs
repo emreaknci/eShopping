@@ -23,18 +23,12 @@ namespace OrderService.API.IntegrationEvents.EventHandlers
 
             var createdOrderCommand = new CreateOrderCommand(
                 @event.Basket.Items, @event.UserId,
-                @event.UserName, @event.City, @event.Street, @event.State,
-                @event.Country, @event.ZipCode, @event.CardNumber,
-                @event.CardHolderName, @event.CardExpiration,
-                @event.CardSecurityNumber, @event.CardTypeId);
+                @event.UserName, @event.ShippingAddress.City, @event.ShippingAddress.Street, @event.ShippingAddress.State,
+                @event.ShippingAddress.Country, @event.ShippingAddress.ZipCode, @event.PaymentDetails.CardNumber,
+                @event.PaymentDetails.CardHolderName, @event.PaymentDetails.CardExpiration,
+                @event.PaymentDetails.CardSecurityNumber, @event.PaymentDetails.CardTypeId);
 
             await _mediator.Send(createdOrderCommand);
-
-
-
-
-
-
         }
     }
 }

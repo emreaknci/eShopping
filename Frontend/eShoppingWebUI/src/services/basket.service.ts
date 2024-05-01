@@ -4,6 +4,7 @@ import BaseService from './_base.service';
 import { BrandListDto } from '../dtos/brands/brandListDto';
 import { BasketItem } from '../models/baskets/basketItem';
 import { CustomerBasket } from '../models/baskets/customerBasket';
+import { BasketCheckout } from '../dtos/baskets/basketCheckout';
 
 const basketEndpoint = `${import.meta.env.VITE_BASKET_SERVICE}`;
 const BasketService = {
@@ -18,6 +19,9 @@ const BasketService = {
     },
     async deleteBasket(customerId: string): Promise<AxiosResponse<Result<boolean>>> {
         return await BaseService.delete(`/${basketEndpoint}/${customerId}`);
+    },
+    async checkout(basketCheckout:BasketCheckout): Promise<AxiosResponse<any>>{
+        return await BaseService.post(`/${basketEndpoint}/checkout`, basketCheckout);
     },
 
 }

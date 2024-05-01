@@ -56,8 +56,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-IEventBus eventBus = app.Services.GetRequiredService<IEventBus>();
-eventBus.Subscribe<OrderCreatedIntegrationEvent, OrderCreatedIntegrationEventHandler>();
+//IEventBus eventBus = app.Services.GetRequiredService<IEventBus>();
+//eventBus.Subscribe<OrderCreatedIntegrationEvent, OrderCreatedIntegrationEventHandler>();
 
 
 app.Start();

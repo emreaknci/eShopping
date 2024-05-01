@@ -186,7 +186,8 @@ namespace CatalogService.API.Controllers
                 Name = dto.Name,
                 BrandId = dto.BrandId,
                 Price = dto.Price,
-                Description = dto.Description
+                Description = dto.Description,
+                UnitsInStock = dto.UnitsInStock
             };
 
             _catalogContext.Products.Add(product);

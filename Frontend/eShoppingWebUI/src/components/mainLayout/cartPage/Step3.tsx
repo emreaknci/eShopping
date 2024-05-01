@@ -10,19 +10,21 @@ import { CustomTextFieldComponent } from '../../common/CustomTextFieldComponent'
 const validationSchema = Yup.object({
   cardNumber: Yup.string().required('Kart numarası zorunludur'),
   cardHolderName: Yup.string().required('Kart üzerindeki isim zorunludur'),
-  cardExpiration: Yup.string().required('Son kullanma tarihi zorunludur'),
+  cardExpiration: Yup.date().required('Son kullanma tarihi zorunludur'),
   cardSecurityNumber: Yup.string().required('CVC zorunludur'),
   cardTypeId: Yup.number().required('Kart tipi zorunludur'),
 });
 
-const initialValues = {
-  cardNumber: '',
-  cardHolderName: '',
-  cardExpiration: '',
-  cardSecurityNumber: '',
-  cardTypeId: 0,
-  numberOfInstallments: 1
-};
+const initialValues: PaymentDetails = {
+  cardNumber: 'Emre',
+  cardHolderName: '1234123412341234',
+  cardExpiration: new Date('2023-12'),
+  cardSecurityNumber: '123',
+  cardTypeId: 1,
+  numberOfInstallments: 1,
+}
+
+
 
 
 const Step3 = ({ setPaymentDetails, setPaymentSucceeded, setCanContinue }
@@ -41,13 +43,16 @@ const Step3 = ({ setPaymentDetails, setPaymentSucceeded, setCanContinue }
     totalprice && calculateInstallmentPlans(totalprice);
   }, [cartContext.customerCart]);
 
+  useEffect(() => {
+    setPaymentDetails(initialValues)
+  }, [])
+
 
   const formik = useFormik({
     initialValues,
     validationSchema,
     onSubmit: (values) => {
       setSubmitted(true);
-      setPaymentSucceeded(true);
       const paymentDetails: PaymentDetails = {
         cardNumber: values.cardNumber,
         cardHolderName: values.cardHolderName,
@@ -78,6 +83,13 @@ const Step3 = ({ setPaymentDetails, setPaymentSucceeded, setCanContinue }
     }
     setInstallmentPlans(plans as any);
   }
+
+  useEffect(() => {
+    setCanContinue(formik.isValid)
+    // setPaymentDetails(formik.values)
+    formik.handleSubmit()
+    console.log(formik.isValid)
+  }, [formik.values, setPaymentDetails])
 
   return (
     <Box>
@@ -160,11 +172,11 @@ const Step3 = ({ setPaymentDetails, setPaymentSucceeded, setCanContinue }
               </TableContainer>
             </RadioGroup>
           </Grid>
-          <Grid item xs={12} sm={12} md={12} lg={12}>
+          {/* <Grid item xs={12} sm={12} md={12} lg={12}>
             <Button type="submit" fullWidth variant="contained" color="primary" style={{ marginTop: 16 }}>
               Ödeme Yap
             </Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       </form>
     </Box>

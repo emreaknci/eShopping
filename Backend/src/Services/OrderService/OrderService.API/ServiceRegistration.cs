@@ -96,6 +96,9 @@ namespace OrderService.API
         {
             var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
             eventBus.Subscribe<OrderCreatedIntegrationEvent,OrderCreatedIntegrationEventHandler>();
+            eventBus.Subscribe<OrderPaymentSucceededIntegrationEvent, OrderPaymentSucceededIntegrationEventHandler>();
+            eventBus.Subscribe<OrderPaymentFailedIntegrationEvent, OrderPaymentFailedIntegrationEventHandler>();
+
         }
     }
 }

@@ -19,7 +19,7 @@ namespace OrderService.Domain.AggregateModels.OrderAggregate
         public Buyer Buyer { get; private set; }
 
         private int _orderStatusId;
-        public OrderStatus OrderStatus { get; private set; }
+        public OrderStatus OrderStatus { get; set; }
         public Address Address { get; private set; }
 
         private readonly List<OrderItem> _orderItems;

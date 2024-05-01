@@ -1,8 +1,12 @@
 ﻿using CatalogService.API.Context;
 using Consul;
+using EventBus.Base.Abstraction;
+using EventBus.Base;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
+using EventBus.Factory;
+using CatalogService.API.IntegrationEvents.EventHandlers;
 
 namespace CatalogService.API
 {
@@ -18,6 +22,22 @@ namespace CatalogService.API
                 var address = configuration["ConsulConfig:Address"];
                 consulConfig.Address = new Uri(address);
             }));
+
+            services.AddTransient<OrderStartedIntegrationEventHandler>();
+            services.AddTransient<OrderPaymentFailedIntegrationEventHandler>();
+
+            services.AddSingleton<IEventBus>(sp =>
+            {
+                EventBusConfig config = new()
+                {
+                    ConnectionRetryCount = 5,
+                    EventNameSuffix = "IntegrationEvent",
+                    EventBusType = EventBusType.RabbitMQ,
+                    SubscriberClientAppName = "CatalogService",
+                };
+
+                return EventBusFactory.Create(config, sp);
+            });
         }
 
         public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app)

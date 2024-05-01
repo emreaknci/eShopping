@@ -1,6 +1,9 @@
 using CatalogService.API;
 using CatalogService.API.Context;
 using CatalogService.API.Extensions;
+using CatalogService.API.IntegrationEvents.EventHandlers;
+using CatalogService.API.IntegrationEvents.Events;
+using EventBus.Base.Abstraction;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +30,10 @@ app.UseAuthorization();
 
 app.UseStaticFiles();
 app.MapControllers();
+
+IEventBus eventBus = app.Services.GetRequiredService<IEventBus>();
+eventBus.Subscribe<OrderStartedIntegrationEvent, OrderStartedIntegrationEventHandler>();
+eventBus.Subscribe<OrderPaymentFailedIntegrationEvent, OrderPaymentFailedIntegrationEventHandler>();
 
 app.Start();
 

@@ -42,7 +42,9 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
             await _orderRepository.AddAsync(dbOrder);
             await _orderRepository.UnitOfWork.SaveEntitiesAsync();
 
-            var orderStartedIntegrationEvent = new OrderStartedIntegrationEvent(request.UserId, request.UserName);
+            var orderItems = dbOrder.OrderItems.ToDictionary(i => i.ProductId, i => i.Units);
+
+            var orderStartedIntegrationEvent = new OrderStartedIntegrationEvent(dbOrder.Id.ToString(),orderItems);
             _eventBus.Publish(orderStartedIntegrationEvent);
             return true;
         }
