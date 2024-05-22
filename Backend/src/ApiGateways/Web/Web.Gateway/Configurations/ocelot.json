@@ -54,6 +54,17 @@
       "UpstreamPathTemplate": "/basket/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
       "UpstreamScheme": "http"
+    },
+    {
+      "UseServiceDiscovery": true,
+      "ServiceName": "CommentService",
+
+      "DownstreamPathTemplate": "/api/comment/{everything}",
+      "DownstreamScheme": "http",
+
+      "UpstreamPathTemplate": "/comment/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete" ],
+      "UpstreamScheme": "http"
     }
   ],
 
