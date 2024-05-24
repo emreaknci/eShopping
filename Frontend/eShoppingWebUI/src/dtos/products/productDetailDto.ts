@@ -9,6 +9,7 @@ export interface ProductDetailDto {
     brandName:string;
     brandId:number;
     price:number;
+    unitsInStock:number;
     categories:CategoryDto[];
     features:ProductFeatureDto[];
     images:ProductImageDto[];

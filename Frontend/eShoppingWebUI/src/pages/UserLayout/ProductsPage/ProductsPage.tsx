@@ -1,52 +1,114 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Box, Button, CardMedia,
-  Collapse, FormControl, Grid,
-  IconButton, InputAdornment, MenuItem,
-  Paper, Select, Table, TableBody, TableCell,
-  TableContainer, TableHead, TablePagination,
-  TableRow, TextField, Typography
+  Box, Button, CardMedia, Collapse, FormControl, Grid,
+  IconButton, InputAdornment, MenuItem, Paper, Select, Table, TableBody, TableCell,
+  TableContainer, TableHead, TablePagination, TableRow, TextField, Typography
 } from '@mui/material';
 import { KeyboardArrowUp, KeyboardArrowDown, Search } from '@mui/icons-material';
 import { DialogComponent } from '../../../components/common/DialogComponent';
 import './ProductsPage.css';
-import { Product, createFakeCategories } from '../../../mock/category';
 import { useNavigate } from 'react-router-dom';
+import ProductService from '../../../services/product.service';
+import { ProductFilterOptions, SortType } from '../../../dtos/products/productFilterOptions';
+import { FeatureValueDto } from '../../../dtos/features/featureValueDto';
+import { toast } from 'react-toastify';
+import { ProductListDto } from '../../../dtos/products/productListDto';
+import { ProductDetailDto } from '../../../dtos/products/productDetailDto';
+import { LoadingComponent } from '../../../components/common/LoadingComponent';
+import CategoryService from '../../../services/category.service';
+
+const baseImagePath = import.meta.env.VITE_API_GATEWAY + '/' + import.meta.env.VITE_CATALOG_IMAGES + '/';
+import categories from './../../../mock/category';
+import { CategoryListDto } from '../../../dtos/categories/categoryListDto';
+import FilterBox from '../../../components/userLayout/productsPage/FilterBox';
 
 const ProductsPage = () => {
-  const [products, setProducts] = useState(createFakeCategories(20, 5).flatMap(category => category.products));
+  const [products, setProducts] = useState<ProductListDto[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState('All');
   const [sortField, setSortField] = useState(null);
   const [sortDirection, setSortDirection] = useState('asc');
-  const [expandedProductId, setExpandedProductId] = useState(null);
+  const [expandedProductId, setExpandedProductId] = useState<number | null>(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  const [openAlert, setOpenAlert] = useState(false);
-  const [alertText, setAlertText] = useState('');
-  const [confirmAction, setConfirmAction] = useState('');
-  const [currentItemId, setCurrentItemId] = useState(null);
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [initialFilters, setInitialFilters] = useState<ProductFilterOptions>({
+    featureValueIds: [],
+    brandIds: [],
+    minPrice: 0,
+    maxPrice: 0,
+    sortType: SortType.DEFAULT,
+    pageNumber: 1,
+    pageSize: 10,
+    categoryIds: []
+  });
+  const [filters, setFilters] = useState<ProductFilterOptions>(initialFilters);
+  const [selectedFeatureValues, setSelectedFeatureValues] = useState<FeatureValueDto[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const [currentProductDetail, setCurrentProductDetail] = useState<ProductDetailDto | null>(null);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const initalFilters = { ...initialFilters }
+    setInitialFilters(initalFilters);
+    getProductsByFilter(filters);
 
-  const handleCancelItem = (itemId: any) => {
-    setOpenAlert(true);
-    setConfirmAction('cancelProductItem');
-    setAlertText('Ürün iptal edilecek. Onaylıyor musunuz?');
-    setCurrentItemId(itemId)
+    return () => {
+      setIsLoading(false);
+      setSelectedFeatureValues([]);
+      setProducts([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    getProductsByFilter(filters);
+  }, [filters]);
+
+  useEffect(() => {
+    const getProductDetail = async (productId: number) => {
+      setIsLoading(true);
+      ProductService.getProductById(productId).then((response) => {
+        setCurrentProductDetail(response.data.data);
+        setExpandedProductId(productId);
+      }).catch((error) => {
+        toast.info(error.response.data.message || "Ürün detayları getirilirken bir hata oluştu.")
+        setCurrentProductDetail(null);
+        setExpandedProductId(null);
+      }).finally(() => {
+        setIsLoading(false);
+      });
+    }
+    if (expandedProductId)
+      getProductDetail(expandedProductId);
+  }, [expandedProductId]);
+
+  const getProductsByFilter = async (filters: ProductFilterOptions) => {
+    setIsLoading(true);
+
+    await ProductService.getProducts(filters)
+      .then(async (response) => {
+        const dto = response.data.data;
+        setProducts(dto!);
+        setCurrentPage(response.data.pageNumber);
+        console.log(dto);
+      })
+      .catch((error) => {
+        console.error(error);
+        toast.info(error.response.data.message || "Ürünler getirilirken bir hata oluştu.")
+        if (error.response.data) {
+          setProducts([]);
+        }
+      }).finally(() => {
+        setIsLoading(false);
+      });
   }
 
-  const handleCancelProduct = (productId: any) => {
-    setOpenAlert(true);
-    setConfirmAction('cancelProduct');
-    setAlertText('Sipariş iptal edilecek. Onaylıyor musunuz?');
-    setCurrentItemId(productId)
-  }
 
 
-  const handleSort = (field: string) => {
+  const handleSort = (field: any) => {
     if (sortField === field) {
       setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
     } else {
@@ -55,11 +117,11 @@ const ProductsPage = () => {
     }
   };
 
-  const handleChangePage = (e, newPage) => {
+  const handleChangePage = (e: any, newPage: any) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (e) => {
+  const handleChangeRowsPerPage = (e: any) => {
     setRowsPerPage(parseInt(e.target.value, 10));
     setPage(0);
   };
@@ -112,7 +174,7 @@ const ProductsPage = () => {
     );
   };
 
-  const renderTableBodyParentRow = (product: Product) => {
+  const renderTableBodyParentRow = (product: ProductListDto) => {
     return (
       <TableRow sx={{ pb: 5, pt: 5 }}>
         <TableCell>
@@ -139,11 +201,20 @@ const ProductsPage = () => {
     )
   }
 
-  const renderTableBodySubRow = (product: Product) => {
+
+
+  const renderTableBodySubRow = (productId: number) => {
+
+    if (isLoading)
+      return <LoadingComponent />;
+
+    if (currentProductDetail === null)
+      return null;
+
     return (
       <TableRow >
         <TableCell colSpan={4}>
-          <Collapse in={expandedProductId === product.id} timeout="auto" unmountOnExit>
+          <Collapse in={expandedProductId === currentProductDetail.id} timeout="auto" unmountOnExit>
             <Grid container spacing={3}>
               <Grid item md={4} >
                 <Typography variant="h6" fontWeight={"bold"}>
@@ -152,19 +223,19 @@ const ProductsPage = () => {
                 <Grid container>
                   <Grid item xs={12}>
                     <p>
-                      <strong>Açıklama:</strong> {product.description}
+                      <strong>Açıklama:</strong> {currentProductDetail.description}
                     </p>
                   </Grid>
                   <Grid item xs={12}>
                     <p>
-                      <strong>Stok Miktarı:</strong> {product.unitOfStock} adet
+                      <strong>Stok Miktarı:</strong> {currentProductDetail.unitsInStock} adet
                     </p>
                   </Grid>
                   <Grid item xs={12}>
                     <p>
                       <strong style={{ fontSize: "1.2rem", marginBottom: ".5rem" }}>Ürün Özellikleri</strong>
                     </p>
-                    {product.features.map((feature, index) => (
+                    {currentProductDetail.features.map((feature, index) => (
                       <p key={index}>
                         <strong>{feature.name}:</strong> {feature.value}
                       </p>
@@ -179,12 +250,12 @@ const ProductsPage = () => {
                   Ürün Resimleri
                 </Typography>
                 <Grid container spacing={2}>
-                  {product.images.map((image, index) => (
+                  {currentProductDetail.images.map((image, index) => (
                     <Grid item key={index} xs={12} sm={6} md={4}>
                       <CardMedia
                         component="img"
-                        height="140"
-                        image={image}
+                        height="250"
+                        image={baseImagePath + image.url}
                       />
                     </Grid>
                   ))}
@@ -197,39 +268,17 @@ const ProductsPage = () => {
     )
   }
 
-  const handleSearchQuery = (e) => {
+  const handleSearchQuery = (e: any) => {
     setSearchQuery(e.target.value);
     setPage(0);
   }
-  const renderSearchAndFilterBox = () => {
-    return (
-      <Box p={2}>
-        <TextField
-          label="Ara"
-          variant="outlined"
-          size="small"
-          value={searchQuery}
-          onChange={handleSearchQuery}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search />
-              </InputAdornment>
-            ),
-          }}
-        />
-        <FormControl variant="outlined" size="small" style={{ marginLeft: 10 }}>
-          <Select
-            value={filterStatus}
-            onChange={(e) => setFilterStatus(e.target.value)}
-          >
-            <MenuItem value="All">Hepsi</MenuItem>
-          </Select>
-        </FormControl>
-      </Box>
-    )
 
-  }
+  const [categories, setCategories] = useState<CategoryListDto[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+
+
+
 
   return (
     <Grid container spacing={3}>
@@ -248,36 +297,39 @@ const ProductsPage = () => {
         </Grid>
       </Grid>
       <Grid item xs={12} >
-        <TableContainer component={Paper}>
-          {renderSearchAndFilterBox()}
-          <Table>
-            <TableHead>
-              <TableRow>
-                {renderTableHeadCell('ID', 'id')}
-                {renderTableHeadCell('ÜRÜN ADI', 'name', 'center')}
-                {renderTableHeadCell('FİYAT', 'price', 'center')}
-                <TableCell />
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {paginatedProducts.map(product => (
-                <React.Fragment key={product.id}>
-                  {renderTableBodyParentRow(product)}
-                  {renderTableBodySubRow(product)}
-                </React.Fragment>
-              ))}
-            </TableBody>
-          </Table>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={sortedProducts.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </TableContainer>
+        {isLoading && <LoadingComponent />}
+
+        {!isLoading &&
+          <TableContainer component={Paper}>
+            <FilterBox initialFilters={initialFilters} setFilters={setFilters} filters={filters}/>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {renderTableHeadCell('ID', 'id')}
+                  {renderTableHeadCell('ÜRÜN ADI', 'name', 'center')}
+                  {renderTableHeadCell('FİYAT', 'price', 'center')}
+                  <TableCell />
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {paginatedProducts.map(product => (
+                  <React.Fragment key={product.id}>
+                    {renderTableBodyParentRow(product)}
+                    {renderTableBodySubRow(product.id)}
+                  </React.Fragment>
+                ))}
+              </TableBody>
+            </Table>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={sortedProducts.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </TableContainer>}
       </Grid>
     </Grid>
   );

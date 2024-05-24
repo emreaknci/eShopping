@@ -163,6 +163,7 @@ namespace CatalogService.API.Controllers
                 Description = product.Description,
                 Categories = productCategories,
                 Features = productFeatures,
+                UnitsInStock = product.UnitsInStock,
                 Images = _catalogContext.ProductImages
                     .Where(pi => pi.ProductId == product.Id)
                     .Select(pi => new ProductImageDto
