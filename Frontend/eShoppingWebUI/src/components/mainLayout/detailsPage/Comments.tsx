@@ -11,6 +11,7 @@ import { CreateCommentDto } from '../../../dtos/comments/createCommentDto';
 import { toast } from 'react-toastify';
 import { JwtHelper } from '../../../utils/JwtHelper';
 import StorageService from '../../../services/storage.service';
+import { DialogComponent } from '../../common/DialogComponent';
 
 
 const validationSchema = Yup.object({
@@ -23,6 +24,8 @@ const Comments = ({ productId, averageRating, setAverageRating }: { productId: n
     const [comments, setComments] = useState<CommentListDto[]>([]);
     const [ratings, setRatings] = useState<{ stars: number, percentage: number }[]>([]);
     const authContext = useContext(AuthContext);
+    const [openAlert, setOpenAlert] = useState(false);
+    const [currentCommentId, setCurrentCommentId] = useState<string>('');
 
     const calculateRatings = (comments: CommentListDto[]) => {
         const averageRating = parseFloat((comments.reduce((a, b) => a + b.rating, 0) / comments.length).toFixed(1));
@@ -62,17 +65,9 @@ const Comments = ({ productId, averageRating, setAverageRating }: { productId: n
     });
 
     const handleDeleteComment = async (commentId: string) => {
-        console.log(commentId)
-        await CommentService.deleteComment(commentId)
-            .then((response) => {
-                const newComments = comments.filter((comment) => comment.id !== commentId);
-                setComments(newComments);
-                calculateRatings(newComments);
-                toast.success("Yorum başarıyla silindi.");
-            }).catch((error) => {
-                console.log(error.response)
-                toast.error(error.response.data ?? "Yorum silinirken bir hata oluştu.");
-            });
+        setOpenAlert(true);
+        setCurrentCommentId(commentId);
+      
     }
 
     const handleAddComment = async () => {
@@ -94,6 +89,20 @@ const Comments = ({ productId, averageRating, setAverageRating }: { productId: n
             }).catch((error) => {
                 toast.error(error.response.data ?? "Yorum eklenirken bir hata oluştu.");
             });
+    }
+
+    const handleConfirm = async () => {
+          await CommentService.deleteComment(currentCommentId)
+            .then((response) => {
+                const newComments = comments.filter((comment) => comment.id !== currentCommentId);
+                setComments(newComments);
+                calculateRatings(newComments);
+                toast.success("Yorum başarıyla silindi.");
+            }).catch((error) => {
+                console.log(error.response)
+                toast.error(error.response.data ?? "Yorum silinirken bir hata oluştu.");
+            });
+        setOpenAlert(false);
     }
 
     return (
@@ -177,7 +186,7 @@ const Comments = ({ productId, averageRating, setAverageRating }: { productId: n
                                 <Rating value={comment.rating} precision={0.5} readOnly />
                                 {JwtHelper.getTokenInfos(StorageService.getAccessToken()!).nameidentifier === comment.userId || authContext.isAdmin
                                     ?
-                                    <Button variant="text" color="error" onClick={()=>handleDeleteComment(comment.id)}>SİL</Button>
+                                    <Button variant="text" color="error" onClick={() => handleDeleteComment(comment.id)}>SİL</Button>
                                     : null
                                 }
                             </Typography>
@@ -196,11 +205,16 @@ const Comments = ({ productId, averageRating, setAverageRating }: { productId: n
                         </Box>
                     ))}
                 </Grid>
+                {openAlert && (
+                    <DialogComponent
+                        open={openAlert}
+                        handleClose={() => setOpenAlert(false)}
+                        handleConfirm={async () => await handleConfirm()}
+                        text={"Bu yorumu kaldırmak istediğinize emin misiniz?"}
+                    />
+                )}
 
-            </Grid>
-
-
-
+           </Grid>
         </>)
 
 }
