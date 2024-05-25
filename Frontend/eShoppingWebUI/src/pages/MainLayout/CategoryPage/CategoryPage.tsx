@@ -111,6 +111,7 @@ const CategoryPage = () => {
   }
   const handleSortType = (event: any) => {
     setSelectedSortType(event.target.value);
+    setFilters({ ...filters, sortType: event.target.value });
   };
 
   const handleSelectedFeatureValue = (featureValue: FeatureValueDto) => {
@@ -453,8 +454,8 @@ const CategoryPage = () => {
                       onChange={handleSortType}
                     >
                       <MenuItem value={SortType.DEFAULT}>Varsayılan</MenuItem>
-                      <MenuItem value={SortType.DESC_PRICE}>Fiyata Göre Artan</MenuItem>
-                      <MenuItem value={SortType.INC_PRICE}>Fiyata Göre Azalan</MenuItem>
+                      <MenuItem value={SortType.DESC_PRICE}>Fiyata Göre Azalan</MenuItem>
+                      <MenuItem value={SortType.INC_PRICE}>Fiyata Göre Artan</MenuItem>
                       <MenuItem value={SortType.NEW_TO_OLD}>Yeniden Eskiye</MenuItem>
                       <MenuItem value={SortType.OLD_TO_NEW}>Eskiden Yeniye</MenuItem>
                     </Select>
