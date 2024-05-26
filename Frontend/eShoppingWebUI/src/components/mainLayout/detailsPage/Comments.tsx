@@ -67,7 +67,6 @@ const Comments = ({ productId, averageRating, setAverageRating }: { productId: n
     const handleDeleteComment = async (commentId: string) => {
         setOpenAlert(true);
         setCurrentCommentId(commentId);
-      
     }
 
     const handleAddComment = async () => {
@@ -92,7 +91,7 @@ const Comments = ({ productId, averageRating, setAverageRating }: { productId: n
     }
 
     const handleConfirm = async () => {
-          await CommentService.deleteComment(currentCommentId)
+        await CommentService.deleteComment(currentCommentId)
             .then((response) => {
                 const newComments = comments.filter((comment) => comment.id !== currentCommentId);
                 setComments(newComments);
@@ -184,7 +183,7 @@ const Comments = ({ productId, averageRating, setAverageRating }: { productId: n
                         <Box key={index} mb={2} mt={2}>
                             <Typography variant="h6" color="textPrimary" style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Rating value={comment.rating} precision={0.5} readOnly />
-                                {JwtHelper.getTokenInfos(StorageService.getAccessToken()!).nameidentifier === comment.userId || authContext.isAdmin
+                                {StorageService.getAccessToken() && JwtHelper.getTokenInfos(StorageService.getAccessToken()!).nameidentifier === comment.userId || authContext.isAdmin
                                     ?
                                     <Button variant="text" color="error" onClick={() => handleDeleteComment(comment.id)}>SİL</Button>
                                     : null
@@ -214,7 +213,7 @@ const Comments = ({ productId, averageRating, setAverageRating }: { productId: n
                     />
                 )}
 
-           </Grid>
+            </Grid>
         </>)
 
 }
