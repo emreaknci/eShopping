@@ -63,6 +63,17 @@ services:
       - "27000:27017"
     volumes:
       - commentdb_volume:/data/db
+  s_logdb:
+    container_name: c_logs_postgresql
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: eShopping.LogDb
+    ports:
+      - "2003:5432"
+    volumes:
+      - logdb_volume:/var/lib/postgresql/data
 
 
 volumes:
@@ -72,3 +83,4 @@ volumes:
     basketdb_volume:
     orderdb_volume:
     commentdb_volume:
+    logdb_volume:

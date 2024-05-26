@@ -1,7 +1,11 @@
-using Ocelot.Cache.CacheManager;
-using Ocelot.DependencyInjection;
+using Microsoft.AspNetCore.HttpLogging;
 using Ocelot.Middleware;
-using Ocelot.Provider.Consul;
+using Serilog;
+using Serilog.Context;
+using System.Security.Claims;
+using Web.Gateway;
+using Web.Gateway.Extensions;
+using Web.Gateway.Utils.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,10 +21,19 @@ builder.Configuration
     .AddJsonFile("Configurations/ocelot.json")
     .AddEnvironmentVariables();
 
+builder.Services.AddGatewayServices(builder.Configuration);
 
-builder.Services.AddOcelot()
-    .AddConsul()
-    .AddCacheManager(x => x.WithDictionaryHandle());
+builder.Services.AddHttpLogging(logging =>
+{
+    logging.LoggingFields = HttpLoggingFields.All;
+    logging.RequestHeaders.Add("sec-ch-ua");
+    logging.MediaTypeOptions.AddText("application/javascript");
+    logging.RequestBodyLogLimit = 4096;
+    logging.ResponseBodyLogLimit = 4096;
+});
+
+builder.Host.UseSerilog(CustomLoggerFactory.CustomLogger(builder.Configuration));
+
 
 builder.Services.AddCors(options =>
 {
@@ -40,12 +53,23 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
 
+app.UseSerilogRequestLogging();
+app.UseHttpLogging();
 app.UseHttpsRedirection();
 app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.Use(async (context, next) =>
+{
+    var currentUserId = context.User?.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
+    var userId = currentUserId != null || true ? currentUserId : null;
+    LogContext.PushProperty("user_id", userId);
+    await next();
+});
 
 await app.UseOcelot();
 
