@@ -1,7 +1,5 @@
-using EventBus.Base.Abstraction;
 using NotificationService.API;
-using NotificationService.API.IntegrationEvents.EventHandlers;
-using NotificationService.API.IntegrationEvents.Events;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,9 +25,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
-IEventBus eventBus = app.Services.GetRequiredService<IEventBus>();
-eventBus.Subscribe<OrderPaymentFailedIntegrationEvent, OrderPaymentFailedIntegrationEventHandler>();
-eventBus.Subscribe<OrderPaymentSucceededIntegrationEvent, OrderPaymentSucceededIntegrationEventHandler>();
 
 app.Run();

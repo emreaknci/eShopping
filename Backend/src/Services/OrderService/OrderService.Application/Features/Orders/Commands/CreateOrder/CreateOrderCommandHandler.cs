@@ -1,25 +1,17 @@
-﻿using EventBus.Base.Abstraction;
-using MediatR;
-using OrderService.Application.IntegrationEvents;
+﻿using MediatR;
 using OrderService.Application.Interfaces.Repositories;
 using OrderService.Domain.AggregateModels.OrderAggregate;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace OrderService.Application.Features.Orders.Commands.CreateOrder
 {
     public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand, bool>
     {
         private readonly IOrderRepository _orderRepository;
-        private readonly IEventBus _eventBus;
 
-        public CreateOrderCommandHandler(IOrderRepository orderRepository, IEventBus eventBus)
+        public CreateOrderCommandHandler(IOrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
-            _eventBus = eventBus;
         }
 
         public async Task<bool> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
@@ -44,8 +36,7 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
 
             var orderItems = dbOrder.OrderItems.ToDictionary(i => i.ProductId, i => i.Units);
 
-            var orderStartedIntegrationEvent = new OrderStartedIntegrationEvent(dbOrder.Id.ToString(),orderItems);
-            _eventBus.Publish(orderStartedIntegrationEvent);
+           // TODO: Publish the event to the bus
             return true;
         }
 

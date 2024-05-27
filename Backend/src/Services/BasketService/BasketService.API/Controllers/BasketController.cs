@@ -1,11 +1,7 @@
 ﻿using BasketService.API.Core.Application.Repository;
 using BasketService.API.Core.Application.Services;
 using BasketService.API.Core.Domain.Models;
-using BasketService.API.IntegrationEvents.Events;
-using BasketService.API.Utils.Results;
-using EventBus.Base.Abstraction;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BasketService.API.Controllers
@@ -17,16 +13,14 @@ namespace BasketService.API.Controllers
     {
         private readonly IBasketRepository _basketRepository;
         private readonly IIdentityService _identityService;
-        private readonly IEventBus _eventBus;
         private readonly ILogger<BasketController> _logger;
 
         public BasketController(IBasketRepository basketRepository, IIdentityService identityService,
-            IEventBus eventBus, ILogger<BasketController> logger)
+             ILogger<BasketController> logger)
 
         {
             _basketRepository = basketRepository;
             _identityService = identityService;
-            _eventBus = eventBus;
             _logger = logger;
         }
 
@@ -81,19 +75,10 @@ namespace BasketService.API.Controllers
 
             var userName = _identityService.GetUserName();
 
-            var eventMessage = new OrderCreatedIntegrationEvent(userId, userName, basketCheckout.ShippingAddress, basketCheckout.PaymentDetails, basketCheckout.Buyer, basketResult.Data);
+            //var eventMessage = new OrderCreatedIntegrationEvent(userId, userName, basketCheckout.ShippingAddress, basketCheckout.PaymentDetails, basketCheckout.Buyer, basketResult.Data);
 
-            try
-            {
-                _eventBus.Publish(eventMessage);
-            }
-            catch
-            {
-                _logger.LogError("ERROR Publishing integration event: {IntegrationEventId} from {AppName}", eventMessage.Id, "BasketService");
-
-                throw;
-            }
-
+            // TODO: Publish the event to the message broker
+  
             return Accepted();
         }
 

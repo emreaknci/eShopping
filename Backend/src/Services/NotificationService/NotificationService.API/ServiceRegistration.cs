@@ -1,10 +1,6 @@
-﻿using EventBus.Base.Abstraction;
-using EventBus.Base;
-using EventBus.Factory;
-using NotificationService.API.Services;
+﻿using NotificationService.API.Services;
 using Microsoft.Extensions.Options;
 using NotificationService.API.Settings;
-using NotificationService.API.IntegrationEvents.EventHandlers;
 
 namespace NotificationService.API
 {
@@ -16,22 +12,6 @@ namespace NotificationService.API
             services.AddLogging(builder =>
             {
                 builder.AddConsole();
-            });
-
-            services.AddTransient<OrderPaymentFailedIntegrationEventHandler>();
-            services.AddTransient<OrderPaymentSucceededIntegrationEventHandler>();
-
-            services.AddSingleton<IEventBus>(sp =>
-            {
-                EventBusConfig config = new()
-                {
-                    ConnectionRetryCount = 5,
-                    EventNameSuffix = "IntegrationEvent",
-                    EventBusType = EventBusType.RabbitMQ,
-                    SubscriberClientAppName = "NotificationService",
-                };
-
-                return EventBusFactory.Create(config, sp);
             });
 
             services.Configure<EmailSettings>(configuration.GetSection("EMailSettings"));

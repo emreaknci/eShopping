@@ -58,8 +58,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.SubscribeToEventBus();
-
 app.MigrateDbContext<OrderDbContext>((context, services) =>
 {
     var logger = services.GetService<ILogger<OrderDbContext>>();

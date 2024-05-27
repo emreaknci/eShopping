@@ -1,14 +1,9 @@
 ﻿using Consul;
-using EventBus.Base.Abstraction;
-using EventBus.Base;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Http.Features;
 using OrderService.Application;
 using OrderService.Infrastructure;
-using EventBus.Factory;
 using OrderService.API.Extensions.Registrations;
-using OrderService.API.IntegrationEvents.Events;
-using OrderService.API.IntegrationEvents.EventHandlers;
 
 namespace OrderService.API
 {
@@ -19,30 +14,12 @@ namespace OrderService.API
             services.AddAuth(configuration);
             services.AddPersistenceRegistration(configuration);
             services.AddApplicationServices();
-            services.AddEventHandlers();
 
             services.AddSingleton<IConsulClient, ConsulClient>(p => new ConsulClient(consulConfig =>
             {
                 var address = configuration["ConsulConfig:Address"];
                 consulConfig.Address = new Uri(address);
             }));
-
-            services.AddHttpContextAccessor();
-
-            services.AddSingleton<IEventBus>(sp =>
-            {
-                EventBusConfig config = new()
-                {
-                    ConnectionRetryCount = 5,
-                    EventNameSuffix = "IntegrationEvent",
-                    SubscriberClientAppName = "OrderService",
-                    EventBusType = EventBusType.RabbitMQ,
-                };
-
-                return EventBusFactory.Create(config, sp);
-            });
-
-
 
             services.AddLogging(configure => configure.AddConsole());
 
@@ -90,15 +67,6 @@ namespace OrderService.API
             });
 
             return app;
-        }
-
-        public static void SubscribeToEventBus(this IApplicationBuilder app)
-        {
-            var eventBus = app.ApplicationServices.GetRequiredService<IEventBus>();
-            eventBus.Subscribe<OrderCreatedIntegrationEvent,OrderCreatedIntegrationEventHandler>();
-            eventBus.Subscribe<OrderPaymentSucceededIntegrationEvent, OrderPaymentSucceededIntegrationEventHandler>();
-            eventBus.Subscribe<OrderPaymentFailedIntegrationEvent, OrderPaymentFailedIntegrationEventHandler>();
-
         }
     }
 }

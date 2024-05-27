@@ -3,11 +3,7 @@ using BasketService.API.Core.Application.Services;
 using BasketService.API.Extensions;
 using BasketService.API.Infrastructure.Repository;
 using BasketService.API.Infrastructure.Services;
-using BasketService.API.IntegrationEvents.EventHandlers;
 using Consul;
-using EventBus.Base;
-using EventBus.Base.Abstraction;
-using EventBus.Factory;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Http.Features;
 
@@ -29,25 +25,9 @@ namespace BasketService.API
 
             services.AddTransient<IBasketRepository, RedisBasketRepository>();
             services.AddTransient<IIdentityService, IdentityService>();
-
-            services.AddSingleton<IEventBus>(sp =>
-            {
-                EventBusConfig config = new()
-                {
-                    ConnectionRetryCount = 5,
-                    EventNameSuffix = "IntegrationEvent",
-                    SubscriberClientAppName = "BasketService",
-                    EventBusType = EventBusType.RabbitMQ,
-                };
-
-                return EventBusFactory.Create(config, sp);
-            });
-
+          
 
             services.AddSingleton(sp => sp.AddRedis(configuration));
-
-            services.AddTransient<OrderCreatedIntegrationEventHandler>();
-
 
             return services;
         }

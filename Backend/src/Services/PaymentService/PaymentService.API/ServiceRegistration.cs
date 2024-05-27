@@ -1,8 +1,4 @@
-﻿using EventBus.Base;
-using EventBus.Base.Abstraction;
-using EventBus.Factory;
-using PaymentService.API.IntegrationEvents.EventHandlers;
-
+﻿
 namespace PaymentService.API
 {
     public static class ServiceRegistration
@@ -14,21 +10,7 @@ namespace PaymentService.API
             {
                 builder.AddConsole();
             });
-            services.AddTransient<OrderStartedIntegrationEventHandler>();
-
-            services.AddSingleton<IEventBus>(sp =>
-            {
-                EventBusConfig config = new()
-                {
-                    ConnectionRetryCount = 5,
-                    EventNameSuffix = "IntegrationEvent",
-                    EventBusType = EventBusType.RabbitMQ,
-                    SubscriberClientAppName = "PaymentService",
-                };
-
-                return EventBusFactory.Create(config,sp);
-            });
-        
+           
         }
     }
 }

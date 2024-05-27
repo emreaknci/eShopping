@@ -1,7 +1,4 @@
-using EventBus.Base.Abstraction;
 using PaymentService.API;
-using PaymentService.API.IntegrationEvents.EventHandlers;
-using PaymentService.API.IntegrationEvents.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,7 +26,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-IEventBus eventBus = app.Services.GetRequiredService<IEventBus>();
-eventBus.Subscribe<OrderStartedIntegrationEvent,OrderStartedIntegrationEventHandler>();
+
 
 app.Run();

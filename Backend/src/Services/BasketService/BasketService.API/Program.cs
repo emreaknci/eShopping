@@ -1,7 +1,4 @@
 using BasketService.API;
-using BasketService.API.IntegrationEvents.EventHandlers;
-using BasketService.API.IntegrationEvents.Events;
-using EventBus.Base.Abstraction;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -55,10 +52,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
-//IEventBus eventBus = app.Services.GetRequiredService<IEventBus>();
-//eventBus.Subscribe<OrderCreatedIntegrationEvent, OrderCreatedIntegrationEventHandler>();
-
 
 app.Start();
 
