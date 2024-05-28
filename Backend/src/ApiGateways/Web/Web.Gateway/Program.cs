@@ -65,7 +65,7 @@ app.UseAuthorization();
 
 app.Use(async (context, next) =>
 {
-    var currentUserId = context.User?.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;
+    var currentUserId = context.User?.FindFirst(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
     var userId = currentUserId != null || true ? currentUserId : null;
     LogContext.PushProperty("user_id", userId);
     await next();

@@ -22,7 +22,7 @@ namespace OrderService.Infrastructure.EntityConfigurations
 
             builder.Property(o => o.Id).ValueGeneratedOnAdd();
 
-            builder.Property<int>("OrderId").IsRequired();
+            builder.Property<Guid>("OrderId").IsRequired();
         }
     }
 }

@@ -13,12 +13,11 @@ namespace OrderService.Domain.AggregateModels.OrderAggregate
     {
         public DateTime OrderDate { get; private set; }
         public int Quantity { get; private set; }
-        public string Description { get; private set; }
         public Guid? BuyerId { get; private set; }
         public string UserId { get; private set; }
         public Buyer Buyer { get; private set; }
 
-        private int _orderStatusId;
+        private int orderStatusId;
         public OrderStatus OrderStatus { get; set; }
         public Address Address { get; private set; }
 
@@ -37,15 +36,15 @@ namespace OrderService.Domain.AggregateModels.OrderAggregate
         {
             UserId = userId;
             BuyerId = buyerId;
-            _orderStatusId = OrderStatus.Submitted.Id;
-            OrderDate = DateTime.Now;
+            orderStatusId = OrderStatus.Submitted.Id;
+            OrderDate = DateTime.UtcNow;
             Address = address;
             PaymentMethodId = paymentMethodId;
 
-            AddOrderStartedDomainEvent(userId, userName, cardTypeId, cardNumber, cardSecurityNumber, cardHolderName, cardExpiration);
+            //AddOrderStartedDomainEvent(userId, userName, cardTypeId, cardNumber, cardSecurityNumber, cardHolderName, cardExpiration);
         }
 
-        private void AddOrderStartedDomainEvent(string userId, string userName, int cardTypeId, string cardNumber, string cardSecurityNumber, string cardHolderName, DateTime cardExpiration)
+        public void AddOrderStartedDomainEvent(string userId, string userName, int cardTypeId, string cardNumber, string cardSecurityNumber, string cardHolderName, DateTime cardExpiration)
         {
             var orderStartedDomainEvent = new OrderStartedDomainEvent(this, userId, userName, cardTypeId, cardNumber, cardSecurityNumber, cardHolderName, cardExpiration);
 

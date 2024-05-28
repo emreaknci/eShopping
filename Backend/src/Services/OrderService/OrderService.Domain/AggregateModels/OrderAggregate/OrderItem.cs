@@ -7,6 +7,7 @@ namespace OrderService.Domain.AggregateModels.OrderAggregate
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
+        public Guid OrderId { get; set; }
         public decimal UnitPrice { get; set; }
         public string PictureUrl { get; set; }
         public int Units { get; set; }

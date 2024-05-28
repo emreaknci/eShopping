@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Http.Features;
 using OrderService.Application;
 using OrderService.Infrastructure;
 using OrderService.API.Extensions.Registrations;
+using MassTransit;
+using OrderService.API.Consumers;
+using EventBus.MassTransit;
 
 namespace OrderService.API
 {
@@ -23,6 +26,23 @@ namespace OrderService.API
 
             services.AddLogging(configure => configure.AddConsole());
 
+
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<OrderCreatedCommandConsumer>();
+                x.AddConsumer<OrderPaymentSucceededEventConsumer>();
+                x.AddConsumer<OrderPaymentFailedEventConsumer>();
+                x.UsingRabbitMq((context, config) =>
+                {
+                    config.ReceiveEndpoint(EventBusConstants.OrderServiceQueueName, e =>
+                    {
+                        e.Consumer<OrderCreatedCommandConsumer>(context);
+                        e.Consumer<OrderPaymentSucceededEventConsumer>(context);
+                        e.Consumer<OrderPaymentFailedEventConsumer>(context);
+                    });
+                });
+
+            });
 
 
             return services;

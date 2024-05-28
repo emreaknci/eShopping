@@ -1,5 +1,8 @@
-﻿using CatalogService.API.Context;
+﻿using CatalogService.API.Consumers;
+using CatalogService.API.Context;
 using Consul;
+using EventBus.MassTransit;
+using MassTransit;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +20,26 @@ namespace CatalogService.API
             {
                 var address = configuration["ConsulConfig:Address"];
                 consulConfig.Address = new Uri(address);
-            }));         
+            }));
+
+
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<OrderPaymentSucceededEventConsumer>();
+                x.AddConsumer<OrderPaymentFailedEventConsumer>();
+                x.AddConsumer<OrderStartedEventConsumer>();
+                x.UsingRabbitMq((context, config) =>
+                {
+                    config.ReceiveEndpoint(EventBusConstants.CatalogServiceQueueName, e =>
+                    {
+                        e.Consumer<OrderPaymentSucceededEventConsumer>(context);
+                        e.Consumer<OrderPaymentFailedEventConsumer>(context);
+                        e.Consumer<OrderStartedEventConsumer>(context);
+                    });
+                });
+
+            });
+
         }
 
         public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app)

@@ -1,9 +1,12 @@
-﻿using BasketService.API.Core.Application.Repository;
+﻿using BasketService.API.Consumers;
+using BasketService.API.Core.Application.Repository;
 using BasketService.API.Core.Application.Services;
 using BasketService.API.Extensions;
 using BasketService.API.Infrastructure.Repository;
 using BasketService.API.Infrastructure.Services;
 using Consul;
+using EventBus.MassTransit;
+using MassTransit;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Http.Features;
 
@@ -28,6 +31,25 @@ namespace BasketService.API
           
 
             services.AddSingleton(sp => sp.AddRedis(configuration));
+
+
+
+
+            services.AddMassTransit(x =>
+            {
+                x.AddConsumer<OrderPaymentSucceededEventConsumer>();
+                x.AddConsumer<OrderPaymentFailedEventConsumer>();
+
+                x.UsingRabbitMq((context, config) =>
+                {
+                    config.ReceiveEndpoint(EventBusConstants.BasketServiceQueueName, e =>
+                    {
+                        e.Consumer<OrderPaymentSucceededEventConsumer>(context);
+                        e.Consumer<OrderPaymentFailedEventConsumer>();
+                    });
+                });
+
+            });
 
             return services;
         }

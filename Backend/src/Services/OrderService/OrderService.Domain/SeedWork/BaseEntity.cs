@@ -10,7 +10,7 @@ namespace OrderService.Domain.SeedWork
     public abstract class BaseEntity
     {
         public virtual Guid Id { get; protected set; }
-        public virtual DateTime CreateDate { get; set; }
+        public virtual DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
         int? _requestHashCode;
 

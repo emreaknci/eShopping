@@ -28,7 +28,7 @@ namespace OrderService.Infrastructure.EntityConfigurations
 
 
             builder
-                .Property<int?>("orderStatusId")
+                .Property<int>("orderStatusId")
                 .UsePropertyAccessMode(PropertyAccessMode.Field)
                 .HasColumnName("OrderStatusId")
                 .IsRequired();

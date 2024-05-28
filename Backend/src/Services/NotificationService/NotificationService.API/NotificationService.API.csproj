@@ -14,4 +14,8 @@
     <Folder Include="Controllers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\BuildingBlocks\EventBus.MassTransit\EventBus.MassTransit\EventBus.MassTransit.csproj" />
+  </ItemGroup>
+
 </Project>

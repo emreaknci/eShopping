@@ -1,8 +1,15 @@
 ﻿using BasketService.API.Core.Application.Repository;
 using BasketService.API.Core.Application.Services;
 using BasketService.API.Core.Domain.Models;
+using EventBus.MassTransit;
+using MassTransit;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using EventBusBasketItem = EventBus.MassTransit.Commands.BasketItem;
+using EventBusAddress = EventBus.MassTransit.Commands.Address;
+using EventBusPaymentDetails = EventBus.MassTransit.Commands.PaymentDetails;
+using EventBusCustomerBasket= EventBus.MassTransit.Commands.CustomerBasket;
+using BasketService.API.Utils.Results;
 
 namespace BasketService.API.Controllers
 {
@@ -14,6 +21,7 @@ namespace BasketService.API.Controllers
         private readonly IBasketRepository _basketRepository;
         private readonly IIdentityService _identityService;
         private readonly ILogger<BasketController> _logger;
+        private readonly ISendEndpoint _bus;
 
         public BasketController(IBasketRepository basketRepository, IIdentityService identityService,
              ILogger<BasketController> logger)
@@ -22,6 +30,10 @@ namespace BasketService.API.Controllers
             _basketRepository = basketRepository;
             _identityService = identityService;
             _logger = logger;
+
+            var bus = BusConfigurator.ConfigureBus();
+            var sendToUri = new Uri($"{EventBusConstants.Uri}/{EventBusConstants.OrderServiceQueueName}");
+            _bus = bus.GetSendEndpoint(sendToUri).Result;
         }
 
         [HttpGet]
@@ -75,12 +87,13 @@ namespace BasketService.API.Controllers
 
             var userName = _identityService.GetUserName();
 
-            //var eventMessage = new OrderCreatedIntegrationEvent(userId, userName, basketCheckout.ShippingAddress, basketCheckout.PaymentDetails, basketCheckout.Buyer, basketResult.Data);
+            EventBus.MassTransit.Commands.OrderCreatedCommand orderCreatedCommand = CreateOrderCreatedCommand(basketCheckout, userId, basketResult, userName);
 
-            // TODO: Publish the event to the message broker
-  
+            await _bus.Send(orderCreatedCommand);
+
             return Accepted();
         }
+
 
         [HttpDelete("{customerId}")]
         public async Task<IActionResult> DeleteBasketAsync(string customerId)
@@ -90,6 +103,26 @@ namespace BasketService.API.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
+        private static EventBus.MassTransit.Commands.OrderCreatedCommand CreateOrderCreatedCommand(BasketCheckout basketCheckout, string userId, Result<CustomerBasket> basketResult, string userName)
+        {
+            EventBusAddress address = new(basketCheckout.ShippingAddress.City, basketCheckout.ShippingAddress.Street, basketCheckout.ShippingAddress.State, basketCheckout.ShippingAddress.Country, basketCheckout.ShippingAddress.ZipCode);
+
+            List<EventBusBasketItem> eventBusBasketItems = new();
+            foreach (var item in basketResult.Data.Items)
+            {
+                var eventBusBasketItem = new EventBusBasketItem(item.Id, item.ProductId, item.ProductName, item.UnitPrice, item.OldUnitPrice, item.Quantity, item.PictureUrl);
+                eventBusBasketItems.Add(eventBusBasketItem);
+            }
+            EventBusCustomerBasket customerBasket = new(userId, eventBusBasketItems);
+
+            var cardDetail = basketCheckout.PaymentDetails;
+            EventBusPaymentDetails paymentDetails = new(cardDetail.CardNumber, cardDetail.CardHolderName, cardDetail.CardExpiration, cardDetail.CardSecurityNumber, cardDetail.CardTypeId, cardDetail.NumberOfInstallments);
+
+
+
+            var orderCreatedCommand = new EventBus.MassTransit.Commands.OrderCreatedCommand(userId, userName, address, paymentDetails, basketCheckout.Buyer, customerBasket);
+            return orderCreatedCommand;
+        }
 
     }
 }

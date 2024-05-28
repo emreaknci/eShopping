@@ -16,39 +16,46 @@ namespace OrderService.Infrastructure.Context
 {
     public class OrderDbContextSeed
     {
+
+
+        //private IEnumerable<OrderStatus> orderStatuses= new List<OrderStatus>()
+        //{
+
+        //}
+
         public async Task SeedAsync(OrderDbContext context, ILogger<OrderDbContext> logger)
         {
             var policy = CreatePolicy(logger, nameof(OrderDbContextSeed));
 
             await policy.ExecuteAsync(async () =>
             {
+                context.Database.Migrate();
+
                 var useCustomizationData = false;
                 var contentRootPath = "Seeding/Setup";
 
-
-                using (context)
+                if (!context.CardTypes.Any())
                 {
-                    context.Database.Migrate();
+                    var cardTypes = useCustomizationData
+                                    ? GetCardTypesFromFile(contentRootPath, logger)
+                                    : GetPredefinedCardTypes();
 
-                    if (!context.CardTypes.Any())
-                    {
-                        context.CardTypes.AddRange(useCustomizationData
-                                                    ? GetCardTypesFromFile(contentRootPath, logger)
-                                                    : GetPredefinedCardTypes());
-                        await context.SaveChangesAsync();
-                    }
+                    context.CardTypes.AddRange(cardTypes);
+                    await context.SaveChangesAsync();
+                }
 
-                    if (!context.OrderStatuses.Any())
-                    {
-                        context.OrderStatuses.AddRange(useCustomizationData
-                                                     ? GetOrderStatusesFromFile(contentRootPath, logger)
-                                                     : GetPredefinedOrderStatuses());
-                        await context.SaveChangesAsync();
-                    }
+                if (!context.OrderStatuses.Any())
+                {
+                    var orderStatuses = useCustomizationData
+                                        ? GetOrderStatusesFromFile(contentRootPath, logger)
+                                        : GetPredefinedOrderStatuses();
+
+                    context.OrderStatuses.AddRange(orderStatuses);
+                    await context.SaveChangesAsync();
                 }
             });
-
         }
+
 
         private IEnumerable<CardType> GetCardTypesFromFile(string contentRootPath, ILogger<OrderDbContext> logger)
         {
