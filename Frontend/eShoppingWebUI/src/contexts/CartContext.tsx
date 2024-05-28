@@ -158,11 +158,11 @@ export const CartProvider = ({ children }: any) => {
   const checkout=async(basketCheckout:BasketCheckout)=>{
     await BasketService.checkout(basketCheckout)
     .then((response)=>{
-      setCustomerBasket(undefined);
-      setCartItemCount(0);
-      setTotalPrice(0);
-      getCartById(basketCheckout.buyer.toString());
-      toast.success('Sipariş oluşturuldu! Bizi tercih ettiğiniz için teşekkür ederiz')
+      // setCustomerBasket(undefined);
+      // setCartItemCount(0);
+      // setTotalPrice(0);
+      // getCartById(basketCheckout.buyer.toString());
+      // toast.success('Sipariş oluşturuldu! Bizi tercih ettiğiniz için teşekkür ederiz')
     }).catch((error)=>{
       console.log(error)
     })

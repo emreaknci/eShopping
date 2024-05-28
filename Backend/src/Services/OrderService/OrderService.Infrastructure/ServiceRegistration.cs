@@ -1,14 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OrderService.Application.Interfaces.Hubs;
 using OrderService.Application.Interfaces.Repositories;
 using OrderService.Infrastructure.Context;
+using OrderService.Infrastructure.Hubs;
 using OrderService.Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OrderService.Infrastructure
 {
@@ -29,7 +26,10 @@ namespace OrderService.Infrastructure
             dbContext.Database.EnsureCreated();
             dbContext.Database.Migrate();
 
+
+            services.AddTransient<IOrderHubService, OrderHubService>();
+
             return services;
-        }
+        }    
     }
 }

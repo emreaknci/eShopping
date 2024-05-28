@@ -13,6 +13,8 @@ import { PaymentDetails } from '../../../models/baskets/paymentDetails';
 import PaymentSucceeded from '../../../components/mainLayout/cartPage/PaymentSucceeded';
 import Step3 from '../../../components/mainLayout/cartPage/Step3';
 import { BasketCheckout } from '../../../dtos/baskets/basketCheckout';
+import SignalRService, { HubUrls, ReceiveFunctions } from '../../../services/signalr.service';
+import { toast } from 'react-toastify';
 
 const CartPage = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -39,6 +41,32 @@ const CartPage = () => {
       setActiveStep(3);
     }
   }, [paymentSucceeded])
+
+
+  useEffect(()=>{
+    const signalRService= new SignalRService();
+    
+    signalRService.start(HubUrls.OrderHub);
+    
+    signalRService.on(HubUrls.OrderHub,ReceiveFunctions.OrderPaymentSuccededMessage,(buyerId)=>{
+      if(cartContext.customerCart?.buyerId?.toString() != buyerId) return;
+      cartContext.clearCart();
+      toast.success(`Siparişiniz başarıyla alındı. En kısa sürede tarafınıza ulaştırılacaktır.`);
+
+    });
+
+    signalRService.on(HubUrls.OrderHub,ReceiveFunctions.OrderPaymentFailedMessage,(buyerId)=>{
+      if(cartContext.customerCart?.buyerId?.toString() != buyerId) return;
+      toast.error(`Ödeme işlemi başarısız oldu. Lütfen tekrar deneyiniz.`);
+    });
+
+    return ()=>{
+      //close connection
+      signalRService.stop(signalRService.start(HubUrls.OrderHub));
+    }
+
+  },[cartContext])
+
 
   const handleNext = () => {
     let newSkipped = skipped;
@@ -74,8 +102,6 @@ const CartPage = () => {
     }
     basketCheckout.paymentDetails.cardSecurityNumber = basketCheckout.paymentDetails.cardSecurityNumber.toString();
     basketCheckout.paymentDetails.numberOfInstallments = parseInt(basketCheckout.paymentDetails.numberOfInstallments.toString());
-
-    console.log('basketCheckout:', basketCheckout);
 
     await cartContext.checkout(basketCheckout);
 

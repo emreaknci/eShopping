@@ -30,7 +30,7 @@ namespace NotificationService.API
 
                 x.UsingRabbitMq((context, config) =>
                 {
-                    config.ReceiveEndpoint(EventBusConstants.BasketServiceQueueName, e =>
+                    config.ReceiveEndpoint(EventBusConstants.NotificationServiceQueueName, e =>
                     {
                         e.Consumer<OrderPaymentSucceededEventConsumer>(context);
                         e.Consumer<OrderPaymentFailedEventConsumer>();

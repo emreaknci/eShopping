@@ -44,6 +44,7 @@ namespace OrderService.API
 
             });
 
+            services.AddSignalR();
 
             return services;
         }

@@ -21,7 +21,7 @@ namespace PaymentService.API.Consumers
             var message = context.Message;
 
             await Console.Out.WriteLineAsync($"\n#{message.OrderId} payment being received...");
-            await SendPaymentStatus(context, success);
+            await SendPaymentStatus(context, false);
         }
 
         public async Task SendPaymentStatus(ConsumeContext<OrderStartedEvent> context, bool success)
@@ -33,7 +33,7 @@ namespace PaymentService.API.Consumers
                 var succeeded = new OrderPaymentSucceeded()
                 {
                     OrderId = context.Message.OrderId,
-                    BuyerId= context.Message.OrderId,
+                    BuyerId= context.Message.BuyerId,
                 };
                 await context.Publish(succeeded);
             }
@@ -45,7 +45,7 @@ namespace PaymentService.API.Consumers
                 {
                     items.Add(item.Key, item.Value);
                 }
-                OrderPaymentFailed failed = new OrderPaymentFailed(context.Message.OrderId, "Payment failed", items);            
+                OrderPaymentFailed failed = new OrderPaymentFailed(context.Message.OrderId, "Payment failed", items,context.Message.BuyerId);            
                 await context.Publish(failed);
             }
 

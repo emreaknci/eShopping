@@ -4,12 +4,11 @@ using Microsoft.OpenApi.Models;
 using OrderService.API;
 using OrderService.API.Extensions;
 using OrderService.Infrastructure.Context;
+using OrderService.Infrastructure.Hubs;
 
-  
+
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -40,6 +39,15 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("SignalRCorsPolicy",
+            builder => builder
+                .WithOrigins("http://localhost:5173", "https://localhost:5173")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+});
 
 builder.Services.AddOrderServices(builder.Configuration);
 
@@ -52,6 +60,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("SignalRCorsPolicy");
+
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -66,6 +76,7 @@ app.MigrateDbContext<OrderDbContext>((context, services) =>
         .Wait();
 
 });
+app.MapHub<OrderHub>("/orders-hub");
 
 app.Start();
 
