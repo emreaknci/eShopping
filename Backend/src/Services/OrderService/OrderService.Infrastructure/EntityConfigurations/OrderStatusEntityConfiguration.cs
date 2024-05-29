@@ -5,6 +5,7 @@ using OrderService.Infrastructure.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,19 +15,28 @@ namespace OrderService.Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<OrderStatus> builder)
         {
-            builder.ToTable("orderStatuses", OrderDbContext.DEFAULT_SCHEMA);
+            builder.ToTable("OrderStatuses", OrderDbContext.DEFAULT_SCHEMA);
 
             builder.HasKey(o => o.Id);
             builder.Property(o => o.Id).ValueGeneratedOnAdd();
 
             builder.Property(o => o.Id)
-                .HasDefaultValue(1)
                 .ValueGeneratedNever()
                 .IsRequired();
 
             builder.Property(o => o.Name)
                 .HasMaxLength(200)
-                .IsRequired();
+            .IsRequired();
+
+
+            builder.HasData(
+            OrderStatus.Submitted,
+            OrderStatus.AwaitingValidation,
+            OrderStatus.StockConfirmed,
+            OrderStatus.Paid,
+            OrderStatus.Shipped,
+            OrderStatus.Cancelled
+            );
         }
     }
 }

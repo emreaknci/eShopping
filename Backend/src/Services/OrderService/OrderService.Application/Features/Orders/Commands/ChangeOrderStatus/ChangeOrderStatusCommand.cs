@@ -36,7 +36,7 @@ namespace OrderService.Application.Features.Orders.Commands.ChangeOrderStatus
             if (order is null)
                 return false;
 
-            order.OrderStatus = request.NewStatus;
+            order.OrderStatusId = request.NewStatus.Id;
 
             await _orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 

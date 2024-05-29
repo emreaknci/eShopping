@@ -159,7 +159,7 @@ const Step3 = ({ setPaymentDetails, setPaymentSucceeded, setCanContinue }
                             control={<Radio />}
                             label={`${plan.months} taksit`}
                             onChange={() => {
-                              formik.setFieldValue('numberOfInstallement', plan.months);
+                              formik.setFieldValue('numberOfInstallments', plan.months);
                             }}
                           />
                         </TableCell>

@@ -33,21 +33,19 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
                 request.CardSecurityNumber,
                 request.CardHolderName,
                 request.CardExpiration,
-                null);
-            var x = DateTime.Now;
-            //TODO cardexp sıkıntılı
+                request.NumberOfInstallments
+                );
+                
             request.OrderItems.ToList().ForEach(i => dbOrder.AddOrderItem(i.ProductId, i.ProductName, i.UnitPrice, i.PictureUrl, i.Units));
-
             await _orderRepository.AddAsync(dbOrder);
             await _orderRepository.UnitOfWork.SaveEntitiesAsync();
-            dbOrder.AddOrderStartedDomainEvent(request.UserId, request.UserName, request.CardTypeId, request.CardNumber, request.CardSecurityNumber, request.CardHolderName, request.CardExpiration);
 
             var orderItems = dbOrder.OrderItems.ToDictionary(i => i.ProductId, i => i.Units);
 
             await _publishEndpoint.Publish<OrderStartedEvent>(new OrderStartedEvent()
             {
                 OrderId = dbOrder.Id.ToString(),
-                BuyerId = dbOrder.UserId,
+                BuyerId = request.UserId,
                 Items = orderItems,
                 Succeeded = true
             });

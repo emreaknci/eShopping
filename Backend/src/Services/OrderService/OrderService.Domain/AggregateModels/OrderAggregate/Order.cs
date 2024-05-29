@@ -12,15 +12,14 @@ namespace OrderService.Domain.AggregateModels.OrderAggregate
     public class Order : BaseEntity, IAggregateRoot
     {
         public DateTime OrderDate { get; private set; }
-        public int Quantity { get; private set; }
-        public Guid? BuyerId { get; private set; }
-        public string UserId { get; private set; }
+        public Guid? BuyerId { get; set; }
         public Buyer Buyer { get; private set; }
 
-        private int orderStatusId;
+        public int OrderStatusId { get; set; }
         public OrderStatus OrderStatus { get; set; }
         public Address Address { get; private set; }
 
+        public int NumberOfInstallments { get; private set; }
         private readonly List<OrderItem> _orderItems;
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
 
@@ -32,16 +31,14 @@ namespace OrderService.Domain.AggregateModels.OrderAggregate
             _orderItems = new List<OrderItem>();
         }
 
-        public Order(string userId, string userName, Address address, int cardTypeId, string cardNumber, string cardSecurityNumber, string cardHolderName, DateTime cardExpiration, Guid? paymentMethodId, Guid? buyerId = null) : this()
+        public Order(string userId, string userName, Address address, int cardTypeId, string cardNumber, string cardSecurityNumber, string cardHolderName, DateTime cardExpiration, int numberOfInstallments) : this()
         {
-            UserId = userId;
-            BuyerId = buyerId;
-            orderStatusId = OrderStatus.Submitted.Id;
+            OrderStatusId = OrderStatus.Submitted.Id;
             OrderDate = DateTime.UtcNow;
             Address = address;
-            PaymentMethodId = paymentMethodId;
+            NumberOfInstallments = numberOfInstallments;
 
-            //AddOrderStartedDomainEvent(userId, userName, cardTypeId, cardNumber, cardSecurityNumber, cardHolderName, cardExpiration);
+            AddOrderStartedDomainEvent(userId, userName, cardTypeId, cardNumber, cardSecurityNumber, cardHolderName, cardExpiration);
         }
 
         public void AddOrderStartedDomainEvent(string userId, string userName, int cardTypeId, string cardNumber, string cardSecurityNumber, string cardHolderName, DateTime cardExpiration)
@@ -56,6 +53,7 @@ namespace OrderService.Domain.AggregateModels.OrderAggregate
 
             //validation
             var orderItem = new OrderItem(productId, productName, unitPrice, picureUrl, units);
+            orderItem.OrderId = Id;
 
             _orderItems.Add(orderItem);
         }

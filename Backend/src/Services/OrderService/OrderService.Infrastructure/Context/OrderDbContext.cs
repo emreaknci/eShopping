@@ -49,6 +49,7 @@ namespace OrderService.Infrastructure.Context
             modelBuilder.ApplyConfiguration(new OrderStatusEntityConfiguration());
             modelBuilder.ApplyConfiguration(new PaymentMethodEntityConfiguration());
 
+
         }
 
 

@@ -14,15 +14,14 @@ namespace OrderService.Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<PaymentMethod> builder)
         {
-            builder.ToTable("paymentmethods", OrderDbContext.DEFAULT_SCHEMA);
+            builder.ToTable("PaymentMethods", OrderDbContext.DEFAULT_SCHEMA);
 
 
             builder.Ignore(b=> b.DomainEvents);
 
             builder.HasKey(o => o.Id);
-            builder.Property(o => o.Id).HasColumnName("id").ValueGeneratedOnAdd();
+            builder.Property(o => o.Id).HasColumnName("Id").ValueGeneratedOnAdd();
 
-            builder.Property<int>("BuyerId").IsRequired();
 
             builder.Property(i=>i.CardHolderName)
                 .UsePropertyAccessMode(PropertyAccessMode.Field)

@@ -21,7 +21,7 @@ namespace PaymentService.API.Consumers
             var message = context.Message;
 
             await Console.Out.WriteLineAsync($"\n#{message.OrderId} payment being received...");
-            await SendPaymentStatus(context, false);
+            await SendPaymentStatus(context, success);
         }
 
         public async Task SendPaymentStatus(ConsumeContext<OrderStartedEvent> context, bool success)

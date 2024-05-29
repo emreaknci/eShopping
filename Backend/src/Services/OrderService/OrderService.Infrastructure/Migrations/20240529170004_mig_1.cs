@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace OrderService.Infrastructure.Migrations
 {
     /// <inheritdoc />
@@ -15,7 +17,7 @@ namespace OrderService.Infrastructure.Migrations
                 name: "ordering");
 
             migrationBuilder.CreateTable(
-                name: "buyers",
+                name: "Buyers",
                 schema: "ordering",
                 columns: table => new
                 {
@@ -26,108 +28,106 @@ namespace OrderService.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_buyers", x => x.Id);
+                    table.PrimaryKey("PK_Buyers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "cardtypes",
+                name: "CardTypes",
                 schema: "ordering",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
+                    id = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_cardtypes", x => x.id);
+                    table.PrimaryKey("PK_CardTypes", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "orderStatuses",
+                name: "OrderStatuses",
                 schema: "ordering",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false, defaultValue: 1),
+                    Id = table.Column<int>(type: "integer", nullable: false),
                     Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_orderStatuses", x => x.Id);
+                    table.PrimaryKey("PK_OrderStatuses", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "paymentmethods",
+                name: "PaymentMethods",
                 schema: "ordering",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Alias = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     CardNumber = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: false),
                     SecurityNumber = table.Column<string>(type: "text", nullable: false),
                     CardHolderName = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     Expiration = table.Column<DateTime>(type: "timestamp with time zone", maxLength: 25, nullable: false),
                     CardTypeId = table.Column<int>(type: "integer", nullable: false),
-                    BuyerId = table.Column<int>(type: "integer", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_paymentmethods", x => x.id);
+                    table.PrimaryKey("PK_PaymentMethods", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_paymentmethods_buyers_id",
-                        column: x => x.id,
+                        name: "FK_PaymentMethods_Buyers_Id",
+                        column: x => x.Id,
                         principalSchema: "ordering",
-                        principalTable: "buyers",
+                        principalTable: "Buyers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_paymentmethods_cardtypes_CardTypeId",
+                        name: "FK_PaymentMethods_CardTypes_CardTypeId",
                         column: x => x.CardTypeId,
                         principalSchema: "ordering",
-                        principalTable: "cardtypes",
+                        principalTable: "CardTypes",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "orders",
+                name: "Orders",
                 schema: "ordering",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     OrderDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Quantity = table.Column<int>(type: "integer", nullable: false),
                     BuyerId = table.Column<Guid>(type: "uuid", nullable: true),
-                    UserId = table.Column<string>(type: "text", nullable: false),
                     OrderStatusId = table.Column<int>(type: "integer", nullable: false),
                     Address_Street = table.Column<string>(type: "text", nullable: false),
                     Address_City = table.Column<string>(type: "text", nullable: false),
                     Address_State = table.Column<string>(type: "text", nullable: false),
                     Address_Country = table.Column<string>(type: "text", nullable: false),
                     Address_ZipCode = table.Column<string>(type: "text", nullable: false),
+                    NumberOfInstallments = table.Column<int>(type: "integer", nullable: false),
                     PaymentMethodId = table.Column<Guid>(type: "uuid", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_orders", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_orders_buyers_BuyerId",
+                        name: "FK_Orders_Buyers_BuyerId",
                         column: x => x.BuyerId,
                         principalSchema: "ordering",
-                        principalTable: "buyers",
+                        principalTable: "Buyers",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_orders_orderStatuses_OrderStatusId",
+                        name: "FK_Orders_OrderStatuses_OrderStatusId",
                         column: x => x.OrderStatusId,
                         principalSchema: "ordering",
-                        principalTable: "orderStatuses",
+                        principalTable: "OrderStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "orderItems",
+                name: "OrderItems",
                 schema: "ordering",
                 columns: table => new
                 {
@@ -142,38 +142,63 @@ namespace OrderService.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_orderItems", x => x.Id);
+                    table.PrimaryKey("PK_OrderItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_orderItems_orders_OrderId",
+                        name: "FK_OrderItems_Orders_OrderId",
                         column: x => x.OrderId,
                         principalSchema: "ordering",
-                        principalTable: "orders",
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_orderItems_OrderId",
+            migrationBuilder.InsertData(
                 schema: "ordering",
-                table: "orderItems",
+                table: "CardTypes",
+                columns: new[] { "id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Amex" },
+                    { 2, "Visa" },
+                    { 3, "MasterCard" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "ordering",
+                table: "OrderStatuses",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "submitted" },
+                    { 2, "awaitingvalidation" },
+                    { 3, "stockconfirmed" },
+                    { 4, "paid" },
+                    { 5, "shipped" },
+                    { 6, "cancelled" }
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_OrderId",
+                schema: "ordering",
+                table: "OrderItems",
                 column: "OrderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_orders_BuyerId",
+                name: "IX_Orders_BuyerId",
                 schema: "ordering",
-                table: "orders",
+                table: "Orders",
                 column: "BuyerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_orders_OrderStatusId",
+                name: "IX_Orders_OrderStatusId",
                 schema: "ordering",
-                table: "orders",
+                table: "Orders",
                 column: "OrderStatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_paymentmethods_CardTypeId",
+                name: "IX_PaymentMethods_CardTypeId",
                 schema: "ordering",
-                table: "paymentmethods",
+                table: "PaymentMethods",
                 column: "CardTypeId");
         }
 
@@ -181,27 +206,27 @@ namespace OrderService.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "orderItems",
+                name: "OrderItems",
                 schema: "ordering");
 
             migrationBuilder.DropTable(
-                name: "paymentmethods",
+                name: "PaymentMethods",
                 schema: "ordering");
 
             migrationBuilder.DropTable(
-                name: "orders",
+                name: "Orders",
                 schema: "ordering");
 
             migrationBuilder.DropTable(
-                name: "cardtypes",
+                name: "CardTypes",
                 schema: "ordering");
 
             migrationBuilder.DropTable(
-                name: "buyers",
+                name: "Buyers",
                 schema: "ordering");
 
             migrationBuilder.DropTable(
-                name: "orderStatuses",
+                name: "OrderStatuses",
                 schema: "ordering");
         }
     }

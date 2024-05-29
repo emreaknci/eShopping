@@ -25,17 +25,22 @@ namespace OrderService.Application.DomainEventHandlers
 
             var buyer = await _buyerRepository.GetSingleAsync(i => i.UserId == orderStartedEvent.UserId, i => i.PaymentMethods);
 
-            bool buyerOriginallyExisted = buyer != null;
-            if (buyerOriginallyExisted)
-                buyer = new Buyer(orderStartedEvent.UserId,orderStartedEvent.UserName);
+            if (buyer == null)           
+                buyer = new Buyer(orderStartedEvent.UserId, orderStartedEvent.UserName);
+            
 
             buyer.VerifyOrAddPaymentMethod(cardTypeId, $"Payment Method on {DateTime.UtcNow}", orderStartedEvent.CardNumber, orderStartedEvent.CardSecurityNumber, orderStartedEvent.CardHolderName, orderStartedEvent.CardExpiration, orderStartedEvent.Order.Id);
 
-            var buyerUpdated = buyerOriginallyExisted
-                ? _buyerRepository.Update(buyer)
-                : await _buyerRepository.AddAsync(buyer);
+            if (buyer == null)
+            {
+                buyer = new Buyer(orderStartedEvent.UserId, orderStartedEvent.UserName);
+                await _buyerRepository.AddAsync(buyer);
+            }
+            else
+                _buyerRepository.Update(buyer);
 
             await _buyerRepository.UnitOfWork.SaveEntitiesAsync();
+
         }
     }
 }

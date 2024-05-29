@@ -24,6 +24,8 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
         public DateTime CardExpiration { get; private set; }
         public string CardSecurityNumber { get; private set; }
         public int CardTypeId { get; private set; }
+        public int NumberOfInstallments { get; set; }
+
         public IEnumerable<OrderItemDto> OrderItems => _orderItems;
 
         public CreateOrderCommand()
@@ -31,9 +33,9 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
             _orderItems = new List<OrderItemDto>();
         }
 
-        public CreateOrderCommand(List<BasketItem> basketItems, string userId, string userName, string city, string street,string state,string country,string zipcode ,string cardNumber, string cardHolderName, DateTime cardExpiration, string cardSecurityNumber, int cardTypeId) : this()
+        public CreateOrderCommand(List<BasketItem> basketItems, string userId, string userName, string city, string street, string state, string country, string zipcode, string cardNumber, string cardHolderName, DateTime cardExpiration, string cardSecurityNumber, int cardTypeId, int numberOfInstallments) : this()
         {
-            var dtoList =basketItems.Select(item=>new OrderItemDto
+            var dtoList = basketItems.Select(item => new OrderItemDto
             {
                 ProductId = item.ProductId,
                 ProductName = item.ProductName,
@@ -42,7 +44,7 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
                 PictureUrl = item.PictureUrl
             });
 
-            _orderItems=dtoList.ToList();
+            _orderItems = dtoList.ToList();
 
             UserId = userId;
             UserName = userName;
@@ -53,10 +55,11 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
             ZipCode = zipcode;
             CardNumber = cardNumber;
             CardHolderName = cardHolderName;
-            CardSecurityNumber =cardSecurityNumber;
+            CardSecurityNumber = cardSecurityNumber;
             CardExpiration = cardExpiration;
             CardTypeId = cardTypeId;
             CardExpiration = cardExpiration;
+            NumberOfInstallments = numberOfInstallments;
         }
 
 

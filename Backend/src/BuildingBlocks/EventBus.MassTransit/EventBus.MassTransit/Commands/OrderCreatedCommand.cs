@@ -57,7 +57,7 @@ namespace EventBus.MassTransit.Commands
 
     public class PaymentDetails
     {
-        public PaymentDetails(string cardNumber, string cardHolderName, DateTime cardExpiration, string cardSecurityNumber, int cardTypeId, int? numberOfInstallments)
+        public PaymentDetails(string cardNumber, string cardHolderName, DateTime cardExpiration, string cardSecurityNumber, int cardTypeId, int numberOfInstallments)
         {
             CardNumber = cardNumber;
             CardHolderName = cardHolderName;
@@ -76,7 +76,7 @@ namespace EventBus.MassTransit.Commands
         public DateTime CardExpiration { get; set; }
         public string CardSecurityNumber { get; set; }
         public int CardTypeId { get; set; }
-        public int? NumberOfInstallments { get; set; }
+        public int NumberOfInstallments { get; set; }
     }
 
     public class CustomerBasket

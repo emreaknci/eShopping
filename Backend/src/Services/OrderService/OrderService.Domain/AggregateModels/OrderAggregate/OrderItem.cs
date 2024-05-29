@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace OrderService.Domain.AggregateModels.OrderAggregate
 {
-    public class OrderItem:BaseEntity,IValidatableObject
+    public class OrderItem : BaseEntity, IValidatableObject
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; }
@@ -16,16 +16,15 @@ namespace OrderService.Domain.AggregateModels.OrderAggregate
         {
         }
 
-        public OrderItem(int productId, string productName, decimal unitPrice, string pictureUrl,int units=1)
+        public OrderItem(int productId, string productName, decimal unitPrice, string pictureUrl, int units = 1)
         {
             ProductId = productId;
-
             ProductName = productName;
             UnitPrice = unitPrice;
             Units = units;
             PictureUrl = pictureUrl;
         }
-        
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var results = new List<ValidationResult>();
@@ -35,7 +34,7 @@ namespace OrderService.Domain.AggregateModels.OrderAggregate
             }
             return results;
         }
-    
+
     }
 
 

@@ -14,7 +14,7 @@ namespace OrderService.Infrastructure.EntityConfigurations
     {
         public void Configure(EntityTypeBuilder<Order> builder)
         {
-            builder.ToTable("orders", OrderDbContext.DEFAULT_SCHEMA);
+            builder.ToTable("Orders", OrderDbContext.DEFAULT_SCHEMA);
 
             builder.HasKey(o => o.Id);
             builder.Property(i=>i.Id).ValueGeneratedOnAdd();
@@ -28,7 +28,7 @@ namespace OrderService.Infrastructure.EntityConfigurations
 
 
             builder
-                .Property<int>("orderStatusId")
+                .Property<int>("OrderStatusId")
                 .UsePropertyAccessMode(PropertyAccessMode.Field)
                 .HasColumnName("OrderStatusId")
                 .IsRequired();
@@ -43,7 +43,7 @@ namespace OrderService.Infrastructure.EntityConfigurations
 
             builder.HasOne(o => o.OrderStatus)
                 .WithMany()
-                .HasForeignKey("orderStatusId");
+                .HasForeignKey("OrderStatusId");
         }
     }
 }
