@@ -50,7 +50,7 @@ namespace CatalogService.API.Controllers
                         Id = c.Id,
                         Name = c.Name,
                         ParentCategoryId = c.ParentCategoryId ?? null,
-                        Features = _catalogContext.CategoryFeatures 
+                        Features = _catalogContext.CategoryFeatures
                         .Where(cf => cf.CategoryId == c.Id || cf.CategoryId == c.ParentCategoryId)
                         .Select(cf => new FeatureDto
                         {
@@ -82,7 +82,7 @@ namespace CatalogService.API.Controllers
                 .Select(cf => new FeatureDto
                 {
                     Id = cf.Feature.Id,
-                    Name = cf.Feature.Name,                
+                    Name = cf.Feature.Name,
                     Values = (List<FeatureValueListDto>)_catalogContext.FeatureValues.Where(fv => fv.FeatureId == cf.FeatureId).Select(fv => new FeatureValueListDto
                     {
                         Id = fv.Id,
@@ -93,7 +93,7 @@ namespace CatalogService.API.Controllers
                 SubCategories = _catalogContext.Categories.Where(c => c.ParentCategoryId == category.Id).Select(c => new CategoryListDto
                 {
                     Id = c.Id,
-                    Name = c.Name,                 
+                    Name = c.Name,
                     ParentCategoryId = c.ParentCategoryId ?? null
                 }).ToList(),
                 Brands = _catalogContext.BrandCategories.Where(b => b.CategoryId == category.Id).Include(b => b.Brand).Select(b => new BrandListDto
@@ -120,7 +120,8 @@ namespace CatalogService.API.Controllers
                 var categorytDto = new CategoryDto
                 {
                     Id = category.Id,
-                    Name = category.Name
+                    Name = category.Name,
+                    ProductCount = _catalogContext.ProductCategories.Where(pc => pc.CategoryId == category.Id).Count()
                 };
                 categoryDtos.Add(categorytDto);
             }
@@ -152,20 +153,20 @@ namespace CatalogService.API.Controllers
                         Name = cf.Feature.Name
                     }).ToList(),
                     ParentCategoryId = category.ParentCategoryId ?? null,
-                    Products=_catalogContext.ProductCategories.Where(pc=>pc.CategoryId==category.Id).Include(pc=>pc.Product).Select(pc=>new ProductListDto
+                    Products = _catalogContext.ProductCategories.Where(pc => pc.CategoryId == category.Id).Include(pc => pc.Product).Select(pc => new ProductListDto
                     {
-                        Id=pc.Product.Id,
-                        Name=pc.Product.Name,
-                        Price=pc.Product.Price,
-                        BrandId=pc.Product.BrandId,
-                        BrandName=_catalogContext.Brands.FirstOrDefault(b=>b.Id==pc.Product.BrandId).Name,
-                        
+                        Id = pc.Product.Id,
+                        Name = pc.Product.Name,
+                        Price = pc.Product.Price,
+                        BrandId = pc.Product.BrandId,
+                        BrandName = _catalogContext.Brands.FirstOrDefault(b => b.Id == pc.Product.BrandId).Name,
+
                     }).Take(5).ToList()
                 };
 
                 categoryListDto.Products.ForEach(p =>
                 {
-                    p.ImageUrl = _catalogContext.ProductImages.Where(pi=>pi.ProductId==p.Id).FirstOrDefault(pi=>pi.IsCoverImage)?.Url;
+                    p.ImageUrl = _catalogContext.ProductImages.Where(pi => pi.ProductId == p.Id).FirstOrDefault(pi => pi.IsCoverImage)?.Url;
                 });
 
                 categoryListDtos.Add(categoryListDto);

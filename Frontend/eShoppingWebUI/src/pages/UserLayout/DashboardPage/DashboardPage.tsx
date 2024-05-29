@@ -9,7 +9,6 @@ import OrdersBarChart from '../../../components/userLayout/dashboardPage/OrdersB
 import ProductPieChart from '../../../components/userLayout/dashboardPage/ProductPieChart';
 import { DataGridTableComponent } from '../../../components/common/DataGridTableComponent';
 import { DataGridTableComponentProps } from '../../../components/common/DataGridTableComponent/DataGridTableComponent';
-import categories, { createFakeCategories } from '../../../mock/category';
 import LowStockProducts from '../../../components/userLayout/dashboardPage/LowStockProducts';
 
 const sxValues = {
@@ -30,12 +29,6 @@ interface DailyOrderStatusCount {
 
 const DashboardPage = () => {
   const [orders, setOrders] = useState(createFakeOrderData(200, 1));
-  const [products, setProducts] = useState(createFakeCategories(10, 20).flatMap(category => category.products));
-
-  useEffect(() => {
-
-  }, []);
-
 
 
   const gridItems: GridItem[] = [
@@ -45,9 +38,9 @@ const DashboardPage = () => {
       icon: <LocalMallIcon fontSize='large' color='primary' />
     },
     {
-      title: 'Toplam Ürün',
-      value: '428',
-      icon: <InventoryIcon fontSize='large' color='primary' />
+      title: 'Toplam Gelir',
+      value: '₺120000',
+      icon: <PaymentsIcon fontSize='large' color='primary' />
     },
     {
       title: 'Bugünki Sipariş',
@@ -84,24 +77,6 @@ const DashboardPage = () => {
     )
   }
 
-  const renderPieChart = () => {
-    const data = [
-      { label: 'Telefonlar', value: 400, color: '#FF0000' },
-      { label: 'Tabletler', value: 300, color: '#00FF00' },
-      { label: 'Bilgisayarlar', value: 300, color: '#0000FF' },
-      { label: 'Kameralar', value: 200, color: '#FFFF00' },
-      { label: 'Kulaklıklar', value: 100, color: '#FF00FF' },
-
-    ];
-    return (
-      <Paper sx={{ ...sxValues }}>
-        <Typography variant="h6">
-          Ürün Porföyü
-        </Typography>
-        <ProductPieChart data={data} />
-      </Paper>
-    )
-  }
 
   const renderLatestOrders = () => {
     const props: DataGridTableComponentProps = {
@@ -144,7 +119,7 @@ const DashboardPage = () => {
         </Grid>
 
         <Grid item xs={12} sm={6} md={6} lg={5} xl={4} >
-          {renderPieChart()}
+          <ProductPieChart/>
         </Grid>
 
         <Grid item xs={12} sm={6} md={6} lg={7} xl={8} >
