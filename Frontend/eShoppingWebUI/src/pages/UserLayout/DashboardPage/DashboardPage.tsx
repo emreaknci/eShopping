@@ -10,6 +10,7 @@ import ProductPieChart from '../../../components/userLayout/dashboardPage/Produc
 import { DataGridTableComponent } from '../../../components/common/DataGridTableComponent';
 import { DataGridTableComponentProps } from '../../../components/common/DataGridTableComponent/DataGridTableComponent';
 import categories, { createFakeCategories } from '../../../mock/category';
+import LowStockProducts from '../../../components/userLayout/dashboardPage/LowStockProducts';
 
 const sxValues = {
   display: 'flex',
@@ -130,39 +131,9 @@ const DashboardPage = () => {
       </Paper>
     )
   }
+  
 
-  const renderLowStockProducts = () => {
-    const lowStockProducts = products.filter(product => product.unitOfStock < 15);
 
-    const props: DataGridTableComponentProps = {
-      columns: [
-        { field: 'id', headerName: 'ID', width: 90 },
-        { field: 'name', headerName: 'Name', width: 150 },
-        { field: 'unitOfStock', headerName: 'Stok Miktarı', width: 150 },
-        { field: 'category', headerName: 'Kategori', width: 150 },
-        { field: 'price', headerName: 'Fiyat', width: 150 },
-      ],
-      rows: [
-        ...lowStockProducts.map(product => {
-          return {
-            id: product.id,
-            name: product.name,
-            unitOfStock: product.unitOfStock,
-            price: product.price,
-            category: product.category.name
-          }
-        })
-      ]
-    }
-    return (
-      <Paper sx={sxValues}>
-        <Typography variant="h6">
-          Stoğu Azalan Ürünler
-        </Typography>
-        <DataGridTableComponent columns={props.columns} rows={props.rows} />
-      </Paper>
-    )
-  }
   return (
     <>
       <Grid container spacing={3} >
@@ -195,7 +166,7 @@ const DashboardPage = () => {
         </Grid>
 
         <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-          {renderLowStockProducts()}
+          <LowStockProducts />
         </Grid>
       </Grid >
     </>

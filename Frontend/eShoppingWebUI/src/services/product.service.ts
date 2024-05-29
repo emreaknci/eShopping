@@ -18,6 +18,10 @@ const ProductService = {
     async addProduct (formData: FormData): Promise<AxiosResponse<Result<ProductDetailDto>>> {
         return await BaseService.post(`/${productEndpoint}/`, formData,{headers: {'Content-Type': 'multipart/form-data'}});
     },
+
+    async getLowStockProducts(units:number=10): Promise<AxiosResponse<PaginatedResult<ProductListDto>>> {
+        return await BaseService.get(`/${productEndpoint}/low-stock?units=${units}`);
+    }
 }
 
 export default ProductService;

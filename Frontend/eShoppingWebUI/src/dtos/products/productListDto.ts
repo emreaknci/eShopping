@@ -5,4 +5,5 @@ export interface ProductListDto {
     brandId: number;
     price: number;
     imageUrl?: string | null;
+    unitsInStock?: number;
 }

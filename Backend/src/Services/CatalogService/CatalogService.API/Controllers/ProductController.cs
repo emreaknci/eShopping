@@ -115,6 +115,7 @@ namespace CatalogService.API.Controllers
                     BrandId = product.BrandId,
                     BrandName = brandName,
                     Price = product.Price,
+                    UnitsInStock = product.UnitsInStock,
                     ImageUrl = _catalogContext.ProductImages.FirstOrDefault(pi => pi.ProductId == product.Id && pi.IsCoverImage)?.Url
                 });
             }
@@ -249,8 +250,39 @@ namespace CatalogService.API.Controllers
             return Ok(Result<Product>.SuccessResult(product));
         }
 
+        [HttpGet("low-stock")]
+        public IActionResult GetLowStockProducts(int units)
+        {
+            //TODO: add pagination to this method
+            var products = _catalogContext.Products.Where(p => p.UnitsInStock < units).ToList();
+
+            if (!products.Any())
+                return NotFound(Result<List<ProductListDto>>.FailureResult("Stokta az ürün bulunamadı"));
+
+            List<ProductListDto> productDtos = new List<ProductListDto>();
+
+            foreach (var product in products)
+            {
+                var brandName = _catalogContext.Brands.FirstOrDefault(b => b.Id == product.BrandId)?.Name;
+                productDtos.Add(new ProductListDto
+                {
+                    Id = product.Id,
+                    Name = product.Name,
+                    BrandId = product.BrandId,
+                    BrandName = brandName,
+                    Price = product.Price,
+                    UnitsInStock = product.UnitsInStock,
+                    ImageUrl = _catalogContext.ProductImages.FirstOrDefault(pi => pi.ProductId == product.Id && pi.IsCoverImage)?.Url
+                });
+            }
+
+            productDtos = productDtos.OrderBy(p => p.UnitsInStock).ToList();
+
+            return Ok(Result<List<ProductListDto>>.SuccessResult(productDtos));
+        }
 
 
+        //TODO: Move these methods to a service class
         private void AddProductCategories(ProductCreateDto dto, int productId)
         {
             if (dto.CategoryIds?.Any() != true) return;
