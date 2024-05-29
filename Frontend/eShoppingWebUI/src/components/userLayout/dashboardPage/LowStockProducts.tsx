@@ -19,7 +19,6 @@ const LowStockProducts = () => {
     useEffect(() => {
         ProductService.getLowStockProducts(100).then(response => {
             const data = response.data.data as ProductListDto[];
-            console.log(data)
             setProducts(data)
         }).catch(error => {
             console.log(error)
@@ -32,7 +31,7 @@ const LowStockProducts = () => {
     const props: DataGridTableComponentProps = {
         columns: [
             { field: 'id', headerName: 'ID', width: 90 },
-            { field: 'name', headerName: 'Name', width: 150 },
+            { field: 'name', headerName: 'Ürün Adı', width: 150 },
             { field: 'unitsInStock', headerName: 'Stok Miktarı', width: 150 },
             { field: 'brand', headerName: 'Marka', width: 150 },
             { field: 'price', headerName: 'Fiyat', width: 150 },
@@ -40,7 +39,7 @@ const LowStockProducts = () => {
         rows: [
             ...products.map(product => {
                 return {
-                    id: product.id,
+                    id: "# "+product.id,
                     name: product.name,
                     unitsInStock: product.unitsInStock + ' adet',
                     price: product.price,

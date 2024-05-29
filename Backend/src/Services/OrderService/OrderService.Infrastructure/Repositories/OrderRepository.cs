@@ -1,4 +1,5 @@
-﻿using OrderService.Application.Interfaces.Repositories;
+﻿using Microsoft.EntityFrameworkCore;
+using OrderService.Application.Interfaces.Repositories;
 using OrderService.Domain.AggregateModels.OrderAggregate;
 using OrderService.Infrastructure.Context;
 using System;
@@ -19,6 +20,30 @@ namespace OrderService.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
+        public int CalculateLatestOrderCount(int daysAgo)
+        {
+            DateTime startDate = DateTime.UtcNow.Date.AddDays(-daysAgo);
+            return _dbContext.Orders.Count(x => x.CreatedDate >= startDate);
+        }
+
+        public decimal CalculateLatestOrderRevenue(int daysAgo)
+        {
+            DateTime startDate = DateTime.UtcNow.Date.AddDays(-daysAgo);
+            return _dbContext.OrderItems
+                            .Where(x => x.CreatedDate >= startDate)
+                            .Sum(x => x.UnitPrice * x.Units);
+        }
+
+        public int CalculateTotalOrderCount()
+        {
+            return _dbContext.Orders.Count();
+        }
+
+        public decimal CalculateTotalOrderRevenue()
+        {
+            return _dbContext.OrderItems.Sum(x => x.UnitPrice * x.Units);
+        }
+
         public override async Task<Order> GetByIdAsync(Guid id, params Expression<Func<Order, object>>[] includes)
         {
             var entity = await base.GetByIdAsync(id, includes);
@@ -29,6 +54,11 @@ namespace OrderService.Infrastructure.Repositories
             }
 
             return entity;
+        }
+
+        public IQueryable<Order> GetLatestOrders(int count)
+        {
+            return _dbContext.Orders.OrderByDescending(x => x.CreatedDate).Take(count).Include(x=>x.Buyer).Include(x=>x.OrderItems);
         }
     }
 }

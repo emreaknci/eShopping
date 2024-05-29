@@ -10,7 +10,7 @@ export interface DataGridTableComponentProps {
 
 const DataGridTableComponent = (props: DataGridTableComponentProps) => {
   return (
-    <div style={{width:"100%"}}>
+    <div style={{width:"100%",paddingTop:"1rem"}}>
      <div style={{width:"100%" , height:350}}>
      <DataGrid
         style={{ border: 'none', borderColor: 'transparent',maxWidth: '100%'}}

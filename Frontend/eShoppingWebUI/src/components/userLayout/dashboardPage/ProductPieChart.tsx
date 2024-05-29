@@ -46,35 +46,39 @@ const ProductPieChart = () => {
             <Typography variant="h6">
                 Ürün Porföyü
             </Typography>
-            <Typography variant="caption">
-                Toplam Ürün Sayısı: {pieChartData.reduce((acc, curr) => acc + curr.value, 0)}
-            </Typography>
-            <PieChart
-                series={[
-                    {
-                        data: pieChartData,
-                        highlightScope: { faded: 'global', highlighted: 'item' },
-                        faded: { innerRadius: 20, additionalRadius: -20, color: 'gray' },
-                        innerRadius: 35, paddingAngle: 5, cornerRadius: 5,
-                    },
-                ]}
-                slotProps={{
-                    legend: {
-                        ...(isMobile && {
-                            drawingArea: {
-                                bottom: 0, left: 0,
-                                right: 0, top: 0,
-                                width: 0, height: 0,
-                            }
-                        }),
-                        direction: 'column',
-                        itemMarkHeight: 10,
-                        itemMarkWidth: 10
-                    }
+            {pieChartData.length > 0 ? <>
+                <Typography variant="caption">
+                    Toplam Ürün Sayısı: {pieChartData.reduce((acc, curr) => acc + curr.value, 0)}
+                </Typography>
+                <PieChart
+                    series={[
+                        {
+                            data: pieChartData,
+                            highlightScope: { faded: 'global', highlighted: 'item' },
+                            faded: { innerRadius: 20, additionalRadius: -20, color: 'gray' },
+                            innerRadius: 35, paddingAngle: 5, cornerRadius: 5,
+                        },
+                    ]}
+                    slotProps={{
+                        legend: {
+                            ...(isMobile && {
+                                drawingArea: {
+                                    bottom: 0, left: 0,
+                                    right: 0, top: 0,
+                                    width: 0, height: 0,
+                                }
+                            }),
+                            direction: 'column',
+                            itemMarkHeight: 10,
+                            itemMarkWidth: 10
+                        }
 
-                }}
-                height={isMobile ? 200 : undefined}
-            />
+                    }}
+                    height={isMobile ? 200 : undefined}
+                />
+            </>
+                : <Typography variant="body1">Ürün bulunmamaktadır.</Typography>
+            }
         </Paper>
     )
 }
