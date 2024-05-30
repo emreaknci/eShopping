@@ -16,10 +16,8 @@ import { OrderStatus, OrderStatusStrings } from '../../../enums/orderStatus';
 import OrderDetails from '../../../components/userLayout/ordersPage/OrderDetails';
 import FilterBox from '../../../components/userLayout/ordersPage/FilterBox';
 import { DateOption, getIndexForDateOption } from '../../../enums/dateOptions';
-import { LoadingComponent } from '../../../components/common/LoadingComponent';
 
 const OrdersPage = () => {
-  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState('All');
   const [sortField, setSortField] = useState(null);
@@ -36,7 +34,6 @@ const OrdersPage = () => {
   useEffect(() => {
     const getOrderPromise = OrderService.getOrders(page + 1, rowsPerPage, getIndexForDateOption(DateOption.AllTime), Number(filterStatus), searchQuery);
 
-    setLoading(true);
     getOrderPromise
       .then(response => {
         setOrders(response.data);
@@ -44,7 +41,6 @@ const OrdersPage = () => {
       .catch(error => {
         console.log(error);
       }).finally(() => {
-        setLoading(false);
       });
   }, [filterStatus, page, rowsPerPage, searchQuery]);
 
@@ -139,7 +135,7 @@ const OrdersPage = () => {
           </IconButton>
           {order.orderId}
         </TableCell>
-        <TableCell align='center'> {order.orderDate.toUTCString()} </TableCell>
+        <TableCell align='center'> {order.orderDate.toLocaleDateString()} </TableCell>
         <TableCell >
           <Typography align='center' sx={{ ...styles.orderStatusStyles(order.orderStatus) }}>
             {OrderStatusStrings[order.orderStatus as keyof typeof OrderStatusStrings]}
@@ -164,8 +160,6 @@ const OrdersPage = () => {
     setSearchQuery(e.target.value);
     setPage(0);
   }
-
-  if(loading) return <LoadingComponent/>
 
   return (
     <Grid container spacing={3}>

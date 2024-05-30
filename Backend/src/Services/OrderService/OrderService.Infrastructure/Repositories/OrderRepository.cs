@@ -106,6 +106,8 @@ namespace OrderService.Infrastructure.Repositories
                 }
             }
 
+            orders = orders.OrderByDescending(x => x.CreatedDate);
+
             return orders.Include(x => x.Buyer).Include(x => x.OrderItems);
         }
     }
