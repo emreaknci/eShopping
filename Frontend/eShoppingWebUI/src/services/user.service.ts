@@ -19,6 +19,10 @@ const UserService = {
     async getAllByRole(role: Role): Promise<AxiosResponse<Result<UserDto[]>>> {
         return await BaseService.get(`/${userEndpoint}/get-all-by-role?role=${role}`);
     },
+    async changePassword(oldPassword: string, newPassword: string): Promise<AxiosResponse<Result<any>>> {
+        return await BaseService.post(`/${userEndpoint}/change-password`, { oldPassword, newPassword });
+    },
+
 }
 
 export default UserService;

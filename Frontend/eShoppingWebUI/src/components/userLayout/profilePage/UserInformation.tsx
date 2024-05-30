@@ -17,38 +17,28 @@ const UserInformation = ({ sxValues }: { sxValues: any }) => {
 
 
     const validationSchema = Yup.object({
-        firstName: Yup.string().required('Ad zorunludur'),
-        lastName: Yup.string().required('Soyad zorunludur'),
-        email: Yup.string().email('Geçerli bir email adresi giriniz').required('Email zorunludur'),
+        oldPassword: Yup.string().required('Eski şiifre boş bırakılamaz!'),
+        newPassword: Yup.string().required('Yeni şifre boş bırakılamaz!'),
     });
 
     const formik = useFormik({
         initialValues: {
-            firstName: user?.firstName,
-            lastName: user?.lastName,
-            email: user?.email,
+            oldPassword: '',
+            newPassword: '',
         },
         validationSchema,
         onSubmit: (values) => {
-            let userUpdated = true;
-
-            if (
-                user?.firstName === values.firstName &&
-                user?.lastName === values.lastName &&
-                user?.email === values.email
-            ) {
-                userUpdated = false;
-            }
-            if (userUpdated) {
-                setUser({
-                    firstName: values.firstName,
-                    lastName: values.lastName,
-                    email: values.email,
-                });
-                toast.success('Kullanıcı bilgileri güncellendi!');
-            }
-            setSubmitted(true);
-            setEditing(false);
+            UserService.changePassword(values.oldPassword, values.newPassword).then(res => {
+                toast.success(res.data.message);
+                authContext.logout();
+                toast.success("Şifreniz başarıyla değiştirildi. Lütfen tekrar giriş yapınız.");
+            }).catch(err => {
+                toast.error(err.response.data.message);
+                formik.resetForm();
+            }).finally(() => {
+                setSubmitted(true);
+                setEditing(false);
+            })
         },
     });
 
@@ -66,11 +56,6 @@ const UserInformation = ({ sxValues }: { sxValues: any }) => {
 
                 };
                 setUser(userDto);
-                formik.setValues({
-                    firstName: userDto.firstName,
-                    lastName: userDto.lastName,
-                    email: userDto.email
-                });
             }).catch(err => {
                 toast.error(err.response.data?.message);
             })
@@ -132,27 +117,18 @@ const UserInformation = ({ sxValues }: { sxValues: any }) => {
                             <Grid item xs={12}>
                                 <CustomTextFieldComponent
                                     formik={formik}
-                                    fieldName="firstName"
-                                    label="Ad"
-                                    type="text"
+                                    fieldName="oldPassword"
+                                    label="Eski Şifreniz"
+                                    type="password"
                                     color={editing ? "success" : "primary"}
                                 />
                             </Grid>
                             <Grid item xs={12} >
                                 <CustomTextFieldComponent
                                     formik={formik}
-                                    fieldName="lastName"
-                                    label="Soyad"
-                                    type="text"
-                                    color={editing ? "success" : "primary"}
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <CustomTextFieldComponent
-                                    formik={formik}
-                                    fieldName="email"
-                                    label="Email"
-                                    type="email"
+                                    fieldName="newPassword"
+                                    label="Yeni Şifreniz"
+                                    type="password"
                                     color={editing ? "success" : "primary"}
                                 />
                             </Grid>
@@ -165,8 +141,21 @@ const UserInformation = ({ sxValues }: { sxValues: any }) => {
                             color={editing ? "success" : "primary"}
                             sx={{ color: 'white', fontWeight: 'bold' }}
                         >
-                            {editing ? "Kaydet" : "Güncellemek İÇİN TIKLAYINIZ"}
+                            {editing ? "Kaydet" : "ŞİFRE DEĞİŞTİR"}
                         </Button>
+
+                        {editing && <Button
+                            variant="contained"
+                            fullWidth
+                            color="error"
+                            onClick={() => {
+                                setEditing(false);
+                                formik.resetForm();
+                            }}
+                            sx={{ color: 'white', fontWeight: 'bold',mt:2 }}
+                        >
+                            Vazgeç
+                        </Button>}
                     </Grid>
                 </Grid>
             </form>

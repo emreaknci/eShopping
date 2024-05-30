@@ -107,6 +107,9 @@ namespace IdentityService.API.Controllers
         [HttpPost("change-password")]
         public async Task<IActionResult> ChangePassword(ChangePasswordDto dto)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            dto.UserId = int.Parse(userId);
+
             var result = await _userService.ChangePassword(dto);
 
             if (!result.Success)
