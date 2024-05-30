@@ -14,6 +14,7 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
 
         public string UserId { get; private set; }
         public string UserName { get; private set; }
+        public string UserEmail { get; private set; }
         public string City { get; private set; }
         public string Street { get; private set; }
         public string State { get; private set; }
@@ -33,7 +34,7 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
             _orderItems = new List<OrderItemDto>();
         }
 
-        public CreateOrderCommand(List<BasketItem> basketItems, string userId, string userName, string city, string street, string state, string country, string zipcode, string cardNumber, string cardHolderName, DateTime cardExpiration, string cardSecurityNumber, int cardTypeId, int numberOfInstallments) : this()
+        public CreateOrderCommand(List<BasketItem> basketItems, string userId, string userName, string userEmail, string city, string street, string state, string country, string zipcode, string cardNumber, string cardHolderName, DateTime cardExpiration, string cardSecurityNumber, int cardTypeId, int numberOfInstallments) : this()
         {
             var dtoList = basketItems.Select(item => new OrderItemDto
             {
@@ -60,6 +61,7 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
             CardTypeId = cardTypeId;
             CardExpiration = cardExpiration;
             NumberOfInstallments = numberOfInstallments;
+            UserEmail = userEmail;
         }
 
 

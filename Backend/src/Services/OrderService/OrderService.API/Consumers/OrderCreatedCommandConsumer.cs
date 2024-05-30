@@ -39,10 +39,10 @@ namespace OrderService.API.Consumers
 
             var createdOrderCommand = new CreateOrderCommand(
             basketItems, message.UserId,
-            message.UserName, message.ShippingAddress.City, message.ShippingAddress.Street, message.ShippingAddress.State,
+            message.UserName, message.UserEmail, message.ShippingAddress.City, message.ShippingAddress.Street, message.ShippingAddress.State,
             message.ShippingAddress.Country, message.ShippingAddress.ZipCode, message.PaymentDetails.CardNumber,
             message.PaymentDetails.CardHolderName, message.PaymentDetails.CardExpiration,
-            message.PaymentDetails.CardSecurityNumber, message.PaymentDetails.CardTypeId,message.PaymentDetails.NumberOfInstallments);
+            message.PaymentDetails.CardSecurityNumber, message.PaymentDetails.CardTypeId, message.PaymentDetails.NumberOfInstallments);
 
 
             await _mediator.Send(createdOrderCommand);

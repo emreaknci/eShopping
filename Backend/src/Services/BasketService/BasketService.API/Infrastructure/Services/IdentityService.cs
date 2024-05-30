@@ -12,6 +12,11 @@ namespace BasketService.API.Infrastructure.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
+        public string GetUserEmail()
+        {
+            return _httpContextAccessor.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.Email).Value;
+        }
+
         public string GetUserId()
         {
             return _httpContextAccessor.HttpContext.User.FindFirst(x => x.Type == ClaimTypes.NameIdentifier).Value;

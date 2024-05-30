@@ -10,6 +10,7 @@ namespace EventBus.MassTransit.Events
     {
         public string OrderId { get; set; }
         public string BuyerId { get; set; }
+        public string BuyerEmail { get; set; } // For email notification
         public bool Succeeded { get; set; }
 
         public Dictionary<int, int> Items { get; set; }

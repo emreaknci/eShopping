@@ -47,7 +47,8 @@ namespace OrderService.Application.Features.Orders.Commands.CreateOrder
                 OrderId = dbOrder.Id.ToString(),
                 BuyerId = request.UserId,
                 Items = orderItems,
-                Succeeded = true
+                Succeeded = true,
+                BuyerEmail = request.UserEmail,
             });
 
             return true;

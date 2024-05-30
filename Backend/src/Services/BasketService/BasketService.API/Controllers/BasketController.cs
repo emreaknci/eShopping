@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using EventBusBasketItem = EventBus.MassTransit.Commands.BasketItem;
 using EventBusAddress = EventBus.MassTransit.Commands.Address;
 using EventBusPaymentDetails = EventBus.MassTransit.Commands.PaymentDetails;
-using EventBusCustomerBasket= EventBus.MassTransit.Commands.CustomerBasket;
+using EventBusCustomerBasket = EventBus.MassTransit.Commands.CustomerBasket;
 using BasketService.API.Utils.Results;
 
 namespace BasketService.API.Controllers
@@ -86,8 +86,9 @@ namespace BasketService.API.Controllers
                 return BadRequest(basketResult);
 
             var userName = _identityService.GetUserName();
+            var userEmail = _identityService.GetUserEmail();
 
-            EventBus.MassTransit.Commands.OrderCreatedCommand orderCreatedCommand = CreateOrderCreatedCommand(basketCheckout, userId, basketResult, userName);
+            EventBus.MassTransit.Commands.OrderCreatedCommand orderCreatedCommand = CreateOrderCreatedCommand(basketCheckout, userId, basketResult, userName, userEmail);
 
             await _bus.Send(orderCreatedCommand);
 
@@ -103,7 +104,7 @@ namespace BasketService.API.Controllers
             return result.Success ? Ok(result) : BadRequest(result);
         }
 
-        private static EventBus.MassTransit.Commands.OrderCreatedCommand CreateOrderCreatedCommand(BasketCheckout basketCheckout, string userId, Result<CustomerBasket> basketResult, string userName)
+        private static EventBus.MassTransit.Commands.OrderCreatedCommand CreateOrderCreatedCommand(BasketCheckout basketCheckout, string userId, Result<CustomerBasket> basketResult, string userName, string userEmail)
         {
             EventBusAddress address = new(basketCheckout.ShippingAddress.City, basketCheckout.ShippingAddress.Street, basketCheckout.ShippingAddress.State, basketCheckout.ShippingAddress.Country, basketCheckout.ShippingAddress.ZipCode);
 
@@ -120,7 +121,7 @@ namespace BasketService.API.Controllers
 
 
 
-            var orderCreatedCommand = new EventBus.MassTransit.Commands.OrderCreatedCommand(userId, userName, address, paymentDetails, basketCheckout.Buyer, customerBasket);
+            var orderCreatedCommand = new EventBus.MassTransit.Commands.OrderCreatedCommand(userId, userName, address, paymentDetails, basketCheckout.Buyer, customerBasket, userEmail);
             return orderCreatedCommand;
         }
 

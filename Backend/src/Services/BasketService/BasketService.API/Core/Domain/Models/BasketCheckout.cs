@@ -5,6 +5,6 @@
     {
         public Address ShippingAddress { get; set; }
         public PaymentDetails PaymentDetails { get; set; }
-        public string Buyer { get; set; }
+        public string Buyer { get; set; } // userId
     }
 }

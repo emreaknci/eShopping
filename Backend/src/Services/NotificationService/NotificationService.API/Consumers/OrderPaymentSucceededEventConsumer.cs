@@ -15,7 +15,7 @@ namespace NotificationService.API.Consumers
 
         public async Task Consume(ConsumeContext<OrderPaymentSucceeded> context)
         {
-           await _mailService.SendOrderCreatedMailAsync("emreakinci696@gmail.com", context.Message.OrderId); // TODO: Get email from user service by user id
+           await _mailService.SendOrderCreatedMailAsync(context.Message.BuyerEmail, context.Message.OrderId);
         }
     }
 }

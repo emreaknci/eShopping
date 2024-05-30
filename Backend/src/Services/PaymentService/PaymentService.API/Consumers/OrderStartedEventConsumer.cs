@@ -34,6 +34,7 @@ namespace PaymentService.API.Consumers
                 {
                     OrderId = context.Message.OrderId,
                     BuyerId= context.Message.BuyerId,
+                    BuyerEmail = context.Message.BuyerEmail,
                 };
                 await context.Publish(succeeded);
             }

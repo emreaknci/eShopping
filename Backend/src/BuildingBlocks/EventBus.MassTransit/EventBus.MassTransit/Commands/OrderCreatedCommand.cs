@@ -10,13 +10,14 @@ namespace EventBus.MassTransit.Commands
     {
         public string UserId { get; set; }
         public string UserName { get; set; }
+        public string UserEmail { get; set; }
         public int OrderId { get; set; }
         public Address ShippingAddress { get; set; }
         public PaymentDetails PaymentDetails { get; set; }
         public string Buyer { get; set; }
         public CustomerBasket Basket { get; set; }
 
-        public OrderCreatedCommand(string userId, string userName, Address shippingAddress, PaymentDetails paymentDetails, string buyer, CustomerBasket basket)
+        public OrderCreatedCommand(string userId, string userName, Address shippingAddress, PaymentDetails paymentDetails, string buyer, CustomerBasket basket, string userEmail)
         {
             UserId = userId;
             UserName = userName;
@@ -25,6 +26,7 @@ namespace EventBus.MassTransit.Commands
 
             Buyer = buyer;
             Basket = basket;
+            UserEmail = userEmail;
         }
 
     }

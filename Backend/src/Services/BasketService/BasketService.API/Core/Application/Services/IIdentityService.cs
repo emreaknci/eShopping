@@ -4,5 +4,6 @@
     {
         string GetUserId();
         string GetUserName();
+        string GetUserEmail();
     }
 }
