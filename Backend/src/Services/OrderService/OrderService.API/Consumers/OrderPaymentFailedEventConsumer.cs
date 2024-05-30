@@ -22,7 +22,7 @@ namespace OrderService.API.Consumers
         {
 
             var message = context.Message;
-            var changeOrderStatusCommand = new ChangeOrderStatusCommand(message.OrderId, OrderStatus.Cancelled);
+            var changeOrderStatusCommand = new ChangeOrderStatusCommand(message.OrderId, OrderStatus.PaymentFailed);
 
             await _orderHubService.OrderPaymentFailedMessageAsync(message.BuyerId);
 

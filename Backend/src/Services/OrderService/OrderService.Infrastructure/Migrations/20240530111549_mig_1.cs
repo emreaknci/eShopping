@@ -169,12 +169,14 @@ namespace OrderService.Infrastructure.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "submitted" },
-                    { 2, "awaitingvalidation" },
-                    { 3, "stockconfirmed" },
-                    { 4, "paid" },
+                    { 1, "paymentpending" },
+                    { 2, "paymentfailed" },
+                    { 3, "paymentsucceeded" },
+                    { 4, "preparing" },
                     { 5, "shipped" },
-                    { 6, "cancelled" }
+                    { 6, "delivered" },
+                    { 7, "cancelledbybuyer" },
+                    { 8, "cancelledbystore" }
                 });
 
             migrationBuilder.CreateIndex(

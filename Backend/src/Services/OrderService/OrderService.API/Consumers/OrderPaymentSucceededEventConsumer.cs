@@ -23,15 +23,15 @@ namespace OrderService.API.Consumers
         public async Task Consume(ConsumeContext<OrderPaymentSucceeded> context)
         {
             var message = context.Message;
-            var changeOrderStatusCommand = new ChangeOrderStatusCommand(message.OrderId,GetRandomPaidOrShippedStatus());
+            var changeOrderStatusCommand = new ChangeOrderStatusCommand(message.OrderId, GetRandomStatus());
             await _orderHubService.OrderPaymentSuccededMessageAsync(message.BuyerId);
 
             await _mediator.Send(changeOrderStatusCommand);
         }
 
-        private OrderStatus GetRandomPaidOrShippedStatus()
+        private OrderStatus GetRandomStatus()
         {
-            var paidAndShippedStatuses = new List<OrderStatus> { OrderStatus.Paid, OrderStatus.Shipped };
+            var paidAndShippedStatuses = new List<OrderStatus> { OrderStatus.Preparing,OrderStatus.Shipped,OrderStatus.Delivered };
             var random = new Random();
             return paidAndShippedStatuses.ElementAt(random.Next(paidAndShippedStatuses.Count));
         }

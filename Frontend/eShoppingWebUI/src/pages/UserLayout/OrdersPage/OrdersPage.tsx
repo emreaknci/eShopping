@@ -85,7 +85,7 @@ const OrdersPage = () => {
     console.log(`Order with id ${orderId} is cancelled.`);
     const updatedOrders = orders?.orders.map(order => {
       if (order.orderId === orderId) {
-        return { ...order, orderStatus: OrderStatus.Cancelled };
+        return { ...order, orderStatus: OrderStatus.CancelledByStore };
       }
       return order;
     });
@@ -142,13 +142,13 @@ const OrdersPage = () => {
           </Typography>
         </TableCell>
         <TableCell align='right'>
-          {order.orderStatus === OrderStatus.Submitted && (
+          {order.orderStatus === OrderStatus.PaymentPending && (
             <Button onClick={() => handleCancelOrder(order.orderId)}>İptal Et</Button>
           )}
-          {order.orderStatus === OrderStatus.Cancelled && (
+          {order.orderStatus === OrderStatus.CancelledByBuyer || order.orderStatus === OrderStatus.CancelledByStore && (
             <Button disabled>İPTAL EDİLDİ</Button>
           )}
-          {(order.orderStatus !== OrderStatus.Submitted && order.orderStatus !== OrderStatus.Cancelled) && (
+          {(order.orderStatus !== OrderStatus.PaymentPending && order.orderStatus !== OrderStatus.CancelledByBuyer && order.orderStatus !== OrderStatus.CancelledByStore) && (
             <Button disabled>İPTAL EDİLEMEZ</Button>
           )}
         </TableCell>

@@ -68,14 +68,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-//app.MigrateDbContext<OrderDbContext>((context, services) =>
-//{
-//    var logger = services.GetService<ILogger<OrderDbContext>>();
-//    var dbContextSeeder = new OrderDbContextSeed();
-//    dbContextSeeder.SeedAsync(context, logger)
-//        .Wait();
-
-//});
 app.MapHub<OrderHub>("/orders-hub");
 
 app.Start();

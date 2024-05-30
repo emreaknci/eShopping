@@ -1,10 +1,12 @@
 export enum OrderStatus {
-  Submitted = 1,
-  AwaitingValidation = 2,
-  StockConfirmed = 3,
-  Paid = 4,
+  PaymentPending = 1,
+  PaymentFailed = 2,
+  PaymentSucceeded = 3,
+  Preparing = 4,
   Shipped = 5,
-  Cancelled = 6,
+  Delivered = 6,
+  CancelledByBuyer = 7,
+  CancelledByStore = 8
 }
 
 export const getOrderStatus =(statusNumber: number) => {
@@ -12,19 +14,24 @@ export const getOrderStatus =(statusNumber: number) => {
 }
 
 export const OrderStatusStrings = {
-  1: 'Bekliyor',
-  2: 'Onay Bekliyor',
-  3: 'Stok Onaylandı',
-  4: 'Ödendi',
-  5: 'Kargolandı',
-  6: 'İptal Edildi'
+  1: 'Ödeme Bekliyor',
+  2: 'Ödeme Başarısız',
+  3: 'Ödeme Başarılı',
+  4: 'Hazırlanıyor',
+  5: 'Kargoya Verildi',
+  6: 'Teslim Edildi',
+  7: 'İptal Edildi',
+  8: 'İptal Edildi (Mağaza)'
+
 } as const;
 
 export const OrderStatusColor = {
-  [OrderStatus.Submitted]: '#1E90FF', // DodgerBlue
-  [OrderStatus.AwaitingValidation]: '#FFA500', // Orange
-  [OrderStatus.StockConfirmed]: '#32CD32', // LimeGreen
-  [OrderStatus.Paid]: '#32CD32', // LimeGreen
-  [OrderStatus.Shipped]: '#6A5ACD', // SlateBlue
-  [OrderStatus.Cancelled]: '#FF4500', // OrangeRed
+  [OrderStatus.PaymentPending]: '#1E90FF',
+  [OrderStatus.PaymentFailed]: '#FF6347',
+  [OrderStatus.PaymentSucceeded]: '#32CD32',
+  [OrderStatus.Preparing]: '#FFD700',
+  [OrderStatus.Shipped]: '#FFA500',
+  [OrderStatus.Delivered]: '#008000',
+  [OrderStatus.CancelledByBuyer]: '#FF6347',
+  [OrderStatus.CancelledByStore]: '#FF6347'
 };

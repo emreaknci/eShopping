@@ -10,18 +10,22 @@ namespace OrderService.Domain.AggregateModels.OrderAggregate
 {
     public class OrderStatus:Enumeration
     {
-        public static OrderStatus Submitted = new OrderStatus(1, nameof(Submitted).ToLowerInvariant());
-        public static OrderStatus AwaitingValidation = new OrderStatus(2, nameof(AwaitingValidation).ToLowerInvariant());
-        public static OrderStatus StockConfirmed = new OrderStatus(3, nameof(StockConfirmed).ToLowerInvariant());
-        public static OrderStatus Paid = new OrderStatus(4, nameof(Paid).ToLowerInvariant());
+
+        public static OrderStatus PaymentPending = new OrderStatus(1, nameof(PaymentPending).ToLowerInvariant());
+        public static OrderStatus PaymentFailed = new OrderStatus(2, nameof(PaymentFailed).ToLowerInvariant());
+        public static OrderStatus PaymentSucceeded = new OrderStatus(3, nameof(PaymentSucceeded).ToLowerInvariant());
+        public static OrderStatus Preparing = new OrderStatus(4, nameof(Preparing).ToLowerInvariant());
         public static OrderStatus Shipped = new OrderStatus(5, nameof(Shipped).ToLowerInvariant());
-        public static OrderStatus Cancelled = new OrderStatus(6, nameof(Cancelled).ToLowerInvariant());
+        public static OrderStatus Delivered = new OrderStatus(6, nameof(Delivered).ToLowerInvariant());
+        public static OrderStatus CancelledByBuyer = new OrderStatus(7, nameof(CancelledByBuyer).ToLowerInvariant());
+        public static OrderStatus CancelledByStore = new OrderStatus(8, nameof(CancelledByStore).ToLowerInvariant());
+
 
         public OrderStatus(int id, string name) : base(id, name)
         {
         }
         public static IEnumerable<OrderStatus> List() =>
-            new[] { Submitted, AwaitingValidation, StockConfirmed, Paid, Shipped, Cancelled };
+            new[] { PaymentPending, PaymentFailed, PaymentSucceeded, Preparing, Shipped,Delivered, CancelledByBuyer,CancelledByStore };
 
         public static OrderStatus FromName(string name)
         {

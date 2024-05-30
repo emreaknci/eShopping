@@ -217,22 +217,22 @@ namespace OrderService.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "submitted"
+                            Name = "paymentpending"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "awaitingvalidation"
+                            Name = "paymentfailed"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "stockconfirmed"
+                            Name = "paymentsucceeded"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "paid"
+                            Name = "preparing"
                         },
                         new
                         {
@@ -242,7 +242,17 @@ namespace OrderService.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            Name = "cancelled"
+                            Name = "delivered"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "cancelledbybuyer"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "cancelledbystore"
                         });
                 });
 

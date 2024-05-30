@@ -114,7 +114,7 @@ const OrderDetails = ({ orderId }: { orderId: string }) => {
                             </React.Fragment>
                         ))}
                         <Grid item md={12}>
-                            {detail?.orderStatus === OrderStatus.Submitted ?
+                            {detail?.orderStatus === OrderStatus.PaymentPending  ?
                                 <Button onClick={() => handleCancelOrder()}>
                                     Siparişi İptal Et
                                 </Button>

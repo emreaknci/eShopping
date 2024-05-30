@@ -30,12 +30,14 @@ namespace OrderService.Infrastructure.EntityConfigurations
 
 
             builder.HasData(
-            OrderStatus.Submitted,
-            OrderStatus.AwaitingValidation,
-            OrderStatus.StockConfirmed,
-            OrderStatus.Paid,
+            OrderStatus.PaymentPending,
+            OrderStatus.PaymentFailed,
+            OrderStatus.PaymentSucceeded,
+            OrderStatus.Preparing,
             OrderStatus.Shipped,
-            OrderStatus.Cancelled
+            OrderStatus.Delivered,
+            OrderStatus.CancelledByBuyer,
+            OrderStatus.CancelledByStore
             );
         }
     }

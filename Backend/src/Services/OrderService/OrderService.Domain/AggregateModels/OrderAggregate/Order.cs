@@ -33,7 +33,7 @@ namespace OrderService.Domain.AggregateModels.OrderAggregate
 
         public Order(string userId, string userName, Address address, int cardTypeId, string cardNumber, string cardSecurityNumber, string cardHolderName, DateTime cardExpiration, int numberOfInstallments) : this()
         {
-            OrderStatusId = OrderStatus.Submitted.Id;
+            OrderStatusId = OrderStatus.PaymentPending.Id;
             OrderDate = DateTime.UtcNow;
             Address = address;
             NumberOfInstallments = numberOfInstallments;

@@ -12,7 +12,7 @@ using OrderService.Infrastructure.Context;
 namespace OrderService.Infrastructure.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    [Migration("20240529170004_mig_1")]
+    [Migration("20240530111549_mig_1")]
     partial class mig_1
     {
         /// <inheritdoc />
@@ -220,22 +220,22 @@ namespace OrderService.Infrastructure.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "submitted"
+                            Name = "paymentpending"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "awaitingvalidation"
+                            Name = "paymentfailed"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "stockconfirmed"
+                            Name = "paymentsucceeded"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "paid"
+                            Name = "preparing"
                         },
                         new
                         {
@@ -245,7 +245,17 @@ namespace OrderService.Infrastructure.Migrations
                         new
                         {
                             Id = 6,
-                            Name = "cancelled"
+                            Name = "delivered"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "cancelledbybuyer"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "cancelledbystore"
                         });
                 });
 
