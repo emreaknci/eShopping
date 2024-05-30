@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Application.Features.Orders.Queries.GetLatestOrders;
 using OrderService.Application.Features.Orders.Queries.GetOrderDetailById;
+using OrderService.Application.Features.Orders.Queries.GetOrderList;
 using OrderService.Application.Features.Orders.Queries.GetRevenueAndOrders;
 
 namespace OrderService.API.Controllers
@@ -38,6 +39,22 @@ namespace OrderService.API.Controllers
         public async Task<IActionResult> GetLatestOrders(int count)
         {
             var query = new GetLatestOrdersQuery(count);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("get-orders")]
+        public async Task<IActionResult> GetOrders(int page=1, int pageSize=10, int? orderStatus = null, string? searchText = null)
+        {
+
+            var query = new GetOrderListQuery(page, pageSize);
+
+            if (orderStatus.HasValue)        
+                query.OrderStatus = orderStatus.Value;
+            
+            if (searchText != null)           
+                query.SearchText = searchText;
+            
             var result = await _mediator.Send(query);
             return Ok(result);
         }

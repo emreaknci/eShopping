@@ -5,9 +5,9 @@ export default interface LatestOrdersDto {
 
 export interface OrderDto {
     orderId: string;
-    buyerName: string;
     orderDate: Date;
-    total: number;
     orderStatus: number;
+    buyerName: string;
+    total: number;
 }
 

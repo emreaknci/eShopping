@@ -58,7 +58,22 @@ namespace OrderService.Infrastructure.Repositories
 
         public IQueryable<Order> GetLatestOrders(int count)
         {
-            return _dbContext.Orders.OrderByDescending(x => x.CreatedDate).Take(count).Include(x=>x.Buyer).Include(x=>x.OrderItems);
+            return _dbContext.Orders.OrderByDescending(x => x.CreatedDate).Take(count).Include(x => x.Buyer).Include(x => x.OrderItems);
+        }
+
+        public IQueryable<Order> GetOrders(int? statusId, string? searchText = null)
+        {
+            var orders = _dbContext.Orders.AsQueryable();
+
+            if (statusId.HasValue)
+                orders = orders.Where(x => x.OrderStatusId == statusId.Value);
+
+            if (!string.IsNullOrEmpty(searchText))
+                orders = orders.Where(x => x.Buyer.FullName.ToLower().Contains(searchText.ToLower())
+                     || x.BuyerId.ToString().Contains(searchText)
+                     || x.Id.ToString().Contains(searchText));
+
+            return orders.Include(x => x.Buyer).Include(x => x.OrderItems);
         }
     }
 }

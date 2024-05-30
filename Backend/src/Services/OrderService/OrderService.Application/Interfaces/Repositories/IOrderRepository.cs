@@ -10,5 +10,6 @@ namespace OrderService.Application.Interfaces.Repositories
         int CalculateTotalOrderCount();
 
         IQueryable<Order> GetLatestOrders(int count);
+        IQueryable<Order> GetOrders(int? statusId = null, string? searchText = null);
     }
 }

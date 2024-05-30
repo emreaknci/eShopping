@@ -22,16 +22,19 @@ namespace OrderService.Application.Mapping.OrderMapping
                 .ReverseMap();
 
             CreateMap<Order,OrderDetailViewModel>()
+                .ForMember(x=>x.OrderId,y=>y.MapFrom(z=>z.Id))
                 .ForMember(x=>x.City,y=>y.MapFrom(z=>z.Address.City))
                 .ForMember(x=>x.Country,y=>y.MapFrom(z=>z.Address.Country))
                 .ForMember(x=>x.Street,y=>y.MapFrom(z=>z.Address.Street))
                 .ForMember(x=>x.ZipCode,y=>y.MapFrom(z=>z.Address.ZipCode))
                 .ForMember(x=>x.Date,y=>y.MapFrom(z=>z.OrderDate))
-                .ForMember(x=>x.Status,y=>y.MapFrom(z=>z.OrderStatus.Name))
+                .ForMember(x=>x.OrderStatus,y=>y.MapFrom(z=>z.OrderStatusId))
                 .ForMember(x=>x.Total,y=>y.MapFrom(z=>z.OrderItems.Sum(i=>i.Units*i.UnitPrice)))
+                .ForMember(x=>x.OrderItems,y=>y.MapFrom(z=>z.OrderItems))
+                .ForMember(x=>x.BuyerName,y=>y.MapFrom(z=>z.Buyer.FullName))
                 .ReverseMap();
 
-            CreateMap<OrderItem, Orderitem>();
+            CreateMap<OrderItem, OrderItemViewModel>();
         }
     }
 }

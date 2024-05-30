@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import './LoadingComponent.css';
 
 const LoadingComponent = () => {
@@ -11,8 +11,12 @@ const LoadingComponent = () => {
         alignItems="center"
         justifyContent="center"
         minHeight="100vh"
+        flexDirection={"column"}
       >
         <CircularProgress size={"5rem"} thickness={4} color="primary" />
+        <Typography variant="h5" color="primary" className="loading-text">
+          Yükleniyor...
+        </Typography>
       </Box>
     </>
   );
