@@ -39,7 +39,7 @@ const LatestOrders = () => {
         name: order.buyerName,
         status: OrderStatusStrings[order.orderStatus as keyof typeof OrderStatusStrings],
         date: new Date(order.orderDate).toLocaleDateString(),
-        total: order.total,
+        total: order.total + " TL",
       }
     })
   }

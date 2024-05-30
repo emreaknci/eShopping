@@ -26,7 +26,7 @@ const CustomersPage = () => {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [searchText, setSearchText] = useState('');
   const [searchTextClicked, setSearchTextClicked] = useState(true);
-  const [itemsPerPage, setItemsPerPage] = useState(4);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
 
   const handleSearch = (e: any) => {
     setSearchText(e.target.value);
@@ -90,7 +90,7 @@ const CustomersPage = () => {
           />
         </Grid>
         {filteredCustomers && filteredCustomers.map((customer, index) => (
-          <Grid item xs={12} sm={12} md={6} sx={sxValues} key={index}>
+          <Grid item xs={12} sm={6} md={4} lg={2} sx={sxValues} key={index}>
             <Card>
               <CardHeader
                 avatar={
@@ -112,32 +112,7 @@ const CustomersPage = () => {
                   Email: {customer.email}
                 </Typography>
               </CardContent>
-              <CardActions disableSpacing>
-                <IconButton
-                  aria-label="show more"
-                  onClick={() => handleExpandClick(index)}
-                >
-                  <ExpandMoreIcon />
-                </IconButton>
-                Siparişler
-              </CardActions>
-              <Collapse in={expandedIndex === index} timeout="auto" unmountOnExit>
-                <CardContent>
-                  {/* <Typography variant='h5'>Adresler:</Typography>
-                  {customer.addresses?.map((address, index) => (
-                    <Typography paragraph key={index}>
-                      {index + 1} -  {address.address}, {address.city}, {address.state}
-                    </Typography>
-                  ))}
-                  <br />
-                  <Typography variant='h5'>Siparişler:</Typography>
-                  {customer.userOrders?.map((order, index) => (
-                    <Typography paragraph key={index}>
-                      {index + 1} -  {order.id}, {order.date}, {order.totalPrice}
-                    </Typography>
-                  ))} */}
-                </CardContent>
-              </Collapse>
+            
             </Card>
           </Grid>
         ))}

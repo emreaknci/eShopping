@@ -8,7 +8,9 @@ const orderStatusStyles = (statusNumber: keyof typeof OrderStatusColor) => (
     alignItems: 'center',
     borderRadius: '5rem',
     padding: '.5rem',
-    color: 'white'
+    color: 'white',
+    marginLeft:"1rem",
+    marginRight:"1rem",
   });
 
 

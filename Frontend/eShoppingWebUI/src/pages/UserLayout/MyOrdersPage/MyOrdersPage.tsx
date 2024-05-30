@@ -13,11 +13,7 @@ import OrderDetails from '../../../components/userLayout/myOrdersPage/OrderDetai
 import { LoadingComponent } from '../../../components/common/LoadingComponent';
 
 const sxValues = {
-  p: 2,
-  m: 1,
-  display: 'flex',
-  flexDirection: 'column',
-  height: '100%',
+
 };
 
 
@@ -87,7 +83,7 @@ const MyOrdersPage = () => {
                   <Grid item sm={1}>
                     <InventoryIcon color="primary" sx={{ fontSize: "2rem" }} />
                   </Grid>
-                  <Grid item sm={7}>
+                  <Grid item sm={8}>
                     <Typography align="center">{order.orderId.substring(0, 3)}*****{order.orderId.substring(order.orderId.length - 3, order.orderId.length)}</Typography>
                     <Typography align="center"><Divider /></Typography>
                     <Typography align="center">{new Date(order.orderDate).toLocaleDateString()}</Typography>
@@ -152,13 +148,17 @@ const MyOrdersPage = () => {
   if (loading)
     return <LoadingComponent />
 
-  if(orders === undefined || orders === null)
+  if (orders === undefined || orders === null)
     return <Typography variant="h6">Siparişler bulunamadı.</Typography>
 
   return (
     <Grid container spacing={3} justifyContent="center">
       <Grid item xs={12} md={10} lg={8} >
-        <Paper sx={{ ...sxValues }}>
+        <div style={{
+          backgroundColor: "transparent", padding: "2rem",
+          margin: "1rem", display: 'flex',
+          flexDirection: 'column', height: '100%',
+        }}>
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <Typography variant="h5" fontWeight="bold">Siparişlerim</Typography>
@@ -172,9 +172,9 @@ const MyOrdersPage = () => {
                 onPageChange={(page) => { setCurrentPage(page) }}
                 pageCount={orders.totalPages}
               />
-            </Grid>}         
+            </Grid>}
           </Grid>
-        </Paper>
+        </div>
       </Grid>
       {openAlert && (
         <DialogComponent
