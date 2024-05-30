@@ -16,6 +16,7 @@ import { OrderStatus, OrderStatusStrings } from '../../../enums/orderStatus';
 import OrderDetails from '../../../components/userLayout/ordersPage/OrderDetails';
 import FilterBox from '../../../components/userLayout/ordersPage/FilterBox';
 import { DateOption, getIndexForDateOption } from '../../../enums/dateOptions';
+import { toast } from 'react-toastify';
 
 const OrdersPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -81,15 +82,24 @@ const OrdersPage = () => {
     setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
   };
 
-  const cancelOrder = (orderId: any) => {
+  const cancelOrder = async (orderId: any) => {
     console.log(`Order with id ${orderId} is cancelled.`);
-    const updatedOrders = orders?.orders.map(order => {
-      if (order.orderId === orderId) {
-        return { ...order, orderStatus: OrderStatus.CancelledByStore };
+    toast.success('Sipariş iptal edildi');
+
+    await OrderService.updateOrderStatus(orderId, OrderStatus.CancelledByStore).then(() => {
+      const orderIndex = orders?.orders.findIndex(order => order.orderId === orderId);
+
+      if (orderIndex !== -1 && orders) {
+        const updatedOrders = [...orders.orders];
+        updatedOrders[orderIndex!].orderStatus = OrderStatus.CancelledByStore;
+        setOrders({ ...orders, orders: updatedOrders });
+
       }
-      return order;
+    }
+    ).catch((error) => {
+      console.log(error);
     });
-    // setOrders({ ...orders, orders: updatedOrders });
+
   };
 
   const sortedOrders = sortField ? orders?.orders.sort((a, b) => {
@@ -142,14 +152,8 @@ const OrdersPage = () => {
           </Typography>
         </TableCell>
         <TableCell align='right'>
-          {order.orderStatus === OrderStatus.PaymentPending && (
+          {order.orderStatus === OrderStatus.PaymentPending || order.orderStatus === OrderStatus.Preparing && (
             <Button onClick={() => handleCancelOrder(order.orderId)}>İptal Et</Button>
-          )}
-          {order.orderStatus === OrderStatus.CancelledByBuyer || order.orderStatus === OrderStatus.CancelledByStore && (
-            <Button disabled>İPTAL EDİLDİ</Button>
-          )}
-          {(order.orderStatus !== OrderStatus.PaymentPending && order.orderStatus !== OrderStatus.CancelledByBuyer && order.orderStatus !== OrderStatus.CancelledByStore) && (
-            <Button disabled>İPTAL EDİLEMEZ</Button>
           )}
         </TableCell>
       </TableRow>

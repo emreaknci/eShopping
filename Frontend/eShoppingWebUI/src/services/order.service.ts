@@ -34,8 +34,11 @@ const OrderService = {
     async getOrderDetailsById(orderId: string): Promise<AxiosResponse<OrderDetailDto>> {
         return await BaseService.get(`/${orderEndpoint}/${orderId}`);
     },
+    async updateOrderStatus(orderId: string, orderStatus: number): Promise<AxiosResponse<any>> {
+        return await BaseService.put(`/${orderEndpoint}/update-order-status?orderId=${orderId}&orderStatus=${orderStatus}`);
+    },
 
-
+  
 
 }
 

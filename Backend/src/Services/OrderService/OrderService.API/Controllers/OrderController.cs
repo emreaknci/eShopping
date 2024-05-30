@@ -2,10 +2,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OrderService.Application.Features.Orders.Commands.ChangeOrderStatus;
 using OrderService.Application.Features.Orders.Queries.GetLatestOrders;
 using OrderService.Application.Features.Orders.Queries.GetOrderDetailById;
 using OrderService.Application.Features.Orders.Queries.GetOrderList;
 using OrderService.Application.Features.Orders.Queries.GetRevenueAndOrders;
+using OrderService.Domain.AggregateModels.OrderAggregate;
 
 namespace OrderService.API.Controllers
 {
@@ -61,6 +63,15 @@ namespace OrderService.API.Controllers
                 query.DateOption = dateOption.Value;
             
             var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpPut("update-order-status")]
+        public async Task<IActionResult> UpdateOrderStatus(string orderId,int orderStatus)
+        {
+            var command = new ChangeOrderStatusCommand(orderId, OrderStatus.FromValue<OrderStatus>(orderStatus));
+            var result = await _mediator.Send(command);
+
             return Ok(result);
         }
 

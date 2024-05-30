@@ -11,6 +11,8 @@ import OrderListDto from '../../../dtos/orders/orderListDto';
 import { OrderStatus, OrderStatusStrings } from '../../../enums/orderStatus';
 import OrderDetails from '../../../components/userLayout/myOrdersPage/OrderDetails';
 import { LoadingComponent } from '../../../components/common/LoadingComponent';
+import OrderDetailDto from '../../../dtos/orders/orderDetailDto';
+import { toast } from 'react-toastify';
 
 const sxValues = {
 
@@ -58,14 +60,20 @@ const MyOrdersPage = () => {
   }
 
   const cancelOrder = (orderId: any) => {
-    // console.log(`Order with id ${orderId} is cancelled.`);
-    // const updatedOrders = orders?.orders.map(order => {
-    //   if (order.orderId === orderId) {
-    //     return { ...order, status: OrderStatus.Cancelled };
-    //   }
-    //   return order;
-    // });
-    // setOrders(updatedOrders);
+    OrderService.updateOrderStatus(orderId, OrderStatus.CancelledByBuyer).then(() => {
+      const updatedOrders = orders?.orders.map(order => {
+        if (order.orderId === orderId) {
+          return { ...order, orderStatus: OrderStatus.CancelledByBuyer };
+        }
+        return order;
+      });
+      const updatedOrdersObject = { ...orders, orders: updatedOrders } as OrderListDto;
+
+      setOrders(updatedOrdersObject);
+      toast.success('Sipariş iptal edildi.');
+    }).catch((error) => {
+      console.log(error);
+    })
   };
 
   const renderOrders = () => {
@@ -83,15 +91,22 @@ const MyOrdersPage = () => {
                   <Grid item sm={1}>
                     <InventoryIcon color="primary" sx={{ fontSize: "2rem" }} />
                   </Grid>
-                  <Grid item sm={8}>
+                  <Grid item sm={6}>
                     <Typography align="center">{order.orderId.substring(0, 3)}*****{order.orderId.substring(order.orderId.length - 3, order.orderId.length)}</Typography>
                     <Typography align="center"><Divider /></Typography>
                     <Typography align="center">{new Date(order.orderDate).toLocaleDateString()}</Typography>
                   </Grid>
-                  <Grid item sm={3}>
+                  <Grid item sm={order?.orderStatus === OrderStatus.PaymentPending || order?.orderStatus === OrderStatus.PaymentSucceeded ? 3 : 5}>
                     <Typography align='center' sx={{ ...styles.orderStatusStyles(order.orderStatus) }}>
-                      Siparişiniz  {OrderStatusStrings[order.orderStatus as keyof typeof OrderStatusStrings]}
+                      {OrderStatusStrings[order.orderStatus as keyof typeof OrderStatusStrings]}
                     </Typography>
+                  </Grid>
+                  <Grid item sm={2}>
+                    {order?.orderStatus === OrderStatus.PaymentPending || order?.orderStatus === OrderStatus.PaymentSucceeded &&
+                      <Button  onClick={() => handleCancelOrder(order?.orderId)}>
+                        İptal Et
+                      </Button>
+                    }
                   </Grid>
                 </Grid>
               </AccordionSummary>
@@ -115,6 +130,7 @@ const MyOrdersPage = () => {
             labelId="dateOptionLabel"
             id="dateOptionId"
             defaultValue={"Tüm Zamanlar"}
+            value={dateOption}
             onChange={(e) => setDateOption(e.target.value as DateOption)}
           >
             {dateOptions.map((option) => (
@@ -153,7 +169,7 @@ const MyOrdersPage = () => {
 
   return (
     <Grid container spacing={3} justifyContent="center">
-      <Grid item xs={12} md={10} lg={8} >
+      <Grid item md={12} lg={10} xl={8} >
         <div style={{
           backgroundColor: "transparent", padding: "2rem",
           margin: "1rem", display: 'flex',

@@ -47,9 +47,9 @@ const OrderDetails = (props: OrderDetailsProps) => {
                             <Grid item md={4} >
                                 <Grid container>
                                     <Grid item sm={6} md={12}>
-                                        <p>
+                                        <Typography variant="body1">
                                             <strong style={{ fontSize: "1.2rem", marginBottom: ".5rem" }}>Sipariş Bilgileri</strong>
-                                            <br /> <br /> 
+                                            <br /> <br />
                                             <strong>Sipariş Sahibi:</strong> {detail.buyerName}
                                             <br /><br />
                                             <strong>Toplam Tutar:</strong> {detail.total} TL
@@ -57,10 +57,10 @@ const OrderDetails = (props: OrderDetailsProps) => {
                                             <strong>Taksit Sayısı:</strong> {detail.numberOfInstallments === 1 ? "Tek Çekim" : detail.numberOfInstallments + " Taksit"}
                                             <br />
                                             <strong>Aylık Ödeme Miktarı:</strong> {(detail.total / detail.numberOfInstallments).toFixed(2)} TL
-                                        </p>
+                                        </Typography>
                                     </Grid>
                                     <Grid item sm={6} md={12}>
-                                        <p>
+                                        <Typography variant="body1">
                                             <strong style={{ fontSize: "1.2rem", marginBottom: ".5rem" }}>Adres Bilgileri</strong>
                                             <br /> <br />
                                             <strong>Ülke:</strong> {detail.country}
@@ -70,9 +70,10 @@ const OrderDetails = (props: OrderDetailsProps) => {
                                             <strong>Sokak/Mahalle: </strong> {detail.street}
                                             <br />
                                             <strong>Posta Kodu:</strong> {detail.zipCode}
-                                        </p>
+                                        </Typography>
                                     </Grid>
                                 </Grid>
+
 
                             </Grid>
                             <Grid item md={8}>

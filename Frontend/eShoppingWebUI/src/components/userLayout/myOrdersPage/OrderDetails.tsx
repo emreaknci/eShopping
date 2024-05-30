@@ -1,9 +1,8 @@
-import { AccordionDetails, Button, Divider, Grid, Typography } from '@mui/material'
+import { AccordionDetails, Divider, Grid, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { OrderStatus } from '../../../enums/orderStatus'
 import OrderDetailDto, { OrderItemDto } from '../../../dtos/orders/orderDetailDto'
-import OrderListDto from '../../../dtos/orders/orderListDto'
 import OrderService from '../../../services/order.service'
+
 
 const OrderDetails = ({ orderId }: { orderId: string }) => {
     const [detail, setDetail] = useState<OrderDetailDto>()
@@ -16,11 +15,7 @@ const OrderDetails = ({ orderId }: { orderId: string }) => {
         });
     }, [orderId])
 
-    const maskCardNumber = (cardNumber: any) => {
-        const lastFourDigits = cardNumber.slice(-4);
-        const maskedDigits = '*'.repeat(cardNumber.length - 4);
-        return maskedDigits + lastFourDigits;
-    }
+
     const renderPaymentDetails = () => {
         return (
             <>
@@ -46,11 +41,6 @@ const OrderDetails = ({ orderId }: { orderId: string }) => {
             </>
         )
     }
-
-    const handleCancelOrder = () => {
-        console.log("Order Cancelled", detail?.orderId)
-    }
-
 
     const renderAddressDetails = () => {
         return (
@@ -113,17 +103,6 @@ const OrderDetails = ({ orderId }: { orderId: string }) => {
                                 </Grid>
                             </React.Fragment>
                         ))}
-                        <Grid item md={12}>
-                            {detail?.orderStatus === OrderStatus.PaymentPending  ?
-                                <Button onClick={() => handleCancelOrder()}>
-                                    Siparişi İptal Et
-                                </Button>
-                                :
-                                <Button disabled>
-                                    Sipariş Bu Aşamada İptal Edilemez
-                                </Button>
-                            }
-                        </Grid>
                     </Grid>
                 </Grid>
                 <Grid item xs={12} sm={12} md={6}>
@@ -141,7 +120,6 @@ const OrderDetails = ({ orderId }: { orderId: string }) => {
                 </Grid> */}
             </Grid>
         </AccordionDetails>
-
     )
 }
 

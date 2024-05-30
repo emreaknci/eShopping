@@ -31,7 +31,7 @@ namespace OrderService.API.Consumers
 
         private OrderStatus GetRandomStatus()
         {
-            var paidAndShippedStatuses = new List<OrderStatus> { OrderStatus.Preparing,OrderStatus.Shipped,OrderStatus.Delivered };
+            var paidAndShippedStatuses = new List<OrderStatus> { OrderStatus.PaymentSucceeded, OrderStatus.Preparing,OrderStatus.Shipped,OrderStatus.Delivered };
             var random = new Random();
             return paidAndShippedStatuses.ElementAt(random.Next(paidAndShippedStatuses.Count));
         }

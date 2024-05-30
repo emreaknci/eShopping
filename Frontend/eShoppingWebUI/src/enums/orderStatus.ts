@@ -21,7 +21,7 @@ export const OrderStatusStrings = {
   5: 'Kargoya Verildi',
   6: 'Teslim Edildi',
   7: 'İptal Edildi',
-  8: 'İptal Edildi (Mağaza)'
+  8: 'Mağaza Tarafından İptal Edildi'
 
 } as const;
 
