@@ -51,12 +51,14 @@ const CartPage = () => {
     signalRService.on(HubUrls.OrderHub,ReceiveFunctions.OrderPaymentSuccededMessage,(buyerId)=>{
       if(cartContext.customerCart?.buyerId?.toString() != buyerId) return;
       cartContext.clearCart();
+      toast.dismiss();
       toast.success(`Siparişiniz başarıyla alındı. En kısa sürede tarafınıza ulaştırılacaktır.`);
 
     });
 
     signalRService.on(HubUrls.OrderHub,ReceiveFunctions.OrderPaymentFailedMessage,(buyerId)=>{
       if(cartContext.customerCart?.buyerId?.toString() != buyerId) return;
+      toast.dismiss();
       toast.error(`Ödeme işlemi başarısız oldu. Lütfen tekrar deneyiniz.`);
     });
 

@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "./AuthContext";
 import { BasketItem } from "../models/baskets/basketItem";
@@ -9,6 +9,7 @@ import { ProductListDto } from "../dtos/products/productListDto";
 import { ProductDetailDto } from "../dtos/products/productDetailDto";
 import { CustomerBasket } from "../models/baskets/customerBasket";
 import { BasketCheckout } from "../dtos/baskets/basketCheckout";
+import ProductService from "../services/product.service";
 
 
 export const CartContext = createContext({
@@ -17,7 +18,7 @@ export const CartContext = createContext({
   clearCart: () => { },
   increaseQuantity: (product: any) => { },
   decreaseQuantity: (product: any) => { },
-  checkout:(basketCheckout:BasketCheckout)=>{},
+  checkout: (basketCheckout: BasketCheckout) => { },
   customerCart: undefined as CustomerBasket | undefined,
   cartItemCount: 0,
   totalPrice: 0
@@ -27,20 +28,23 @@ export const CartProvider = ({ children }: any) => {
   const [cartItemCount, setCartItemCount] = useState(0);
   const [customerCart, setCustomerBasket] = useState<CustomerBasket>();
   const [totalPrice, setTotalPrice] = useState(0);
+  const [quantityChanged, setQuantityChanged] = useState(false);
   const authContext = useContext(AuthContext)
+
 
 
   const getCartById = async (customerId: string) => {
     await BasketService.getBasketById(customerId)
       .then((response) => {
         const data = response.data.data!;
-        console.log(data)
+        console.log(data.items.map(x => x.productId))
         setCustomerBasket(data);
         setCartItemCount(data.items.length);
       })
       .catch((error) => {
         console.log(error)
       })
+
   }
   useEffect(() => {
     if (authContext.isAuthenticated && StorageService.getAccessToken()) {
@@ -51,16 +55,49 @@ export const CartProvider = ({ children }: any) => {
     }
   }, [authContext]);
 
-  useEffect(()=>{
-    if(customerCart){
+
+
+  const compareQuantities = useCallback(async (stocks: { [key: number]: number }) => {
+    customerCart?.items.forEach(async (item) => {
+      if (item.quantity > stocks[item.productId]) {
+        item.quantity = stocks[item.productId];
+        await BasketService.updateBasket(customerCart!)
+          .then((response) => {
+            setCustomerBasket(response.data.data!);
+            setCartItemCount(response.data.data!.items.length);
+            toast.dismiss();
+            toast.warning(`Sepetinizdeki '${item.productName}' ürününün stok miktarı azaldığı için sepetinizdeki miktar güncellendi.\n Sepetteki miktar: ${stocks[item.productId]}`)
+            setQuantityChanged(true);
+          }).catch((error) => {
+            console.log(error)
+          })
+      }
+    })
+  }, [customerCart]);
+
+  const checkStocks = useCallback(async () => {
+    if (customerCart) {
+      await ProductService.checkStocks(customerCart!.items.map(x => x.productId))
+        .then((response) => {
+          const data = response.data.data!;
+          compareQuantities(data)
+        }).catch((error) => {
+          console.log(error)
+        })
+    }
+  }, [customerCart, compareQuantities]);
+
+  useEffect(() => {
+    if (customerCart) {
       let total = 0;
-      customerCart.items.forEach((item)=>{
+      customerCart.items.forEach((item) => {
         total += item.unitPrice * item.quantity;
       })
       setTotalPrice(total);
-    }
 
-  },[customerCart])
+      checkStocks();
+    }
+  }, [customerCart, checkStocks, setTotalPrice]);
 
 
 
@@ -83,10 +120,10 @@ export const CartProvider = ({ children }: any) => {
       quantity: 1,
     }
 
-    if ('imageUrl' in product) {
+    if ('imageUrl' in product) { //home or category page
       basketItem.pictureUrl = product.imageUrl!;
     }
-    if ('images' in product) {
+    if ('images' in product) { //detail page
       basketItem.pictureUrl = product.images.filter((x) => x.isCoverImage)[0].url;
     }
 
@@ -155,17 +192,25 @@ export const CartProvider = ({ children }: any) => {
     }
   }
 
-  const checkout=async(basketCheckout:BasketCheckout)=>{
-    await BasketService.checkout(basketCheckout)
-    .then((response)=>{
-      // setCustomerBasket(undefined);
-      // setCartItemCount(0);
-      // setTotalPrice(0);
-      // getCartById(basketCheckout.buyer.toString());
-      // toast.success('Sipariş oluşturuldu! Bizi tercih ettiğiniz için teşekkür ederiz')
-    }).catch((error)=>{
-      console.log(error)
-    })
+  const checkout = async (basketCheckout: BasketCheckout) => {
+
+    await checkStocks();
+
+    console.log(quantityChanged)
+    if (quantityChanged) {
+
+      toast.warning('Sepetinizdeki ürünlerin stok miktarı değiştiği için lütfen sepetinizi kontrol edin')
+      return;
+    }
+    else {
+      await BasketService.checkout(basketCheckout)
+        .then((response) => {
+          toast.loading('Ödeme işlemi gerçekleştiriliyor...')
+
+        }).catch((error) => {
+          console.log(error)
+        })
+    }
   }
 
   const clearCart = async () => {

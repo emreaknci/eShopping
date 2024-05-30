@@ -9,23 +9,27 @@ import { ProductDetailDto } from '../dtos/products/productDetailDto';
 const productEndpoint = `${import.meta.env.VITE_CATALOG_SERVICE}/product`;
 const ProductService = {
 
-    async getProducts(options:ProductFilterOptions): Promise<AxiosResponse<PaginatedResult<ProductListDto>>> {
+    async getProducts(options: ProductFilterOptions): Promise<AxiosResponse<PaginatedResult<ProductListDto>>> {
         return await BaseService.post(`/${productEndpoint}/get-products`, options);
     },
     async getProductById(id: number): Promise<AxiosResponse<Result<ProductDetailDto>>> {
         return await BaseService.get(`/${productEndpoint}/detail?id=${id}`);
     },
-    async addProduct (formData: FormData): Promise<AxiosResponse<Result<ProductDetailDto>>> {
-        return await BaseService.post(`/${productEndpoint}/`, formData,{headers: {'Content-Type': 'multipart/form-data'}});
+    async addProduct(formData: FormData): Promise<AxiosResponse<Result<ProductDetailDto>>> {
+        return await BaseService.post(`/${productEndpoint}/`, formData, { headers: { 'Content-Type': 'multipart/form-data' } });
     },
 
-    async getLowStockProducts(units:number=10): Promise<AxiosResponse<PaginatedResult<ProductListDto>>> {
+    async getLowStockProducts(units: number = 10): Promise<AxiosResponse<PaginatedResult<ProductListDto>>> {
         return await BaseService.get(`/${productEndpoint}/low-stock?units=${units}`);
     },
 
     async updateStock(id: number, units: number): Promise<AxiosResponse<Result<boolean>>> {
         return await BaseService.put(`/${productEndpoint}/update-stock?id=${id}&units=${units}`);
+    },
+    async checkStocks(ids: number[]): Promise<AxiosResponse<Result<{ [key: number]: number }>>> {
+        return await BaseService.post(`/${productEndpoint}/check-stocks`, ids);
     }
+
 }
 
 export default ProductService;

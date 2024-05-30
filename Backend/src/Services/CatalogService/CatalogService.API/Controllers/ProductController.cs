@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+//TODO: Move these methods to a service class
 namespace CatalogService.API.Controllers
-{
+{  
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -301,8 +302,22 @@ namespace CatalogService.API.Controllers
             return Ok(Result<bool>.SuccessResult(true));
         }
 
+        [HttpPost("check-stocks")]
+        public IActionResult CheckProductStocks([FromBody]List<int> productIds )         {
+            var products = _catalogContext.Products.Where(p => productIds.Contains(p.Id)).ToList();
 
-        //TODO: Move these methods to a service class
+            if (!products.Any())
+                return NotFound(Result<List<ProductListDto>>.FailureResult("Ürün Bulunamadı"));
+
+            Dictionary<int, int> currentStocks = new (); // key: productId, value: currentStock
+
+            foreach (var product in products)          
+                currentStocks.Add(product.Id, product.UnitsInStock);
+            
+            return Ok(Result<Dictionary<int, int>>.SuccessResult(currentStocks));     
+        }
+
+
         private void AddProductCategories(ProductCreateDto dto, int productId)
         {
             if (dto.CategoryIds?.Any() != true) return;
