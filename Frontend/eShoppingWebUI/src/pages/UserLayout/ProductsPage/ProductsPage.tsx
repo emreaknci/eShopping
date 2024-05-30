@@ -10,22 +10,17 @@ import './ProductsPage.css';
 import { useNavigate } from 'react-router-dom';
 import ProductService from '../../../services/product.service';
 import { ProductFilterOptions, SortType } from '../../../dtos/products/productFilterOptions';
-import { FeatureValueDto } from '../../../dtos/features/featureValueDto';
 import { toast } from 'react-toastify';
 import { ProductListDto } from '../../../dtos/products/productListDto';
-import { ProductDetailDto } from '../../../dtos/products/productDetailDto';
 import { LoadingComponent } from '../../../components/common/LoadingComponent';
-import CategoryService from '../../../services/category.service';
 
 const baseImagePath = import.meta.env.VITE_API_GATEWAY + '/' + import.meta.env.VITE_CATALOG_IMAGES + '/';
-import categories from './../../../mock/category';
-import { CategoryListDto } from '../../../dtos/categories/categoryListDto';
 import FilterBox from '../../../components/userLayout/productsPage/FilterBox';
+import ProductDetails from '../../../components/userLayout/productsPage/ProductDetails';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<ProductListDto[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [filterStatus, setFilterStatus] = useState('All');
   const [sortField, setSortField] = useState(null);
   const [sortDirection, setSortDirection] = useState('asc');
   const [expandedProductId, setExpandedProductId] = useState<number | null>(null);
@@ -42,13 +37,12 @@ const ProductsPage = () => {
     sortType: SortType.DEFAULT,
     pageNumber: 1,
     pageSize: 10,
-    categoryIds: []
+    categoryIds: [],
+    searchText: ''
   });
   const [filters, setFilters] = useState<ProductFilterOptions>(initialFilters);
-  const [selectedFeatureValues, setSelectedFeatureValues] = useState<FeatureValueDto[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const [currentProductDetail, setCurrentProductDetail] = useState<ProductDetailDto | null>(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,45 +52,25 @@ const ProductsPage = () => {
 
     return () => {
       setIsLoading(false);
-      setSelectedFeatureValues([]);
       setProducts([]);
     }
-  }, []);
-
-  useEffect(() => {
-    getProductsByFilter(filters);
   }, [filters]);
 
   useEffect(() => {
-    const getProductDetail = async (productId: number) => {
-      setIsLoading(true);
-      ProductService.getProductById(productId).then((response) => {
-        setCurrentProductDetail(response.data.data);
-        setExpandedProductId(productId);
-      }).catch((error) => {
-        toast.info(error.response.data.message || "Ürün detayları getirilirken bir hata oluştu.")
-        setCurrentProductDetail(null);
-        setExpandedProductId(null);
-      }).finally(() => {
-        setIsLoading(false);
-      });
-    }
-    if (expandedProductId)
-      getProductDetail(expandedProductId);
-  }, [expandedProductId]);
+    setFilters({ ...initialFilters, searchText: searchQuery });
+  }, [searchQuery])
 
   const getProductsByFilter = async (filters: ProductFilterOptions) => {
     setIsLoading(true);
-
     await ProductService.getProducts(filters)
       .then(async (response) => {
         const dto = response.data.data;
         setProducts(dto!);
         setCurrentPage(response.data.pageNumber);
-        console.log(dto);
       })
       .catch((error) => {
         console.error(error);
+        toast.dismiss();
         toast.info(error.response.data.message || "Ürünler getirilirken bir hata oluştu.")
         if (error.response.data) {
           setProducts([]);
@@ -105,8 +79,6 @@ const ProductsPage = () => {
         setIsLoading(false);
       });
   }
-
-
 
   const handleSort = (field: any) => {
     if (sortField === field) {
@@ -197,87 +169,10 @@ const ProductsPage = () => {
             {product.price} TL
           </Typography>
         </TableCell>
+
       </TableRow>
     )
   }
-
-
-
-  const renderTableBodySubRow = (productId: number) => {
-
-    if (isLoading)
-      return <LoadingComponent />;
-
-    if (currentProductDetail === null)
-      return null;
-
-    return (
-      <TableRow >
-        <TableCell colSpan={4}>
-          <Collapse in={expandedProductId === currentProductDetail.id} timeout="auto" unmountOnExit>
-            <Grid container spacing={3}>
-              <Grid item md={4} >
-                <Typography variant="h6" fontWeight={"bold"}>
-                  Ürün Bilgileri
-                </Typography>
-                <Grid container>
-                  <Grid item xs={12}>
-                    <p>
-                      <strong>Açıklama:</strong> {currentProductDetail.description}
-                    </p>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <p>
-                      <strong>Stok Miktarı:</strong> {currentProductDetail.unitsInStock} adet
-                    </p>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <p>
-                      <strong style={{ fontSize: "1.2rem", marginBottom: ".5rem" }}>Ürün Özellikleri</strong>
-                    </p>
-                    {currentProductDetail.features.map((feature, index) => (
-                      <p key={index}>
-                        <strong>{feature.name}:</strong> {feature.value}
-                      </p>
-                    ))}
-                  </Grid>
-
-                </Grid>
-
-              </Grid>
-              <Grid item md={8}>
-                <Typography variant="h6" fontWeight={"bold"}  >
-                  Ürün Resimleri
-                </Typography>
-                <Grid container spacing={2}>
-                  {currentProductDetail.images.map((image, index) => (
-                    <Grid item key={index} xs={12} sm={6} md={4}>
-                      <CardMedia
-                        component="img"
-                        height="250"
-                        image={baseImagePath + image.url}
-                      />
-                    </Grid>
-                  ))}
-                </Grid>
-              </Grid>
-            </Grid>
-          </Collapse>
-        </TableCell>
-      </TableRow>
-    )
-  }
-
-  const handleSearchQuery = (e: any) => {
-    setSearchQuery(e.target.value);
-    setPage(0);
-  }
-
-  const [categories, setCategories] = useState<CategoryListDto[]>([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-
-
-
 
 
   return (
@@ -297,43 +192,44 @@ const ProductsPage = () => {
         </Grid>
       </Grid>
       <Grid item xs={12} >
-        {isLoading && <LoadingComponent />}
 
-        {!isLoading &&
-          <TableContainer component={Paper}>
-            <FilterBox initialFilters={initialFilters} setFilters={setFilters} filters={filters}/>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  {renderTableHeadCell('ID', 'id')}
-                  {renderTableHeadCell('ÜRÜN ADI', 'name', 'center')}
-                  {renderTableHeadCell('FİYAT', 'price', 'center')}
-                  <TableCell />
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {paginatedProducts.map(product => (
-                  <React.Fragment key={product.id}>
-                    {renderTableBodyParentRow(product)}
-                    {renderTableBodySubRow(product.id)}
-                  </React.Fragment>
-                ))}
-              </TableBody>
-            </Table>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={sortedProducts.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </TableContainer>}
+        <TableContainer component={Paper}>
+          <FilterBox initialFilters={initialFilters} setFilters={setFilters} filters={filters} searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          {isLoading ? <LoadingComponent /> :
+            <>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    {renderTableHeadCell('ID', 'id')}
+                    {renderTableHeadCell('ÜRÜN ADI', 'name', 'center')}
+                    {renderTableHeadCell('FİYAT', 'price', 'center')}
+                    <TableCell />
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {paginatedProducts.map(product => (
+                    <React.Fragment key={product.id}>
+                      {renderTableBodyParentRow(product)}
+                      {expandedProductId == product.id && <ProductDetails expandedProductId={expandedProductId} productId={product.id} setExpandedProductId={setExpandedProductId} />}
+                    </React.Fragment>
+                  ))}
+                </TableBody>
+              </Table>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={sortedProducts.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </>
+          }
+        </TableContainer>
       </Grid>
     </Grid>
   );
 };
-
 
 export default ProductsPage;

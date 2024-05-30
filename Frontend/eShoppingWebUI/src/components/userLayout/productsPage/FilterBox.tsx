@@ -12,19 +12,14 @@ export interface FilterBoxProps {
     initialFilters: ProductFilterOptions;
     filters: ProductFilterOptions;
     setFilters: any;
+    searchQuery: string;
+    setSearchQuery: any;
+
 }
 
 const FilterBox = (props: FilterBoxProps) => {
     const [categories, setCategories] = useState<CategoryListDto[] | null>([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState<any>(null);
-    const [searchQuery, setSearchQuery] = useState('');
-
-    // const [selectedFeatureValues, setSelectedFeatureValues] = useState<FeatureValueDto[]>([]);
-    // const [selectedBrands, setSelectedBrands] = useState<BrandListDto[]>([]);
-    // const [minPrice, setMinPrice] = useState('');
-    // const [maxPrice, setMaxPrice] = useState('');
-
-
 
     const getCategories = () => {
         CategoryService.getCategories().then((response) => {
@@ -47,7 +42,7 @@ const FilterBox = (props: FilterBoxProps) => {
 
 
     const handleSearchQuery = (e: any) => {
-        setSearchQuery(e.target.value);
+        props.setSearchQuery(e.target.value);
     }
 
     const handleCategoryChange = (e: any) => {
@@ -61,7 +56,7 @@ const FilterBox = (props: FilterBoxProps) => {
                     label="Ara"
                     variant="outlined"
                     size="small"
-                    value={searchQuery}
+                    value={props.searchQuery}
                     onChange={handleSearchQuery}
                     InputProps={{
                         startAdornment: (

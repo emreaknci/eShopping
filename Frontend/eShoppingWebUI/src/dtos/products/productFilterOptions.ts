@@ -15,4 +15,5 @@ export interface ProductFilterOptions {
     brandIds?: number[];
     featureValueIds?: number[];
     categoryIds?: number[];
+    searchText?: string;
 }

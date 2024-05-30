@@ -39,6 +39,7 @@ namespace CatalogService.API.Controllers
             public List<int>? BrandIds { get; set; }
             public List<int>? FeatureValueIds { get; set; }
             public List<int>? CategoryIds { get; set; }
+            public string? SearchText { get; set; }
 
         }
         [HttpPost("get-products")]
@@ -59,6 +60,12 @@ namespace CatalogService.API.Controllers
             if (options.BrandIds != null && options.BrandIds.Any())
             {
                 query = query.Where(p => options.BrandIds.Contains(p.BrandId));
+            }
+
+            if (!string.IsNullOrEmpty(options.SearchText))
+            {
+                var searchText = options.SearchText.ToLower();
+                query = query.Where(p => p.Name.ToLower().Contains(searchText));
             }
 
             switch (options.SortType)
@@ -179,7 +186,7 @@ namespace CatalogService.API.Controllers
             return Ok(Result<ProductDetailDto>.SuccessResult(productDetailDto));
         }
 
-  
+
         [HttpPost]
         public IActionResult CreateProduct([FromForm] ProductCreateDto dto)
         {
@@ -281,6 +288,19 @@ namespace CatalogService.API.Controllers
             return Ok(Result<List<ProductListDto>>.SuccessResult(productDtos));
         }
 
+        [HttpPut("update-stock")]
+        public IActionResult UpdateStock(int id, int units)
+        {
+            var product = _catalogContext.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
+                return NotFound(Result<bool>.FailureResult("Ürün Bulunamadı"));
+
+            product.UnitsInStock = units;
+            _catalogContext.SaveChanges();
+
+            return Ok(Result<bool>.SuccessResult(true));
+        }
+
 
         //TODO: Move these methods to a service class
         private void AddProductCategories(ProductCreateDto dto, int productId)
@@ -337,7 +357,7 @@ namespace CatalogService.API.Controllers
         }
         private void AddProductCategory(int categoryId, int productId)
         {
-            var checkIfProductCategoryExists= _catalogContext.ProductCategories.FirstOrDefault(pc => pc.CategoryId == categoryId && pc.ProductId == productId);
+            var checkIfProductCategoryExists = _catalogContext.ProductCategories.FirstOrDefault(pc => pc.CategoryId == categoryId && pc.ProductId == productId);
             if (checkIfProductCategoryExists != null) return;
             var productCategory = new ProductCategory
             {
@@ -349,7 +369,7 @@ namespace CatalogService.API.Controllers
             _catalogContext.SaveChanges();
         }
 
-        private void AddBrandCategory (int brandId, int categoryId)
+        private void AddBrandCategory(int brandId, int categoryId)
         {
             var checkIfBrandCategoryExists = _catalogContext.BrandCategories.FirstOrDefault(bc => bc.CategoryId == categoryId && bc.BrandId == brandId);
             if (checkIfBrandCategoryExists != null) return;
@@ -360,7 +380,7 @@ namespace CatalogService.API.Controllers
             };
 
             _catalogContext.BrandCategories.Add(brandCategory);
-            _catalogContext.SaveChanges();   
+            _catalogContext.SaveChanges();
         }
         private void AddProductFeatures(ICollection<int> featureValueIds, int productId)
         {

@@ -21,6 +21,10 @@ const ProductService = {
 
     async getLowStockProducts(units:number=10): Promise<AxiosResponse<PaginatedResult<ProductListDto>>> {
         return await BaseService.get(`/${productEndpoint}/low-stock?units=${units}`);
+    },
+
+    async updateStock(id: number, units: number): Promise<AxiosResponse<Result<boolean>>> {
+        return await BaseService.put(`/${productEndpoint}/update-stock?id=${id}&units=${units}`);
     }
 }
 
