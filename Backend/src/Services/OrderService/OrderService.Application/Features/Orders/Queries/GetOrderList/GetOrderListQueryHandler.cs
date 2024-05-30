@@ -16,13 +16,13 @@ namespace OrderService.Application.Features.Orders.Queries.GetOrderList
 
         public Task<OrderListViewModel> Handle(GetOrderListQuery request, CancellationToken cancellationToken)
         {
-            var orders = _orderRepository.GetOrders(request.OrderStatus,request.SearchText);
+            var orders = _orderRepository.GetOrders(request.DateOption, request.OrderStatus, request.SearchText);
 
             int totalCount = orders.Count();
             int totalPages = (int)Math.Ceiling(totalCount / (double)request.PageSize);
+        
+            orders = orders.Skip(request.PageSize * (request.Page - 1)).Take(request.PageSize);
 
-            orders= orders.Skip(request.PageSize * (request.Page - 1)).Take(request.PageSize);
-           
             List<OrderListDto> orderListDtos = new();
             foreach (var order in orders)
             {
@@ -46,5 +46,6 @@ namespace OrderService.Application.Features.Orders.Queries.GetOrderList
 
             return Task.FromResult(viewModel);
         }
+
     }
 }

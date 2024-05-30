@@ -21,5 +21,17 @@ namespace OrderService.Application.Features.Orders.Queries.GetOrderList
 
         public int? OrderStatus { get; set; }
         public string? SearchText { get; set; }
+        public DateOption? DateOption { get; set; }
+    }
+
+    public enum DateOption
+    {
+        AllTime,
+        LastMonth,
+        Last3Months,
+        Last6Months,
+        LastYear,
+        Last2Years,
+        Last5Years
     }
 }

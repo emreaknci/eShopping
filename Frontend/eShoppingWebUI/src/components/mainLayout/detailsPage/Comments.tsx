@@ -112,7 +112,7 @@ const Comments = ({ productId, averageRating, setAverageRating }: { productId: n
 
             <Grid container spacing={3}>
                 <Grid item xs={12} md={6} lg={5} xl={4} >
-                    {comments.length != 0 && <Box mb={2}>
+                    {comments && comments.length != 0 && <Box mb={2}>
                         <Box display="flex" alignItems="center" mb={2}>
                             <Rating value={averageRating} precision={0.1} readOnly />
                             <Box ml={1}>Bu ürün ( {comments.length} ) {averageRating}/5 puan almıştır.</Box>
@@ -132,7 +132,7 @@ const Comments = ({ productId, averageRating, setAverageRating }: { productId: n
                         ))}
                     </Box>
                     }
-                    {comments.length === 0 && (
+                    {comments && comments.length === 0 && (
                         <Typography variant="body1" color="textSecondary">
                             Henüz yorum yapılmamış. Hemen ilk yorumu sen yap!
                         </Typography>
@@ -179,7 +179,7 @@ const Comments = ({ productId, averageRating, setAverageRating }: { productId: n
                     </form>
                 </Grid>
                 <Grid item xs={12}  >
-                    {comments.map((comment, index) => (
+                    {comments && comments.map((comment, index) => (
                         <Box key={index} mb={2} mt={2}>
                             <Typography variant="h6" color="textPrimary" style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Rating value={comment.rating} precision={0.5} readOnly />

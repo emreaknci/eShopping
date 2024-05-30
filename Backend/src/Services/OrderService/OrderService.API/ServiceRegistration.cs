@@ -49,6 +49,8 @@ namespace OrderService.API
             return services;
         }
 
+
+
         public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app)
         {
             var consulClient = app.ApplicationServices.GetRequiredService<IConsulClient>();

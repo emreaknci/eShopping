@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OrderService.Application.Features.Orders.Queries.GetOrderList;
 using OrderService.Application.Interfaces.Repositories;
 using OrderService.Domain.AggregateModels.OrderAggregate;
 using OrderService.Infrastructure.Context;
@@ -61,7 +62,7 @@ namespace OrderService.Infrastructure.Repositories
             return _dbContext.Orders.OrderByDescending(x => x.CreatedDate).Take(count).Include(x => x.Buyer).Include(x => x.OrderItems);
         }
 
-        public IQueryable<Order> GetOrders(int? statusId, string? searchText = null)
+        public IQueryable<Order> GetOrders(DateOption? dateOption = DateOption.AllTime, int? statusId = null, string? searchText = null)
         {
             var orders = _dbContext.Orders.AsQueryable();
 
@@ -72,6 +73,38 @@ namespace OrderService.Infrastructure.Repositories
                 orders = orders.Where(x => x.Buyer.FullName.ToLower().Contains(searchText.ToLower())
                      || x.BuyerId.ToString().Contains(searchText)
                      || x.Id.ToString().Contains(searchText));
+
+            if (dateOption.HasValue)
+            {
+                var now = DateTimeOffset.UtcNow;
+                switch (dateOption)
+                {
+                    case DateOption.AllTime:
+                        orders = orders.Where(x => x.OrderDate >= DateTimeOffset.MinValue && x.OrderDate <= DateTimeOffset.MaxValue);
+                        break;
+                    case DateOption.LastMonth:
+                        orders = orders.Where(x => x.OrderDate >= now.AddMonths(-1) && x.OrderDate <= now);
+                        break;
+                    case DateOption.Last3Months:
+                        orders = orders.Where(x => x.OrderDate >= now.AddMonths(-3) && x.OrderDate <= now);
+                        break;
+                    case DateOption.Last6Months:
+                        orders = orders.Where(x => x.OrderDate >= now.AddMonths(-6) && x.OrderDate <= now);
+                        break;
+                    case DateOption.LastYear:
+                        orders = orders.Where(x => x.OrderDate >= now.AddYears(-1) && x.OrderDate <= now);
+                        break;
+                    case DateOption.Last2Years:
+                        orders = orders.Where(x => x.OrderDate >= now.AddYears(-2) && x.OrderDate <= now);
+                        break;
+                    case DateOption.Last5Years:
+                        orders = orders.Where(x => x.OrderDate >= now.AddYears(-5) && x.OrderDate <= now);
+                        break;
+                    default:
+                        orders = orders.Where(x => x.OrderDate >= DateTimeOffset.MinValue && x.OrderDate <= DateTimeOffset.MaxValue);
+                        break;
+                }
+            }
 
             return orders.Include(x => x.Buyer).Include(x => x.OrderItems);
         }

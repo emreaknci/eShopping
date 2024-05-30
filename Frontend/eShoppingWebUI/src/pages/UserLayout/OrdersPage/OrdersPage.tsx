@@ -15,8 +15,11 @@ import OrderListDto, { OrderDto } from '../../../dtos/orders/orderListDto';
 import { OrderStatus, OrderStatusStrings } from '../../../enums/orderStatus';
 import OrderDetails from '../../../components/userLayout/ordersPage/OrderDetails';
 import FilterBox from '../../../components/userLayout/ordersPage/FilterBox';
+import { DateOption, getIndexForDateOption } from '../../../enums/dateOptions';
+import { LoadingComponent } from '../../../components/common/LoadingComponent';
 
 const OrdersPage = () => {
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState('All');
   const [sortField, setSortField] = useState(null);
@@ -31,8 +34,9 @@ const OrdersPage = () => {
   const [orders, setOrders] = useState<OrderListDto>();
 
   useEffect(() => {
-    const getOrderPromise = OrderService.getOrders(page + 1, rowsPerPage, Number(filterStatus), searchQuery);
+    const getOrderPromise = OrderService.getOrders(page + 1, rowsPerPage, getIndexForDateOption(DateOption.AllTime), Number(filterStatus), searchQuery);
 
+    setLoading(true);
     getOrderPromise
       .then(response => {
         setOrders(response.data);
@@ -40,7 +44,7 @@ const OrdersPage = () => {
       .catch(error => {
         console.log(error);
       }).finally(() => {
-
+        setLoading(false);
       });
   }, [filterStatus, page, rowsPerPage, searchQuery]);
 
@@ -161,6 +165,7 @@ const OrdersPage = () => {
     setPage(0);
   }
 
+  if(loading) return <LoadingComponent/>
 
   return (
     <Grid container spacing={3}>

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OrderService.Application.Features.Orders.Queries.GetLatestOrders;
@@ -10,6 +11,7 @@ namespace OrderService.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -44,7 +46,7 @@ namespace OrderService.API.Controllers
         }
 
         [HttpGet("get-orders")]
-        public async Task<IActionResult> GetOrders(int page=1, int pageSize=10, int? orderStatus = null, string? searchText = null)
+        public async Task<IActionResult> GetOrders(DateOption? dateOption=DateOption.AllTime ,int page=1, int pageSize=10, int? orderStatus = null, string? searchText = null)
         {
 
             var query = new GetOrderListQuery(page, pageSize);
@@ -54,6 +56,9 @@ namespace OrderService.API.Controllers
             
             if (searchText != null)           
                 query.SearchText = searchText;
+
+            if (dateOption.HasValue)
+                query.DateOption = dateOption.Value;
             
             var result = await _mediator.Send(query);
             return Ok(result);

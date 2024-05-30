@@ -1,4 +1,5 @@
-﻿using OrderService.Domain.AggregateModels.OrderAggregate;
+﻿using OrderService.Application.Features.Orders.Queries.GetOrderList;
+using OrderService.Domain.AggregateModels.OrderAggregate;
 
 namespace OrderService.Application.Interfaces.Repositories
 {
@@ -8,8 +9,7 @@ namespace OrderService.Application.Interfaces.Repositories
         decimal CalculateTotalOrderRevenue();
         int CalculateLatestOrderCount(int daysAgo);
         int CalculateTotalOrderCount();
-
         IQueryable<Order> GetLatestOrders(int count);
-        IQueryable<Order> GetOrders(int? statusId = null, string? searchText = null);
+        IQueryable<Order> GetOrders(DateOption? dateOption = DateOption.AllTime, int? statusId = null, string? searchText = null);
     }
 }
