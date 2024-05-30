@@ -86,7 +86,6 @@ const AddCategoryPage = () => {
         return;
       }
       await addCategory();
-      console.log(values)
     },
   });
 
@@ -109,6 +108,7 @@ const AddCategoryPage = () => {
 
 
   const handleParentCategoryChange = (e: any) => {
+    formik.setFieldValue('parentCategoryId', e.target.value);
     setSelectedParentCategory(categories.find(x => x.id === e.target.value) ?? null);
   }
 
