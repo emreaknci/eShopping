@@ -10,5 +10,6 @@ namespace OrderService.Application.Interfaces.Hubs
     {
         Task OrderPaymentSuccededMessageAsync(string buyerId);
         Task OrderPaymentFailedMessageAsync(string buyerId);
+
     }
 }

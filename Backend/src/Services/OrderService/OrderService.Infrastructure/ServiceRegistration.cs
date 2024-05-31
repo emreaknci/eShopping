@@ -4,8 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using OrderService.Application.Interfaces.Hubs;
 using OrderService.Application.Interfaces.Repositories;
 using OrderService.Infrastructure.Context;
-using OrderService.Infrastructure.Hubs;
 using OrderService.Infrastructure.Repositories;
+using OrderService.Infrastructure.SignalR.Hubs;
+using OrderService.Infrastructure.SignalR.Services;
 
 namespace OrderService.Infrastructure
 {
@@ -26,8 +27,8 @@ namespace OrderService.Infrastructure
             dbContext.Database.EnsureCreated();
             dbContext.Database.Migrate();
 
-
             services.AddTransient<IOrderHubService, OrderHubService>();
+            services.AddTransient<OrderHub>();
 
             return services;
         }    

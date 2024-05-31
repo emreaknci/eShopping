@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OrderService.Infrastructure.Hubs
+namespace OrderService.Infrastructure.SignalR
 {
     public static class ReceiveFunctionNames
     {

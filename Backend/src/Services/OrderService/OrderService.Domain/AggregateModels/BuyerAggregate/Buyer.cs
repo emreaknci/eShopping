@@ -29,7 +29,7 @@ namespace OrderService.Domain.AggregateModels.BuyerAggregate
 
         public PaymentMethod VerifyOrAddPaymentMethod(int cardTypeId, string alias, string cardNumber, string securityNumber, string cardHolderName, DateTime expiration, Guid orderId)
         {
-            var existingPayment = _paymentMethods.SingleOrDefault(p => p.CardHolderName == cardHolderName); // TODO: actually cardHolderName equals to cardNumber. There's a mess here. Find and fix it.
+            var existingPayment = _paymentMethods.SingleOrDefault(p => p.CardNumber == cardNumber);
 
             if (existingPayment != null)
             {

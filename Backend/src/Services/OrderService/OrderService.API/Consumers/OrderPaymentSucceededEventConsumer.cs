@@ -5,6 +5,7 @@ using OrderService.Application.Features.Orders.Commands.ChangeOrderStatus;
 using OrderService.Application.Interfaces.Hubs;
 using OrderService.Domain.AggregateModels.OrderAggregate;
 using OrderService.Domain.SeedWork;
+using OrderService.Infrastructure.SignalR.Hubs;
 
 namespace OrderService.API.Consumers
 {
@@ -12,6 +13,7 @@ namespace OrderService.API.Consumers
     {
         private readonly IMediator _mediator;
         private readonly IOrderHubService _orderHubService;
+
 
 
         public OrderPaymentSucceededEventConsumer(IMediator mediator, IOrderHubService orderHubService)

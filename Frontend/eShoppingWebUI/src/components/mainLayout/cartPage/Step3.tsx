@@ -16,8 +16,8 @@ const validationSchema = Yup.object({
 });
 
 const initialValues: PaymentDetails = {
-  cardNumber: 'Emre',
-  cardHolderName: '1234123412341234',
+  cardNumber: '1234123412341234',
+  cardHolderName: 'Emre Akıncı',
   cardExpiration: new Date('2023-12'),
   cardSecurityNumber: '123',
   cardTypeId: 1,
@@ -62,13 +62,11 @@ const Step3 = ({ setPaymentDetails, setPaymentSucceeded, setCanContinue }
         numberOfInstallments: values.numberOfInstallments
       };
       setPaymentDetails(paymentDetails);
-      console.log('values:', values);
     },
   });
 
   const handlePlanChange = (event: any) => {
     setSelectedInstallmentPlan(event.target.value);
-    console.log('event.target.value:', event.target.value);
   };
 
   const calculateInstallmentPlans = (price: number) => {

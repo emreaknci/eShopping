@@ -4,9 +4,7 @@ using Microsoft.OpenApi.Models;
 using OrderService.API;
 using OrderService.API.Extensions;
 using OrderService.Infrastructure.Context;
-using OrderService.Infrastructure.Hubs;
-
-
+using OrderService.Infrastructure.SignalR.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -48,6 +46,8 @@ builder.Services.AddCors(options =>
                 .AllowAnyHeader()
                 .AllowCredentials());
 });
+
+
 
 builder.Services.AddOrderServices(builder.Configuration);
 

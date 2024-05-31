@@ -13,8 +13,8 @@ import { PaymentDetails } from '../../../models/baskets/paymentDetails';
 import PaymentSucceeded from '../../../components/mainLayout/cartPage/PaymentSucceeded';
 import Step3 from '../../../components/mainLayout/cartPage/Step3';
 import { BasketCheckout } from '../../../dtos/baskets/basketCheckout';
-import SignalRService, { HubUrls, ReceiveFunctions } from '../../../services/signalr.service';
 import { toast } from 'react-toastify';
+import OrderSignalRService from '../../../services/order.signalr.service';
 
 const CartPage = () => {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -43,31 +43,35 @@ const CartPage = () => {
   }, [paymentSucceeded])
 
 
-  useEffect(()=>{
-    const signalRService= new SignalRService();
-    
-    signalRService.start(HubUrls.OrderHub);
-    
-    signalRService.on(HubUrls.OrderHub,ReceiveFunctions.OrderPaymentSuccededMessage,(buyerId)=>{
-      if(cartContext.customerCart?.buyerId?.toString() != buyerId) return;
+
+  useEffect(() => {
+    const handleOrderPaymentFailed = (buyerId: string) => {
+      toast.error("Ödeme başarısız. Lütfen tekrar deneyin.");
+      toast.dismiss();
+      setPaymentSucceeded(false);
+    };
+
+    const handleOrderPaymentSucceeded = () => {
+      setPaymentSucceeded(true);
+      setActiveStep(3);
       cartContext.clearCart();
       toast.dismiss();
-      toast.success(`Siparişiniz başarıyla alındı. En kısa sürede tarafınıza ulaştırılacaktır.`);
+      // toast.success("Ödeme başarılı. Siparişiniz alındı.");
+    };
 
-    });
+    if (!cartContext.customerCart) return;
 
-    signalRService.on(HubUrls.OrderHub,ReceiveFunctions.OrderPaymentFailedMessage,(buyerId)=>{
-      if(cartContext.customerCart?.buyerId?.toString() != buyerId) return;
-      toast.dismiss();
-      toast.error(`Ödeme işlemi başarısız oldu. Lütfen tekrar deneyiniz.`);
-    });
+    const orderSignalRService = new OrderSignalRService(handleOrderPaymentFailed, handleOrderPaymentSucceeded);
 
-    return ()=>{
-      //close connection
-      signalRService.stop(signalRService.start(HubUrls.OrderHub));
-    }
+    // orderSignalRService.connection.on('OrderPaymentFailedMessage', handleOrderPaymentFailed);
 
-  },[cartContext])
+    // orderSignalRService.connection.on('OrderPaymentSucceededMessage', handleOrderPaymentSucceeded);
+    // return () => {
+    //   orderSignalRService.connection.off('OrderPaymentFailedMessage', handleOrderPaymentFailed);
+    //   orderSignalRService.connection.off('OrderPaymentSucceededMessage', handleOrderPaymentSucceeded);
+    // };
+
+  }, [cartContext])
 
 
   const handleNext = () => {
@@ -113,7 +117,7 @@ const CartPage = () => {
 
   return (
     <Box sx={styles.mainBoxPadding}>
-      {cartContext.cartItemCount > 0 ? <Paper
+      {paymentSucceeded || cartContext.cartItemCount > 0 ? <Paper
         elevation={3}
         sx={{ padding: "1rem", }}
       >
@@ -129,19 +133,19 @@ const CartPage = () => {
           </Stepper>
           <>
             <Grid container spacing={3} sx={{ p: 1, pt: 5 }}>
-              <Grid item xs={12} sm={12} md={8}>
+              <Grid item xs={12} sm={12} md={paymentSucceeded ? 12 : 8}>
                 {activeStep === 0 && <Step1 setCanContinue={setCanContinue} />}
                 {activeStep === 1 && <Step2 shippingAddress={shippingAddress} setShippingAddress={setShippingAddress} setCanContinue={setCanContinue} />}
                 {activeStep === 2 && <Step3 setPaymentDetails={setPaymentDetails} setPaymentSucceeded={setPaymentSucceeded} setCanContinue={setCanContinue} />}
                 {activeStep === 3 && <PaymentSucceeded shippingAddress={shippingAddress} paymentDetails={paymentDetails} />
                 }
               </Grid>
-              <Grid item xs={12} sm={12} md={4}>
+              {!paymentSucceeded && <Grid item xs={12} sm={12} md={4}>
                 <PaymentComponent />
                 {activeStep == 2 && canContinue && <Button variant='contained' onClick={handlePayment} sx={{ mt: 2, width: '100%' }}>
                   Ödemeyi Tamamla
                 </Button>}
-              </Grid>
+              </Grid>}
             </Grid>
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
 

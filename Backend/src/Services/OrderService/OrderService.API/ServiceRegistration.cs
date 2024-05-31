@@ -46,6 +46,8 @@ namespace OrderService.API
 
             services.AddSignalR();
 
+            services.AddHttpContextAccessor();
+
             return services;
         }
 
