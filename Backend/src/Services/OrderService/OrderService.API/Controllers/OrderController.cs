@@ -48,7 +48,7 @@ namespace OrderService.API.Controllers
         }
 
         [HttpGet("get-orders")]
-        public async Task<IActionResult> GetOrders(DateOption? dateOption=DateOption.AllTime ,int page=1, int pageSize=10, int? orderStatus = null, string? searchText = null)
+        public async Task<IActionResult> GetOrders(DateOption? dateOption=DateOption.AllTime ,int page=1, int pageSize=10, int? orderStatus = null, string? searchText = null,string? userId=null)
         {
 
             var query = new GetOrderListQuery(page, pageSize);
@@ -61,6 +61,9 @@ namespace OrderService.API.Controllers
 
             if (dateOption.HasValue)
                 query.DateOption = dateOption.Value;
+
+            if (userId != null)
+                query.UserId = userId;
             
             var result = await _mediator.Send(query);
             return Ok(result);

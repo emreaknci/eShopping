@@ -9,7 +9,6 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { useContext, useState } from 'react';
 import { ThemeContext } from '../../App';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
@@ -21,6 +20,7 @@ import Badge from '@mui/material/Badge';
 import { CartContext } from '../../contexts/CartContext';
 import { AuthContext } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
+import StoreIcon from '@mui/icons-material/Store';
 
 const pages = [{ name: 'Ana Sayfa', link: '/' },
   // { name: 'Products', link: '/products' },
@@ -89,7 +89,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon onClick={() => navigate('/')}
+          <StoreIcon onClick={() => navigate('/')}
             sx={{
               display: { xs: 'none', md: 'flex' }, mr: 1
               , cursor: "pointer"
@@ -110,7 +110,7 @@ const Navbar = () => {
             }}
             onClick={() => navigate('/')}
           >
-            LOGO
+            eSHOPPING
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -153,7 +153,7 @@ const Navbar = () => {
             </Menu>
           </Box>
 
-          <AdbIcon onClick={() => navigate('/')}
+          <StoreIcon onClick={() => navigate('/')}
             sx={{ display: { xs: 'flex', md: 'none' }, mr: 1, cursor: "pointer" }} />
           <Typography
             variant="h5"
@@ -173,7 +173,7 @@ const Navbar = () => {
             }}
             onClick={() => navigate('/')}
           >
-            LOGO
+            eSHOPPING
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page, index) => (

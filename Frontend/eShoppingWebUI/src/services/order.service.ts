@@ -15,7 +15,7 @@ const OrderService = {
     async getLatestOrdersDto(count: number): Promise<AxiosResponse<LatestOrdersDto>> {
         return await BaseService.get(`/${orderEndpoint}/get-latest-orders?count=${count}`);
     },
-    async getOrders(page: number = 1, pageSize: number = 10, dateOption?: number, orderStatus?: number, searchText?: string): Promise<AxiosResponse<OrderListDto>> {
+    async getOrders(page: number = 1, pageSize: number = 10, dateOption?: number, orderStatus?: number, searchText?: string,userId?:string): Promise<AxiosResponse<OrderListDto>> {
         let queryParams = `?page=${page}&pageSize=${pageSize}`;
 
         console.log(orderStatus, searchText)
@@ -28,6 +28,9 @@ const OrderService = {
 
         if (dateOption !== null && dateOption !== undefined)
             queryParams += `&dateOption=${dateOption}`;
+
+        if(userId !== null && userId !== undefined)
+            queryParams += `&userId=${userId}`;
 
         return await BaseService.get(`/${orderEndpoint}/get-orders${queryParams}`);
     },

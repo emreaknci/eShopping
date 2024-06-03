@@ -42,7 +42,7 @@ const LowStockProducts = () => {
                     id: "# "+product.id,
                     name: product.name,
                     unitsInStock: product.unitsInStock + ' adet',
-                    price: product.price,
+                    price: product.price + ' TL',
                     brand: product.brandName
                 }
             })

@@ -91,6 +91,8 @@ const CategoryPage = () => {
   const getProductsByFilter = async (categoryId: number, filters: ProductFilterOptions) => {
     setIsLoading(true);
 
+    setFilters({ ...filters, categoryIds: [...(filters.categoryIds || []), categoryId] });
+
     await ProductService.getProducts(filters)
       .then(async (response) => {
         const dto = response.data.data;

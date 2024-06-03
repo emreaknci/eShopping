@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Divider, Grid, MenuItem, Paper, Select, TextField, Typography } from '@mui/material';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import InventoryIcon from '@mui/icons-material/Inventory';
@@ -13,6 +13,9 @@ import OrderDetails from '../../../components/userLayout/myOrdersPage/OrderDetai
 import { LoadingComponent } from '../../../components/common/LoadingComponent';
 import OrderDetailDto from '../../../dtos/orders/orderDetailDto';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../../../contexts/AuthContext';
+import StorageService from '../../../services/storage.service';
+import { JwtHelper } from '../../../utils/JwtHelper';
 
 const sxValues = {
 
@@ -20,6 +23,8 @@ const sxValues = {
 
 
 const MyOrdersPage = () => {
+
+  const authContext = useContext(AuthContext)
   const [loading, setLoading] = useState(false);
   const [orders, setOrders] = useState<OrderListDto>();
   const [currentPage, setCurrentPage] = useState(1);
@@ -33,13 +38,16 @@ const MyOrdersPage = () => {
 
   useEffect(() => {
     setLoading(true);
-    OrderService.getOrders(currentPage, itemsPerPage, getIndexForDateOption(dateOption), Number(filterStatus)).then((response) => {
-      setOrders(response.data);
-    }).catch((error) => {
-      console.log(error);
-    }).finally(() => {
-      setLoading(false);
-    });
+    const accessToken = StorageService.getAccessToken();
+    if (accessToken == null) return;
+    else
+      OrderService.getOrders(currentPage, itemsPerPage, getIndexForDateOption(dateOption), Number(filterStatus), undefined, JwtHelper.getTokenInfos(accessToken).nameidentifier).then((response) => {
+        setOrders(response.data);
+      }).catch((error) => {
+        console.log(error);
+      }).finally(() => {
+        setLoading(false);
+      });
 
   }, [currentPage, itemsPerPage, dateOption, filterStatus]);
 
@@ -103,7 +111,7 @@ const MyOrdersPage = () => {
                   </Grid>
                   <Grid item sm={2}>
                     {order?.orderStatus === OrderStatus.PaymentPending || order?.orderStatus === OrderStatus.PaymentSucceeded &&
-                      <Button  onClick={() => handleCancelOrder(order?.orderId)}>
+                      <Button onClick={() => handleCancelOrder(order?.orderId)}>
                         İptal Et
                       </Button>
                     }
@@ -205,3 +213,4 @@ const MyOrdersPage = () => {
 };
 
 export default MyOrdersPage;
+

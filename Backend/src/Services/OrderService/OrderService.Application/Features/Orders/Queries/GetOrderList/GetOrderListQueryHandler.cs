@@ -16,7 +16,7 @@ namespace OrderService.Application.Features.Orders.Queries.GetOrderList
 
         public Task<OrderListViewModel> Handle(GetOrderListQuery request, CancellationToken cancellationToken)
         {
-            var orders = _orderRepository.GetOrders(request.DateOption, request.OrderStatus, request.SearchText);
+            var orders = _orderRepository.GetOrders(request.DateOption, request.OrderStatus, request.SearchText,request.UserId);
 
             int totalCount = orders.Count();
             int totalPages = (int)Math.Ceiling(totalCount / (double)request.PageSize);

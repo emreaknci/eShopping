@@ -62,12 +62,19 @@ namespace OrderService.Infrastructure.Repositories
             return _dbContext.Orders.OrderByDescending(x => x.CreatedDate).Take(count).Include(x => x.Buyer).Include(x => x.OrderItems);
         }
 
-        public IQueryable<Order> GetOrders(DateOption? dateOption = DateOption.AllTime, int? statusId = null, string? searchText = null)
+        public IQueryable<Order> GetOrders(DateOption? dateOption = DateOption.AllTime, int? statusId = null, string? searchText = null, string? userId = null)
         {
             var orders = _dbContext.Orders.AsQueryable();
 
             if (statusId.HasValue)
                 orders = orders.Where(x => x.OrderStatusId == statusId.Value);
+
+            if (!string.IsNullOrEmpty(userId))
+            {
+                var buyer= _dbContext.Buyers.FirstOrDefault(x => x.UserId == userId);
+                if (buyer != null)
+                    orders = orders.Where(x => x.BuyerId == buyer.Id);
+            }
 
             if (!string.IsNullOrEmpty(searchText))
                 orders = orders.Where(x => x.Buyer.FullName.ToLower().Contains(searchText.ToLower())

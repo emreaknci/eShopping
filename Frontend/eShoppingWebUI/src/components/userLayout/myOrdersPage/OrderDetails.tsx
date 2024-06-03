@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import OrderDetailDto, { OrderItemDto } from '../../../dtos/orders/orderDetailDto'
 import OrderService from '../../../services/order.service'
 
+const baseImagePath = import.meta.env.VITE_API_GATEWAY + '/' + import.meta.env.VITE_CATALOG_IMAGES + '/';
 
 const OrderDetails = ({ orderId }: { orderId: string }) => {
     const [detail, setDetail] = useState<OrderDetailDto>()
@@ -70,7 +71,7 @@ const OrderDetails = ({ orderId }: { orderId: string }) => {
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={2} >
-                            <img src={item.pictureUrl} alt={item.productname} width="100%" />
+                            <img src={baseImagePath+item.pictureUrl} alt={item.productname} width="100%" />
                         </Grid>
                         <Grid item xs={12} sm={10}>
                             <Typography variant='h5' fontWeight={"bold"}>{item.productname}</Typography>

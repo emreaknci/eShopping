@@ -10,6 +10,6 @@ namespace OrderService.Application.Interfaces.Repositories
         int CalculateLatestOrderCount(int daysAgo);
         int CalculateTotalOrderCount();
         IQueryable<Order> GetLatestOrders(int count);
-        IQueryable<Order> GetOrders(DateOption? dateOption = DateOption.AllTime, int? statusId = null, string? searchText = null);
+        IQueryable<Order> GetOrders(DateOption? dateOption = DateOption.AllTime, int? statusId = null, string? searchText = null, string? userId = null);
     }
 }

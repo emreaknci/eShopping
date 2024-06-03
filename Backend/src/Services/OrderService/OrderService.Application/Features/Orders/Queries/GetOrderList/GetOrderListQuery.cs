@@ -22,6 +22,7 @@ namespace OrderService.Application.Features.Orders.Queries.GetOrderList
         public int? OrderStatus { get; set; }
         public string? SearchText { get; set; }
         public DateOption? DateOption { get; set; }
+        public string? UserId { get; set; }
     }
 
     public enum DateOption
