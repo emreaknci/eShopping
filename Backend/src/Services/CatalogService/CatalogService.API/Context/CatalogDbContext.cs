@@ -64,11 +64,11 @@ namespace CatalogService.API.Context
             //modelBuilder.ApplyConfiguration(new ProductImageEntityConfiguration());
 
 
-            modelBuilder.Entity<Feature>().HasData(SeedData.Features());
-            modelBuilder.Entity<FeatureValue>().HasData(SeedData.FeatureValues());
-            modelBuilder.Entity<Brand>().HasData(SeedData.Brands());
-            modelBuilder.Entity<Category>().HasData(SeedData.Categories());
-            modelBuilder.Entity<CategoryFeature>().HasData(SeedData.CategoryFeatures());
+            modelBuilder.Entity<Feature>().HasData(SeedData.Features.ToList());
+            modelBuilder.Entity<FeatureValue>().HasData(SeedData.FeatureValues.ToList());
+            modelBuilder.Entity<Brand>().HasData(SeedData.Brands.ToList());
+            modelBuilder.Entity<Category>().HasData(SeedData.Categories.ToList());
+            modelBuilder.Entity<CategoryFeature>().HasData(SeedData.CategoryFeatures.ToList());
         }
 
         public DbSet<Brand> Brands { get; set; }
