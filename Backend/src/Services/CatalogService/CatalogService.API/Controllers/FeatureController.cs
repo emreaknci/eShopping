@@ -36,7 +36,7 @@ namespace CatalogService.API.Controllers
                 dto.Values
                 .Select(value => new FeatureValue { Value = value, FeatureId = feature.Id })
                 );
-            saved =await _catalogContext.SaveChangesAsync();
+            saved = await _catalogContext.SaveChangesAsync();
 
             if (saved == 0)
                 return BadRequest(Result<List<FeatureListDto>>.FailureResult("Özellik değerleri eklenirken bir hata oluştu"));
@@ -74,6 +74,28 @@ namespace CatalogService.API.Controllers
 
             return Ok(Result<FeatureValue>.SuccessResult(featureValue));
 
+        }
+
+        [HttpPut("update-feature")]
+        public IActionResult UpdateFeature([FromBody] FeatureUpdateDto dto)
+        {
+            var feature = _catalogContext.Features.SingleOrDefault(x => x.Id == dto.Id);
+            if (feature == null)
+            {
+                return NotFound(Result<Feature>.FailureResult("Özellik bulunamadı"));
+            }
+
+            foreach (var newValue in dto.NewValues)
+            {
+                _catalogContext.FeatureValues.Add(new() { Value = newValue, FeatureId = dto.Id });
+            }
+
+
+            var result = _catalogContext.SaveChanges();
+
+            return result == 0
+                ? BadRequest(Result<bool>.FailureResult("Özellik güncellenirken bir hata oluştu"))
+                : Ok(Result<bool>.SuccessResult(true));
         }
 
         [HttpDelete("delete-feature")]
