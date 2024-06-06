@@ -13,11 +13,13 @@ import { ProductFilterOptions, SortType } from '../../../dtos/products/productFi
 import { toast } from 'react-toastify';
 import { ProductListDto } from '../../../dtos/products/productListDto';
 import { LoadingComponent } from '../../../components/common/LoadingComponent';
+import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 
-const baseImagePath = import.meta.env.VITE_API_GATEWAY + '/' + import.meta.env.VITE_CATALOG_IMAGES + '/';
 import FilterBox from '../../../components/userLayout/productsPage/FilterBox';
 import ProductDetails from '../../../components/userLayout/productsPage/ProductDetails';
-
+import EditIcon from '@mui/icons-material/Edit';
+import ProductTableRow from '../../../components/userLayout/productsPage/ProductTableRow';
 const ProductsPage = () => {
   const [products, setProducts] = useState<ProductListDto[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -26,7 +28,6 @@ const ProductsPage = () => {
   const [expandedProductId, setExpandedProductId] = useState<number | null>(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
 
   const [isLoading, setIsLoading] = useState(true);
   const [initialFilters, setInitialFilters] = useState<ProductFilterOptions>({
@@ -146,34 +147,6 @@ const ProductsPage = () => {
     );
   };
 
-  const renderTableBodyParentRow = (product: ProductListDto) => {
-    return (
-      <TableRow sx={{ pb: 5, pt: 5 }}>
-        <TableCell>
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => handleExpand(product.id)}
-          >
-            {expandedProductId === product.id ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-          </IconButton>
-          {product.id}
-        </TableCell>
-        <TableCell >
-          <Typography align='center'>
-            {product.name}
-          </Typography>
-        </TableCell>
-        <TableCell >
-          <Typography align='center'>
-            {product.price} TL
-          </Typography>
-        </TableCell>
-
-      </TableRow>
-    )
-  }
-
 
   return (
     <Grid container spacing={3}>
@@ -209,7 +182,7 @@ const ProductsPage = () => {
                 <TableBody>
                   {paginatedProducts.map(product => (
                     <React.Fragment key={product.id}>
-                      {renderTableBodyParentRow(product)}
+                      <ProductTableRow product={product} expandedProductId={expandedProductId} handleExpand={handleExpand} />
                       {expandedProductId == product.id && <ProductDetails expandedProductId={expandedProductId} productId={product.id} setExpandedProductId={setExpandedProductId} />}
                     </React.Fragment>
                   ))}

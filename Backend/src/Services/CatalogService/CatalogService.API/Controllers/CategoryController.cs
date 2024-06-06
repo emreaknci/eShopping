@@ -159,6 +159,7 @@ namespace CatalogService.API.Controllers
                         Name = pc.Product.Name,
                         Price = pc.Product.Price,
                         BrandId = pc.Product.BrandId,
+                        UnitsInStock = pc.Product.UnitsInStock,
                         BrandName = _catalogContext.Brands.FirstOrDefault(b => b.Id == pc.Product.BrandId).Name,
 
                     }).Take(5).ToList()

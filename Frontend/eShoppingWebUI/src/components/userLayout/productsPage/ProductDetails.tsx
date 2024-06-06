@@ -43,6 +43,11 @@ const ProductDetails = (props: ProductDetailsProps) => {
             setUpdateStock(true);
         else {
             const newStockValue = currentProductDetail!.unitsInStock + newStock;
+            if (newStockValue < 0) {
+                toast.error("Stok miktarı negatif olamaz.");
+                return;
+            }
+
             stockUpdateFunc(currentProductDetail!.id, newStockValue);
         }
     }
@@ -73,10 +78,12 @@ const ProductDetails = (props: ProductDetailsProps) => {
                             </Typography>
                             <Grid container spacing={3}>
                                 <Grid item xs={12}>
-                                    <Typography variant="h6" >
-                                        <br />
-                                        <strong>Açıklama:</strong> {currentProductDetail.description}
-                                    </Typography>
+                                    {currentProductDetail.description &&
+                                        <Typography variant="h6" >
+                                            <br />
+                                            <strong>Açıklama:</strong> {currentProductDetail.description}
+                                        </Typography>
+                                    }
                                     <Typography variant="h6" >
                                         <strong>Stok Miktarı:</strong> {currentProductDetail.unitsInStock} adet
                                         <Button variant="contained" color="success" style={{ marginLeft: "1rem", marginRight: "1rem" }} onClick={() => handleStockUpdate()}>Stok Düzenle</Button>
@@ -97,7 +104,7 @@ const ProductDetails = (props: ProductDetailsProps) => {
                                         </Typography>
                                     }
                                 </Grid>
-                                <Grid item xs={12}>
+                                {currentProductDetail.features && currentProductDetail.features.length > 1 && < Grid item xs={12}>
                                     <Typography variant="h5" >
                                         <strong >Ürün Özellikleri</strong>
                                     </Typography>
@@ -107,7 +114,7 @@ const ProductDetails = (props: ProductDetailsProps) => {
                                             <strong>{feature.name}:</strong> {feature.value}
                                         </Typography>
                                     ))}
-                                </Grid>
+                                </Grid>}
 
                             </Grid>
 
@@ -132,7 +139,7 @@ const ProductDetails = (props: ProductDetailsProps) => {
                     </Grid>
                 </Collapse>
             </TableCell>
-        </TableRow>
+        </TableRow >
     )
 }
 

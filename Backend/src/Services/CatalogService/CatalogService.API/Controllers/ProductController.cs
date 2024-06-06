@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 //TODO: Move these methods to a service class
 namespace CatalogService.API.Controllers
-{  
+{
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -245,6 +245,39 @@ namespace CatalogService.API.Controllers
             return Ok(Result<ProductUpdateDto>.SuccessResult(dto));
         }
 
+        [HttpPut("update-price")]
+        public IActionResult UpdatePrice(int id, decimal price)
+        {
+            var product = _catalogContext.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null)
+                return NotFound(Result<bool>.FailureResult("Ürün Bulunamadı"));
+
+            product.Price = price;
+            _catalogContext.SaveChanges();
+
+            return Ok(Result<bool>.SuccessResult(true));
+        }
+        [HttpPost("get-by-ids")]
+        public IActionResult GetProductsByIds(List<int> ids)
+        {
+            var products = _catalogContext.Products.Where(p => ids.Contains(p.Id));
+            if (!products.Any())
+                return NotFound("Ürün Bulunamadı");
+
+            List<object> list = new ();
+            foreach (var product in products)
+            {
+                object obj = new
+                {
+                    product.Id,
+                    product.Name,
+                    product.Price
+                };
+                list.Add(obj);
+            }
+
+            return Ok(list);
+        }
         [HttpDelete]
         public IActionResult DeleteProduct(int id)
         {
@@ -303,18 +336,19 @@ namespace CatalogService.API.Controllers
         }
 
         [HttpPost("check-stocks")]
-        public IActionResult CheckProductStocks([FromBody]List<int> productIds )         {
+        public IActionResult CheckProductStocks([FromBody] List<int> productIds)
+        {
             var products = _catalogContext.Products.Where(p => productIds.Contains(p.Id)).ToList();
 
             if (!products.Any())
                 return NotFound(Result<List<ProductListDto>>.FailureResult("Ürün Bulunamadı"));
 
-            Dictionary<int, int> currentStocks = new (); // key: productId, value: currentStock
+            Dictionary<int, int> currentStocks = new(); // key: productId, value: currentStock
 
-            foreach (var product in products)          
+            foreach (var product in products)
                 currentStocks.Add(product.Id, product.UnitsInStock);
-            
-            return Ok(Result<Dictionary<int, int>>.SuccessResult(currentStocks));     
+
+            return Ok(Result<Dictionary<int, int>>.SuccessResult(currentStocks));
         }
 
 

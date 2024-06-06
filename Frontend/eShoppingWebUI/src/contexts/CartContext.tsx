@@ -21,7 +21,8 @@ export const CartContext = createContext({
   checkout: (basketCheckout: BasketCheckout) => { },
   customerCart: undefined as CustomerBasket | undefined,
   cartItemCount: 0,
-  totalPrice: 0
+  totalPrice: 0,
+  updatePrice: (productId: number, price: number) => { }
 })
 
 export const CartProvider = ({ children }: any) => {
@@ -74,6 +75,23 @@ export const CartProvider = ({ children }: any) => {
       }
     })
   }, [customerCart]);
+
+  const updatePrice = async (productId: number, price: number) => {
+    const basketItem=customerCart?.items.find(x=>x.productId===productId);
+    if(basketItem){
+      basketItem.unitPrice=price;
+      await BasketService.updateBasket(customerCart!)
+        .then((response) => {
+          setCustomerBasket(response.data.data!);
+          setCartItemCount(response.data.data!.items.length);
+          toast.info(`'${basketItem.productName}' ürününün fiyatı '${basketItem.unitPrice} TL' olarak güncellendi.`)
+        }).catch((error) => {
+          console.log(error)
+        })
+    }
+
+    
+  }
 
   const checkStocks = useCallback(async () => {
     if (customerCart) {
@@ -228,7 +246,7 @@ export const CartProvider = ({ children }: any) => {
       addToCart, removeFromCart,
       clearCart, cartItemCount,
       customerCart,
-      checkout,
+      checkout, updatePrice,
       increaseQuantity, decreaseQuantity,
       totalPrice
     }}>

@@ -1,4 +1,4 @@
-import { Button, Card, CardMedia, Typography, styled } from "@mui/material";
+import { Badge, Button, Card, CardMedia, Typography, styled } from "@mui/material";
 
 
 const ProductCard = styled(Card)({
@@ -48,13 +48,16 @@ const AddButton = styled(Button)({
     backgroundColor: 'primary',
 });
 
+const UnitsInStockBadge = styled(Badge)({
+});
 
 const Styled = {
     ProductCard,
     Name,
     Media,
     Price,
-    AddButton
+    AddButton,
+    UnitsInStockBadge
 }
 
 export default Styled;

@@ -8,6 +8,7 @@ import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOut
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { useNavigate } from 'react-router-dom';
 import LaunchIcon from '@mui/icons-material/Launch';
+import ProductService from '../../../services/product.service';
 
 const Step1 = ({ setCanContinue }: { setCanContinue: React.Dispatch<React.SetStateAction<boolean>> }) => {
   const cartContext = useContext(CartContext);
@@ -21,11 +22,32 @@ const Step1 = ({ setCanContinue }: { setCanContinue: React.Dispatch<React.SetSta
   const [confirmText, setConfirmText] = useState('');
 
   useEffect(() => {
+    const getCartItems = (ids: number[]) => {
+      ProductService.getByIds(ids).then(res => {
+        const data = res.data; // { id: number, name: string, price: number }[]
+        //check if the product is in the cart and check if the price is the same if not equal update the price and notify the user
+        data.forEach((product) => {
+          const item = cartItems.find(x => x.productId === product.id);
+          if (item && item.unitPrice !== product.price) {
+            cartContext.updatePrice(product.id, product.price);
+            setCartItems(prev => {
+              return prev.map(x => x.productId === product.id ? { ...x, unitPrice: product.price } : x)
+            })
+          }
+        });
+      }).catch(err => {
+        console.log(err)
+      })
+    }
     setIsLoading(true);
     setCartItems(cartContext.customerCart?.items || []);
     setIsLoading(false);
     setCanContinue(true)
-  }, [cartContext.customerCart, setCanContinue]);
+    getCartItems(cartContext.customerCart?.items.map(x => x.productId) || []);
+  }, [cartContext, cartContext.customerCart, cartItems, setCanContinue]);
+
+
+
 
   const handleIncreaseQuantity = (item: BasketItem) => {
     cartContext.increaseQuantity(item);
