@@ -16,6 +16,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { AddNewAdminPage } from './AdminsPage/AddNewAdminPage';
 import { AddCategoryPage } from './CategoriesPage/AddCategoryPage';
 import { AddFeaturePage } from './CategoriesPage/AddFeaturePage';
+import { BrandsPage } from './BrandsPage';
 
 const UserLayout = () => {
   const authContext = useContext(AuthContext);
@@ -43,6 +44,7 @@ const UserLayout = () => {
                 <Route path="/customers" element={<CustomersPage />} />
                 <Route path="/admins" element={<AdminsPage />} />
                 <Route path="/categories" element={<CategoriesPage />} />
+                <Route path="/brands" element={<BrandsPage />} />
                 <Route path="/products" element={<ProductsPage />} />
                 <Route path="/add-new-product" element={<AddNewProductPage />} />
                 <Route path="/add-new-admin" element={<AddNewAdminPage />} />

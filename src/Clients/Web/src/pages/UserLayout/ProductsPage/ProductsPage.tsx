@@ -65,7 +65,7 @@ const ProductsPage = () => {
   }, [searchQuery])
 
   useEffect(() => {
-    setFilters({ ...filters, pageNumber: page + 1});
+    setFilters({ ...filters, pageNumber: page + 1 });
   }, [page])
 
   const getProductsByFilter = async (filters: ProductFilterOptions) => {
@@ -78,12 +78,7 @@ const ProductsPage = () => {
         setCurrentPage(response.data.pageNumber);
       })
       .catch((error) => {
-        console.error(error);
-        toast.dismiss();
-        toast.info(error.response.data.message || "Ürünler getirilirken bir hata oluştu.")
-        if (error.response.data) {
-          setProducts([]);
-        }
+        console.log(error);
       }).finally(() => {
         setIsLoading(false);
       });
@@ -169,6 +164,15 @@ const ProductsPage = () => {
                       {expandedProductId == product.id && <ProductDetails expandedProductId={expandedProductId} productId={product.id} setExpandedProductId={setExpandedProductId} />}
                     </React.Fragment>
                   ))}
+                  {products?.length === 0 &&
+                    <TableRow>
+                      <TableCell colSpan={12}>
+                        <Typography variant="h6" align="center">
+                          Ürün bulunamadı
+                        </Typography>
+                      </TableCell>
+                    </TableRow>
+                  }
                 </TableBody>
               </Table>
               <TablePagination

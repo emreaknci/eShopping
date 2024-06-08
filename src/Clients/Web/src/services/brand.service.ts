@@ -8,6 +8,9 @@ const BrandService = {
     async getBrands(): Promise<AxiosResponse<Result<BrandListDto[]>>> {
         return await BaseService.get(`/${brandEndpoint}/`);
     },
+    async createBrand(dto: any): Promise<AxiosResponse<Result<{ name: string }>>> {
+        return await BaseService.post(`/${brandEndpoint}/`, dto);
+    }
 
 }
 

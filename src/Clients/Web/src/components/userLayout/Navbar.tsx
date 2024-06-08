@@ -29,6 +29,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthContext';
 import { toast } from 'react-toastify';
+import BusinessIcon from '@mui/icons-material/Business';
 const drawerWidth = 240;
 
 const openedMixin = (theme: Theme): CSSObject => ({
@@ -104,6 +105,7 @@ const adminIconMap = [
   { name: 'Siparişler', icon: <ShoppingBasketIcon />, link: 'orders' },
   { name: 'Ürünler', icon: <InventoryIcon />, link: 'products' },
   { name: 'Kategoriler', icon: <CategoryIcon />, link: 'categories' },
+  { name: 'Markalar', icon: <BusinessIcon />, link: 'brands'},
   { name: 'Adminler', icon: <SupervisorAccountIcon />, link: 'admins' },
   { name: 'Müşteriler', icon: <PersonSearchIcon />, link: 'customers' },
 ];
