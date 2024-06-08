@@ -12,7 +12,7 @@ const sxValues = {
     p: 2,
 };
 
-const colors = ['#00FFFF', '#FFA500', '#800080', '#008000', '#800000', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF'];
+const colors = ['#00FFFF', '#FFA500', '#800080', '#008000'];
 
 
 const ProductPieChart = () => {
@@ -22,9 +22,13 @@ const ProductPieChart = () => {
     const [pieChartData, setPieChartData] = useState<{ label: string, value: number, color: string }[]>([]);
 
     useEffect(() => {
-
         CategoryService.getCategoryNames().then(response => {
-            const dtos = response.data.data as CategoryDto[];
+            let dtos = response.data.data as CategoryDto[];
+            if (dtos.length > 4) {
+                const othersCount = dtos.slice(3).reduce((acc, curr) => acc + curr.productCount, 0);
+                dtos = dtos.slice(0, 3);
+                dtos.push({ id: 0, name: `Diğer (${othersCount})`, productCount: othersCount });
+            }
             const pieChartData = dtos.map((dto, index) => {
                 return {
                     label: dto.name,
@@ -32,12 +36,10 @@ const ProductPieChart = () => {
                     color: colors[index % dtos.length]
                 }
             });
-
             setPieChartData(pieChartData);
         }).catch(error => {
             console.log(error);
         });
-
     }, []);
 
 
@@ -69,8 +71,8 @@ const ProductPieChart = () => {
                                 }
                             }),
                             direction: 'column',
-                            itemMarkHeight: 10,
-                            itemMarkWidth: 10
+                            itemMarkHeight: 15,
+                            itemMarkWidth: 15
                         }
 
                     }}

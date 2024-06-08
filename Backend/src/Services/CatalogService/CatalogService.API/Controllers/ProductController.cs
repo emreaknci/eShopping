@@ -96,8 +96,21 @@ namespace CatalogService.API.Controllers
 
             if (options.CategoryIds != null && options.CategoryIds.Any())
             {
+                var categories = _catalogContext.Categories.Include(c => c.SubCategories).ToList();
+                var ids= new List<int>();
+                foreach (var categoryId in options.CategoryIds)
+                {
+                    var category = categories.FirstOrDefault(c => c.Id == categoryId);
+                    if (category == null) continue;
+                    ids.Add(category.Id);
+                    foreach (var subCategory in category.SubCategories)
+                    {
+                        ids.Add(subCategory.Id);
+                    }
+                }
+
                 query = query.Where(p => _catalogContext.ProductCategories
-                                              .Where(pc => options.CategoryIds.Contains(pc.CategoryId))
+                                              .Where(pc => ids.Contains(pc.CategoryId))
                                               .Select(pc => pc.ProductId).Contains(p.Id));
             }
 

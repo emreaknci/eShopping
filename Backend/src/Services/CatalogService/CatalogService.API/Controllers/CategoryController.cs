@@ -109,7 +109,7 @@ namespace CatalogService.API.Controllers
         [HttpGet("get-category-names")]
         public IActionResult GetCategoryNames()
         {
-            var categories = _catalogContext.Categories.Where(c => c.ParentCategoryId == null).ToList();
+            var categories = _catalogContext.Categories.Include(x=>x.SubCategories).Where(c => c.ParentCategoryId == null).ToList();
             if (categories == null || !categories.Any())
                 return NotFound(Result<List<CategoryDto>>.FailureResult("Kategori Bulunamadı"));
 
@@ -117,11 +117,13 @@ namespace CatalogService.API.Controllers
 
             foreach (var category in categories)
             {
+                if (category.ParentCategoryId != null)
+                    continue;
                 var categorytDto = new CategoryDto
                 {
                     Id = category.Id,
                     Name = category.Name,
-                    ProductCount = _catalogContext.ProductCategories.Where(pc => pc.CategoryId == category.Id).Count()
+                    ProductCount = _catalogContext.ProductCategories.Where(pc => pc.CategoryId == category.Id || (category.SubCategories.Any() && category.SubCategories.Select(x => x.Id).Contains(pc.CategoryId))).Include(pc => pc.Product).Count()
                 };
                 categoryDtos.Add(categorytDto);
             }
@@ -132,15 +134,18 @@ namespace CatalogService.API.Controllers
         [HttpGet("get-categories-with-products")]
         public IActionResult GetCategoriesWithProducts()
         {
-            var query = _catalogContext.Categories.Where(c => c.ParentCategoryId == null).ToList();
+            var query = _catalogContext.Categories.Include(x => x.SubCategories).ToList();
 
             if (query == null || !query.Any())
                 return NotFound(Result<List<CategoryListDto>>.FailureResult("Kategori Bulunamadı"));
 
             var categoryListDtos = new List<CategoryListDto>();
 
+
             foreach (var category in query)
             {
+                if (category.ParentCategoryId != null)
+                    continue;
                 var categoryListDto = new CategoryListDto
                 {
                     Id = category.Id,
@@ -153,7 +158,7 @@ namespace CatalogService.API.Controllers
                         Name = cf.Feature.Name
                     }).ToList(),
                     ParentCategoryId = category.ParentCategoryId ?? null,
-                    Products = _catalogContext.ProductCategories.Where(pc => pc.CategoryId == category.Id).Include(pc => pc.Product).Select(pc => new ProductListDto
+                    Products = _catalogContext.ProductCategories.Where(pc => pc.CategoryId == category.Id || (category.SubCategories.Any() && category.SubCategories.Select(x => x.Id).Contains(pc.CategoryId))).Include(pc => pc.Product).Select(pc => new ProductListDto
                     {
                         Id = pc.Product.Id,
                         Name = pc.Product.Name,

@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CatalogService.API.Migrations
 {
     [DbContext(typeof(CatalogDbContext))]
-    [Migration("20240604105438_mig_1")]
+    [Migration("20240608061406_mig_1")]
     partial class mig_1
     {
         /// <inheritdoc />
@@ -56,7 +56,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4760),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3904),
                             IsDeleted = false,
                             Name = "APPLE",
                             Status = true
@@ -64,7 +64,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4770),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3913),
                             IsDeleted = false,
                             Name = "SAMSUNG",
                             Status = true
@@ -72,7 +72,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4771),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3914),
                             IsDeleted = false,
                             Name = "HUAWEI",
                             Status = true
@@ -80,7 +80,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4773),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3916),
                             IsDeleted = false,
                             Name = "XIAOMİ",
                             Status = true
@@ -88,7 +88,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4774),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3917),
                             IsDeleted = false,
                             Name = "OPPO",
                             Status = true
@@ -96,7 +96,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4775),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3919),
                             IsDeleted = false,
                             Name = "VESTEL",
                             Status = true
@@ -104,7 +104,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4776),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3919),
                             IsDeleted = false,
                             Name = "ASUS",
                             Status = true
@@ -112,7 +112,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4777),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3921),
                             IsDeleted = false,
                             Name = "LENOVO",
                             Status = true
@@ -120,7 +120,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4778),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3921),
                             IsDeleted = false,
                             Name = "HP",
                             Status = true
@@ -128,7 +128,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4779),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3923),
                             IsDeleted = false,
                             Name = "MONSTER",
                             Status = true
@@ -136,7 +136,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4780),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3923),
                             IsDeleted = false,
                             Name = "LOGITECH",
                             Status = true
@@ -144,7 +144,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4780),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3924),
                             IsDeleted = false,
                             Name = "JBL",
                             Status = true
@@ -152,7 +152,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4781),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3925),
                             IsDeleted = false,
                             Name = "SENNHEISER",
                             Status = true
@@ -160,7 +160,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4782),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3926),
                             IsDeleted = false,
                             Name = "SEAGATE",
                             Status = true
@@ -168,7 +168,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4783),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3927),
                             IsDeleted = false,
                             Name = "WD",
                             Status = true
@@ -176,7 +176,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4783),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3927),
                             IsDeleted = false,
                             Name = "KINGSTON",
                             Status = true
@@ -184,7 +184,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4784),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3928),
                             IsDeleted = false,
                             Name = "CRUCIAL",
                             Status = true
@@ -192,7 +192,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4786),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3929),
                             IsDeleted = false,
                             Name = "ACER",
                             Status = true
@@ -200,7 +200,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4786),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3930),
                             IsDeleted = false,
                             Name = "MSI",
                             Status = true
@@ -208,7 +208,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4787),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3931),
                             IsDeleted = false,
                             Name = "CASPER",
                             Status = true
@@ -216,7 +216,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4788),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3932),
                             IsDeleted = false,
                             Name = "TCL",
                             Status = true
@@ -224,7 +224,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4789),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3933),
                             IsDeleted = false,
                             Name = "PHILIPS",
                             Status = true
@@ -232,7 +232,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4789),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3933),
                             IsDeleted = false,
                             Name = "LG",
                             Status = true
@@ -240,7 +240,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4790),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3934),
                             IsDeleted = false,
                             Name = "Sony SONY",
                             Status = true
@@ -248,7 +248,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 25,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4791),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3935),
                             IsDeleted = false,
                             Name = "CANON",
                             Status = true
@@ -256,7 +256,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 26,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4792),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3936),
                             IsDeleted = false,
                             Name = "AMD",
                             Status = true
@@ -264,7 +264,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 27,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4792),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3957),
                             IsDeleted = false,
                             Name = "INTEL",
                             Status = true
@@ -272,7 +272,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 28,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4793),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3958),
                             IsDeleted = false,
                             Name = "NVIDIA",
                             Status = true
@@ -280,7 +280,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 29,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4794),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3959),
                             IsDeleted = false,
                             Name = "GIGABYTE",
                             Status = true
@@ -288,7 +288,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 30,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4795),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3960),
                             IsDeleted = false,
                             Name = "CORSAIR",
                             Status = true
@@ -296,7 +296,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 31,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4796),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3961),
                             IsDeleted = false,
                             Name = "GSKILL",
                             Status = true
@@ -304,7 +304,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 32,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4796),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3962),
                             IsDeleted = false,
                             Name = "RAMPAGE",
                             Status = true
@@ -312,7 +312,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 33,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4797),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3963),
                             IsDeleted = false,
                             Name = "STEELSERIES",
                             Status = true
@@ -320,7 +320,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 34,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4798),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3964),
                             IsDeleted = false,
                             Name = "RAZER",
                             Status = true
@@ -328,7 +328,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 35,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4799),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3965),
                             IsDeleted = false,
                             Name = "DELL",
                             Status = true
@@ -336,7 +336,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 36,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4800),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3966),
                             IsDeleted = false,
                             Name = "THERMALTAKE",
                             Status = true
@@ -344,7 +344,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 37,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4801),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3966),
                             IsDeleted = false,
                             Name = "COOLER MASTER",
                             Status = true
@@ -352,7 +352,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 38,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4802),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3967),
                             IsDeleted = false,
                             Name = "DEEPCOOL",
                             Status = true
@@ -360,7 +360,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 39,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4802),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3968),
                             IsDeleted = false,
                             Name = "JWIN",
                             Status = true
@@ -368,7 +368,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 40,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4803),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3969),
                             IsDeleted = false,
                             Name = "ANKER",
                             Status = true
@@ -376,7 +376,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 41,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4804),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3970),
                             IsDeleted = false,
                             Name = "ARZUM",
                             Status = true
@@ -384,7 +384,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 42,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4805),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3970),
                             IsDeleted = false,
                             Name = "BOSCH",
                             Status = true
@@ -392,7 +392,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 44,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4806),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3971),
                             IsDeleted = false,
                             Name = "ARCELIK",
                             Status = true
@@ -400,7 +400,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 45,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4806),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3972),
                             IsDeleted = false,
                             Name = "BEKO",
                             Status = true
@@ -408,7 +408,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 46,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4807),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3973),
                             IsDeleted = false,
                             Name = "FAKIR",
                             Status = true
@@ -416,7 +416,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 47,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4808),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3973),
                             IsDeleted = false,
                             Name = "BRAUN",
                             Status = true
@@ -424,7 +424,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 48,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4830),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3974),
                             IsDeleted = false,
                             Name = "ADDISON",
                             Status = true
@@ -432,7 +432,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 49,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4831),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3975),
                             IsDeleted = false,
                             Name = "CELLURLARLINE",
                             Status = true
@@ -440,7 +440,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 50,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4832),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(3976),
                             IsDeleted = false,
                             Name = "NIKON",
                             Status = true
@@ -518,7 +518,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4882),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4025),
                             IsDeleted = false,
                             Name = "Telefon",
                             Status = true
@@ -526,7 +526,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4890),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4032),
                             IsDeleted = false,
                             Name = "Bilgisayar",
                             Status = true
@@ -534,7 +534,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4891),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4034),
                             IsDeleted = false,
                             Name = "Tv, Görüntü ve Ses",
                             Status = true
@@ -542,7 +542,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4893),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4035),
                             IsDeleted = false,
                             Name = "Bilgisayar Parçaları",
                             Status = true
@@ -550,15 +550,15 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4895),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4036),
                             IsDeleted = false,
-                            Name = "Aksesusar",
+                            Name = "Aksesuar",
                             Status = true
                         },
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4896),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4038),
                             IsDeleted = false,
                             Name = "Notebook",
                             ParentCategoryId = 2,
@@ -567,7 +567,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4898),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4040),
                             IsDeleted = false,
                             Name = "Masaüstü Bilgisayar",
                             ParentCategoryId = 2,
@@ -576,7 +576,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4899),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4042),
                             IsDeleted = false,
                             Name = "Tabletler",
                             ParentCategoryId = 2,
@@ -585,7 +585,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4901),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4043),
                             IsDeleted = false,
                             Name = "Monitörler",
                             ParentCategoryId = 2,
@@ -594,7 +594,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4902),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4071),
                             IsDeleted = false,
                             Name = "Televizyonlar",
                             ParentCategoryId = 3,
@@ -603,7 +603,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4904),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4073),
                             IsDeleted = false,
                             Name = "Projeksiyonlar",
                             ParentCategoryId = 3,
@@ -612,7 +612,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4905),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4074),
                             IsDeleted = false,
                             Name = "Kulaklık",
                             ParentCategoryId = 3,
@@ -621,7 +621,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4906),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4075),
                             IsDeleted = false,
                             Name = "Anakart",
                             ParentCategoryId = 4,
@@ -630,7 +630,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4908),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4076),
                             IsDeleted = false,
                             Name = "Ekran Kartları",
                             ParentCategoryId = 4,
@@ -639,7 +639,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4909),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4078),
                             IsDeleted = false,
                             Name = "Güç Kaynakları",
                             ParentCategoryId = 4,
@@ -648,7 +648,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4910),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4079),
                             IsDeleted = false,
                             Name = "İşlemciler",
                             ParentCategoryId = 4,
@@ -657,7 +657,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4911),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4080),
                             IsDeleted = false,
                             Name = "Ram",
                             ParentCategoryId = 4,
@@ -666,7 +666,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4913),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4082),
                             IsDeleted = false,
                             Name = "SSD",
                             ParentCategoryId = 4,
@@ -675,7 +675,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4914),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4083),
                             IsDeleted = false,
                             Name = "Powerbank",
                             ParentCategoryId = 5,
@@ -684,7 +684,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 901, DateTimeKind.Utc).AddTicks(4936),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 453, DateTimeKind.Utc).AddTicks(4085),
                             IsDeleted = false,
                             Name = "Laptop Çantaları",
                             ParentCategoryId = 5,
@@ -731,7 +731,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5767),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8870),
                             FeatureId = 1,
                             IsDeleted = false,
                             Status = true
@@ -740,7 +740,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 2,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6027),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9312),
                             FeatureId = 2,
                             IsDeleted = false,
                             Status = true
@@ -749,7 +749,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 3,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6028),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9314),
                             FeatureId = 3,
                             IsDeleted = false,
                             Status = true
@@ -758,7 +758,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 4,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6029),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9315),
                             FeatureId = 4,
                             IsDeleted = false,
                             Status = true
@@ -767,7 +767,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 5,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6029),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9316),
                             FeatureId = 5,
                             IsDeleted = false,
                             Status = true
@@ -776,7 +776,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 6,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6032),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9369),
                             FeatureId = 6,
                             IsDeleted = false,
                             Status = true
@@ -785,7 +785,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 7,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6033),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9370),
                             FeatureId = 7,
                             IsDeleted = false,
                             Status = true
@@ -794,7 +794,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 8,
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6033),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9370),
                             FeatureId = 8,
                             IsDeleted = false,
                             Status = true
@@ -803,7 +803,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 9,
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6034),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9371),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true
@@ -812,7 +812,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 10,
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6035),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9373),
                             FeatureId = 10,
                             IsDeleted = false,
                             Status = true
@@ -821,7 +821,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 11,
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6036),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9373),
                             FeatureId = 11,
                             IsDeleted = false,
                             Status = true
@@ -830,7 +830,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 12,
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6036),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9374),
                             FeatureId = 12,
                             IsDeleted = false,
                             Status = true
@@ -839,7 +839,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 13,
                             CategoryId = 6,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6037),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9375),
                             FeatureId = 13,
                             IsDeleted = false,
                             Status = true
@@ -848,7 +848,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 14,
                             CategoryId = 6,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6080),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9375),
                             FeatureId = 14,
                             IsDeleted = false,
                             Status = true
@@ -857,7 +857,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 15,
                             CategoryId = 6,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6081),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9376),
                             FeatureId = 15,
                             IsDeleted = false,
                             Status = true
@@ -866,7 +866,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 16,
                             CategoryId = 9,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6082),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9377),
                             FeatureId = 15,
                             IsDeleted = false,
                             Status = true
@@ -875,7 +875,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 17,
                             CategoryId = 9,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6082),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9378),
                             FeatureId = 5,
                             IsDeleted = false,
                             Status = true
@@ -884,7 +884,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 18,
                             CategoryId = 10,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6084),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9379),
                             FeatureId = 16,
                             IsDeleted = false,
                             Status = true
@@ -893,7 +893,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 19,
                             CategoryId = 10,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6085),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9380),
                             FeatureId = 17,
                             IsDeleted = false,
                             Status = true
@@ -902,7 +902,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 20,
                             CategoryId = 10,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6085),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9381),
                             FeatureId = 18,
                             IsDeleted = false,
                             Status = true
@@ -911,7 +911,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 21,
                             CategoryId = 13,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6086),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9381),
                             FeatureId = 19,
                             IsDeleted = false,
                             Status = true
@@ -920,7 +920,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 22,
                             CategoryId = 13,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6087),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9382),
                             FeatureId = 20,
                             IsDeleted = false,
                             Status = true
@@ -929,7 +929,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 23,
                             CategoryId = 13,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6087),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9395),
                             FeatureId = 21,
                             IsDeleted = false,
                             Status = true
@@ -938,7 +938,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 24,
                             CategoryId = 15,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6088),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9396),
                             FeatureId = 22,
                             IsDeleted = false,
                             Status = true
@@ -947,7 +947,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 25,
                             CategoryId = 16,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6089),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9397),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true
@@ -956,7 +956,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 26,
                             CategoryId = 16,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6090),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9397),
                             FeatureId = 32,
                             IsDeleted = false,
                             Status = true
@@ -965,7 +965,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 27,
                             CategoryId = 17,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6090),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9398),
                             FeatureId = 19,
                             IsDeleted = false,
                             Status = true
@@ -974,7 +974,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 28,
                             CategoryId = 17,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6091),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9399),
                             FeatureId = 26,
                             IsDeleted = false,
                             Status = true
@@ -983,7 +983,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 29,
                             CategoryId = 17,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6092),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9399),
                             FeatureId = 28,
                             IsDeleted = false,
                             Status = true
@@ -992,7 +992,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 30,
                             CategoryId = 18,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6092),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9400),
                             FeatureId = 23,
                             IsDeleted = false,
                             Status = true
@@ -1001,7 +1001,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 31,
                             CategoryId = 19,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6093),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9401),
                             FeatureId = 35,
                             IsDeleted = false,
                             Status = true
@@ -1010,7 +1010,7 @@ namespace CatalogService.API.Migrations
                         {
                             Id = 32,
                             CategoryId = 20,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6094),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9401),
                             FeatureId = 36,
                             IsDeleted = false,
                             Status = true
@@ -1048,7 +1048,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(4440),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(7261),
                             IsDeleted = false,
                             Name = "Dahili Hafıza (Mobil)",
                             Status = true
@@ -1056,7 +1056,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5482),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8578),
                             IsDeleted = false,
                             Name = "Ekran Boyutu Aralığı",
                             Status = true
@@ -1064,7 +1064,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5487),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8583),
                             IsDeleted = false,
                             Name = "RAM Boyutu (Mobil)",
                             Status = true
@@ -1072,7 +1072,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5489),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8584),
                             IsDeleted = false,
                             Name = "Kamera Çözünürlüğü",
                             Status = true
@@ -1080,7 +1080,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5490),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8586),
                             IsDeleted = false,
                             Name = "Ekran Yenileme Hızı",
                             Status = true
@@ -1088,7 +1088,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5516),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8593),
                             IsDeleted = false,
                             Name = "Batarya",
                             Status = true
@@ -1096,7 +1096,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5518),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8595),
                             IsDeleted = false,
                             Name = "İşletim Sistemi (Mobil)",
                             Status = true
@@ -1104,7 +1104,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5518),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8596),
                             IsDeleted = false,
                             Name = "İşlemci",
                             Status = true
@@ -1112,7 +1112,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5519),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8597),
                             IsDeleted = false,
                             Name = "Ekran Kartı",
                             Status = true
@@ -1120,7 +1120,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5521),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8598),
                             IsDeleted = false,
                             Name = "Dahili Hafıza (Bilgisayar)",
                             Status = true
@@ -1128,7 +1128,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5523),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8599),
                             IsDeleted = false,
                             Name = "RAM Boyutu (Bilgisayar)",
                             Status = true
@@ -1136,7 +1136,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5524),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8600),
                             IsDeleted = false,
                             Name = "İşletim Sistemi (Bilgisayar)",
                             Status = true
@@ -1144,7 +1144,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5524),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8601),
                             IsDeleted = false,
                             Name = "Ekran Boyutu (Bilgisayar)",
                             Status = true
@@ -1152,7 +1152,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5525),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8602),
                             IsDeleted = false,
                             Name = "Aydınlatmalı Klavye",
                             Status = true
@@ -1160,7 +1160,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5526),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8603),
                             IsDeleted = false,
                             Name = "Çözünürlük (Piksel)",
                             Status = true
@@ -1168,7 +1168,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5527),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8604),
                             IsDeleted = false,
                             Name = "Ekran Boyutu (TV)",
                             Status = true
@@ -1176,7 +1176,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5528),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8605),
                             IsDeleted = false,
                             Name = "Ekran Tipi",
                             Status = true
@@ -1184,7 +1184,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5530),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8606),
                             IsDeleted = false,
                             Name = "Çözünürlük (TV)",
                             Status = true
@@ -1192,7 +1192,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5531),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8607),
                             IsDeleted = false,
                             Name = "RAM Tipi",
                             Status = true
@@ -1200,7 +1200,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5532),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8609),
                             IsDeleted = false,
                             Name = "RAM Slot Sayısı",
                             Status = true
@@ -1208,7 +1208,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5533),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8622),
                             IsDeleted = false,
                             Name = "Bluetooth Desteği",
                             Status = true
@@ -1216,7 +1216,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5534),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8623),
                             IsDeleted = false,
                             Name = "Güç Değeri",
                             Status = true
@@ -1224,7 +1224,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5535),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8623),
                             IsDeleted = false,
                             Name = "Kapasite (SSD)",
                             Status = true
@@ -1232,7 +1232,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5536),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8624),
                             IsDeleted = false,
                             Name = "Okuma Hızı",
                             Status = true
@@ -1240,7 +1240,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 25,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5537),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8625),
                             IsDeleted = false,
                             Name = "Yazma Hızı",
                             Status = true
@@ -1248,7 +1248,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 26,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5538),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8626),
                             IsDeleted = false,
                             Name = "Ram Kapasitesi",
                             Status = true
@@ -1256,7 +1256,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 28,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5539),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8627),
                             IsDeleted = false,
                             Name = "Ram Hızı",
                             Status = true
@@ -1264,7 +1264,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 31,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5540),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8628),
                             IsDeleted = false,
                             Name = "İşlemci Hızı",
                             Status = true
@@ -1272,7 +1272,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 32,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5541),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8629),
                             IsDeleted = false,
                             Name = "İşlemci Çekirdek Sayısı",
                             Status = true
@@ -1280,7 +1280,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 33,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5542),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8630),
                             IsDeleted = false,
                             Name = "Kablosuz Şarj",
                             Status = true
@@ -1288,7 +1288,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 34,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5542),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8631),
                             IsDeleted = false,
                             Name = "Renk",
                             Status = true
@@ -1296,7 +1296,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 35,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5543),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8632),
                             IsDeleted = false,
                             Name = "Kapasite (Powerbank)",
                             Status = true
@@ -1304,7 +1304,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 36,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(5544),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(8633),
                             IsDeleted = false,
                             Name = "Laptop Boyut Aralığı",
                             Status = true
@@ -1347,7 +1347,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6282),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 247, DateTimeKind.Utc).AddTicks(9623),
                             FeatureId = 1,
                             IsDeleted = false,
                             Status = true,
@@ -1356,7 +1356,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6529),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(76),
                             FeatureId = 1,
                             IsDeleted = false,
                             Status = true,
@@ -1365,7 +1365,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6546),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(78),
                             FeatureId = 1,
                             IsDeleted = false,
                             Status = true,
@@ -1374,7 +1374,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 4,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6547),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(79),
                             FeatureId = 1,
                             IsDeleted = false,
                             Status = true,
@@ -1383,7 +1383,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 5,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6548),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(80),
                             FeatureId = 1,
                             IsDeleted = false,
                             Status = true,
@@ -1392,7 +1392,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 6,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6550),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(82),
                             FeatureId = 1,
                             IsDeleted = false,
                             Status = true,
@@ -1401,7 +1401,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 7,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6551),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(82),
                             FeatureId = 1,
                             IsDeleted = false,
                             Status = true,
@@ -1410,7 +1410,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 8,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6551),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(83),
                             FeatureId = 2,
                             IsDeleted = false,
                             Status = true,
@@ -1419,7 +1419,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 9,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6552),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(84),
                             FeatureId = 2,
                             IsDeleted = false,
                             Status = true,
@@ -1428,7 +1428,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 10,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6553),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(85),
                             FeatureId = 2,
                             IsDeleted = false,
                             Status = true,
@@ -1437,7 +1437,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 11,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6554),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(86),
                             FeatureId = 3,
                             IsDeleted = false,
                             Status = true,
@@ -1446,7 +1446,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 12,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6555),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(87),
                             FeatureId = 3,
                             IsDeleted = false,
                             Status = true,
@@ -1455,7 +1455,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 13,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6555),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(87),
                             FeatureId = 3,
                             IsDeleted = false,
                             Status = true,
@@ -1464,7 +1464,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 14,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6556),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(88),
                             FeatureId = 3,
                             IsDeleted = false,
                             Status = true,
@@ -1473,7 +1473,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 15,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6557),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(89),
                             FeatureId = 3,
                             IsDeleted = false,
                             Status = true,
@@ -1482,7 +1482,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 16,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6558),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(89),
                             FeatureId = 3,
                             IsDeleted = false,
                             Status = true,
@@ -1491,7 +1491,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 17,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6558),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(90),
                             FeatureId = 3,
                             IsDeleted = false,
                             Status = true,
@@ -1500,7 +1500,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 18,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6559),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(91),
                             FeatureId = 4,
                             IsDeleted = false,
                             Status = true,
@@ -1509,7 +1509,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 19,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6560),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(92),
                             FeatureId = 4,
                             IsDeleted = false,
                             Status = true,
@@ -1518,7 +1518,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 20,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6561),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(93),
                             FeatureId = 4,
                             IsDeleted = false,
                             Status = true,
@@ -1527,7 +1527,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 21,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6562),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(94),
                             FeatureId = 4,
                             IsDeleted = false,
                             Status = true,
@@ -1536,7 +1536,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 22,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6562),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(94),
                             FeatureId = 4,
                             IsDeleted = false,
                             Status = true,
@@ -1545,7 +1545,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 23,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6563),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(95),
                             FeatureId = 4,
                             IsDeleted = false,
                             Status = true,
@@ -1554,7 +1554,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 24,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6564),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(112),
                             FeatureId = 5,
                             IsDeleted = false,
                             Status = true,
@@ -1563,7 +1563,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 25,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6564),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(113),
                             FeatureId = 5,
                             IsDeleted = false,
                             Status = true,
@@ -1572,7 +1572,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 26,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6565),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(114),
                             FeatureId = 5,
                             IsDeleted = false,
                             Status = true,
@@ -1581,7 +1581,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 27,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6566),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(115),
                             FeatureId = 6,
                             IsDeleted = false,
                             Status = true,
@@ -1590,7 +1590,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 28,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6567),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(115),
                             FeatureId = 6,
                             IsDeleted = false,
                             Status = true,
@@ -1599,7 +1599,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 29,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6567),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(116),
                             FeatureId = 6,
                             IsDeleted = false,
                             Status = true,
@@ -1608,7 +1608,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 30,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6568),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(117),
                             FeatureId = 6,
                             IsDeleted = false,
                             Status = true,
@@ -1617,7 +1617,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 31,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6569),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(117),
                             FeatureId = 6,
                             IsDeleted = false,
                             Status = true,
@@ -1626,7 +1626,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 32,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6569),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(118),
                             FeatureId = 7,
                             IsDeleted = false,
                             Status = true,
@@ -1635,7 +1635,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 33,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6570),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(119),
                             FeatureId = 7,
                             IsDeleted = false,
                             Status = true,
@@ -1644,7 +1644,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 34,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6572),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(120),
                             FeatureId = 8,
                             IsDeleted = false,
                             Status = true,
@@ -1653,7 +1653,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 35,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6580),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(121),
                             FeatureId = 8,
                             IsDeleted = false,
                             Status = true,
@@ -1662,7 +1662,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 36,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6580),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(122),
                             FeatureId = 8,
                             IsDeleted = false,
                             Status = true,
@@ -1671,7 +1671,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 37,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6581),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(122),
                             FeatureId = 8,
                             IsDeleted = false,
                             Status = true,
@@ -1680,7 +1680,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 38,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6582),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(123),
                             FeatureId = 8,
                             IsDeleted = false,
                             Status = true,
@@ -1689,7 +1689,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 39,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6582),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(124),
                             FeatureId = 8,
                             IsDeleted = false,
                             Status = true,
@@ -1698,7 +1698,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 40,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6583),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(124),
                             FeatureId = 8,
                             IsDeleted = false,
                             Status = true,
@@ -1707,7 +1707,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 41,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6584),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(125),
                             FeatureId = 8,
                             IsDeleted = false,
                             Status = true,
@@ -1716,7 +1716,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 42,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6585),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(126),
                             FeatureId = 8,
                             IsDeleted = false,
                             Status = true,
@@ -1725,7 +1725,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 43,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6585),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(127),
                             FeatureId = 8,
                             IsDeleted = false,
                             Status = true,
@@ -1734,7 +1734,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 44,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6586),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(127),
                             FeatureId = 8,
                             IsDeleted = false,
                             Status = true,
@@ -1743,7 +1743,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 45,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6587),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(128),
                             FeatureId = 8,
                             IsDeleted = false,
                             Status = true,
@@ -1752,7 +1752,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 46,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6587),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(129),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1761,7 +1761,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 47,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6588),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(130),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1770,7 +1770,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 48,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6589),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(130),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1779,7 +1779,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 49,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6590),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(131),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1788,7 +1788,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 50,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6590),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(132),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1797,7 +1797,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 51,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6591),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(133),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1806,7 +1806,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 52,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6592),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(133),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1815,7 +1815,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 53,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6592),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(134),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1824,7 +1824,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 54,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6593),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(135),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1833,7 +1833,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 55,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6594),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(135),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1842,7 +1842,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 56,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6595),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(145),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1851,7 +1851,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 57,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6595),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(146),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1860,7 +1860,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 58,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6596),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(146),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1869,7 +1869,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 59,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6597),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(147),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1878,7 +1878,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 60,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6597),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(148),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1887,7 +1887,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 61,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6598),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(148),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1896,7 +1896,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 62,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6599),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(149),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1905,7 +1905,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 63,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6600),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(150),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1914,7 +1914,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 64,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6600),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(185),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1923,7 +1923,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 65,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6601),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(186),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1932,7 +1932,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 67,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6632),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(188),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1941,7 +1941,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 69,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6633),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(188),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1950,7 +1950,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 70,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6641),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(189),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1959,7 +1959,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 71,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6642),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(190),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1968,7 +1968,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 72,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6643),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(190),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1977,7 +1977,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 74,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6643),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(191),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1986,7 +1986,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 76,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6644),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(192),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -1995,7 +1995,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 78,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6645),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(192),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -2004,7 +2004,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 79,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6645),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(193),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -2013,7 +2013,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 80,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6646),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(194),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -2022,7 +2022,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 81,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6647),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(195),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -2031,7 +2031,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 82,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6648),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(195),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -2040,7 +2040,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 83,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6648),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(196),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -2049,7 +2049,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 84,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6649),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(197),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -2058,7 +2058,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 85,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6650),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(197),
                             FeatureId = 9,
                             IsDeleted = false,
                             Status = true,
@@ -2067,7 +2067,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 86,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6650),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(198),
                             FeatureId = 12,
                             IsDeleted = false,
                             Status = true,
@@ -2076,7 +2076,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 87,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6651),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(199),
                             FeatureId = 12,
                             IsDeleted = false,
                             Status = true,
@@ -2085,7 +2085,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 88,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6652),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(200),
                             FeatureId = 12,
                             IsDeleted = false,
                             Status = true,
@@ -2094,7 +2094,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 89,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6652),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(200),
                             FeatureId = 12,
                             IsDeleted = false,
                             Status = true,
@@ -2103,7 +2103,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 90,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6653),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(201),
                             FeatureId = 12,
                             IsDeleted = false,
                             Status = true,
@@ -2112,7 +2112,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 91,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6654),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(202),
                             FeatureId = 13,
                             IsDeleted = false,
                             Status = true,
@@ -2121,7 +2121,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 92,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6655),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(202),
                             FeatureId = 13,
                             IsDeleted = false,
                             Status = true,
@@ -2130,7 +2130,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 93,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6655),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(203),
                             FeatureId = 13,
                             IsDeleted = false,
                             Status = true,
@@ -2139,7 +2139,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 94,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6656),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(212),
                             FeatureId = 13,
                             IsDeleted = false,
                             Status = true,
@@ -2148,7 +2148,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 95,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6657),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(214),
                             FeatureId = 13,
                             IsDeleted = false,
                             Status = true,
@@ -2157,7 +2157,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 96,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6658),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(214),
                             FeatureId = 13,
                             IsDeleted = false,
                             Status = true,
@@ -2166,7 +2166,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 97,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6658),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(215),
                             FeatureId = 13,
                             IsDeleted = false,
                             Status = true,
@@ -2175,7 +2175,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 98,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6659),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(216),
                             FeatureId = 13,
                             IsDeleted = false,
                             Status = true,
@@ -2184,7 +2184,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 99,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6660),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(217),
                             FeatureId = 13,
                             IsDeleted = false,
                             Status = true,
@@ -2193,7 +2193,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 100,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6660),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(217),
                             FeatureId = 11,
                             IsDeleted = false,
                             Status = true,
@@ -2202,7 +2202,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 101,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6661),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(218),
                             FeatureId = 11,
                             IsDeleted = false,
                             Status = true,
@@ -2211,7 +2211,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 102,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6662),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(219),
                             FeatureId = 11,
                             IsDeleted = false,
                             Status = true,
@@ -2220,7 +2220,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 103,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6663),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(219),
                             FeatureId = 11,
                             IsDeleted = false,
                             Status = true,
@@ -2229,7 +2229,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 104,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6663),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(220),
                             FeatureId = 11,
                             IsDeleted = false,
                             Status = true,
@@ -2238,7 +2238,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 105,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6671),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(221),
                             FeatureId = 11,
                             IsDeleted = false,
                             Status = true,
@@ -2247,7 +2247,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 106,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6671),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(222),
                             FeatureId = 16,
                             IsDeleted = false,
                             Status = true,
@@ -2256,7 +2256,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 107,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6672),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(222),
                             FeatureId = 16,
                             IsDeleted = false,
                             Status = true,
@@ -2265,7 +2265,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 108,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6673),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(223),
                             FeatureId = 16,
                             IsDeleted = false,
                             Status = true,
@@ -2274,7 +2274,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 109,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6674),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(224),
                             FeatureId = 16,
                             IsDeleted = false,
                             Status = true,
@@ -2283,7 +2283,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 110,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6674),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(224),
                             FeatureId = 16,
                             IsDeleted = false,
                             Status = true,
@@ -2292,7 +2292,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 111,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6675),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(225),
                             FeatureId = 16,
                             IsDeleted = false,
                             Status = true,
@@ -2301,7 +2301,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 112,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6676),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(226),
                             FeatureId = 16,
                             IsDeleted = false,
                             Status = true,
@@ -2310,7 +2310,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 113,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6676),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(227),
                             FeatureId = 17,
                             IsDeleted = false,
                             Status = true,
@@ -2319,7 +2319,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 114,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6677),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(227),
                             FeatureId = 17,
                             IsDeleted = false,
                             Status = true,
@@ -2328,7 +2328,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 115,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6678),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(228),
                             FeatureId = 17,
                             IsDeleted = false,
                             Status = true,
@@ -2337,7 +2337,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 116,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6679),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(229),
                             FeatureId = 17,
                             IsDeleted = false,
                             Status = true,
@@ -2346,7 +2346,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 117,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6679),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(229),
                             FeatureId = 17,
                             IsDeleted = false,
                             Status = true,
@@ -2355,7 +2355,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 118,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6680),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(230),
                             FeatureId = 17,
                             IsDeleted = false,
                             Status = true,
@@ -2364,7 +2364,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 120,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6681),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(231),
                             FeatureId = 18,
                             IsDeleted = false,
                             Status = true,
@@ -2373,7 +2373,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 121,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6681),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(231),
                             FeatureId = 18,
                             IsDeleted = false,
                             Status = true,
@@ -2382,7 +2382,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 122,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6682),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(232),
                             FeatureId = 18,
                             IsDeleted = false,
                             Status = true,
@@ -2391,7 +2391,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 123,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6683),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(233),
                             FeatureId = 18,
                             IsDeleted = false,
                             Status = true,
@@ -2400,7 +2400,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 124,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6683),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(234),
                             FeatureId = 18,
                             IsDeleted = false,
                             Status = true,
@@ -2409,7 +2409,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 126,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6684),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(234),
                             FeatureId = 19,
                             IsDeleted = false,
                             Status = true,
@@ -2418,7 +2418,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 127,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6685),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(235),
                             FeatureId = 19,
                             IsDeleted = false,
                             Status = true,
@@ -2427,7 +2427,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 128,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6686),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(243),
                             FeatureId = 19,
                             IsDeleted = false,
                             Status = true,
@@ -2436,7 +2436,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 129,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6686),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(244),
                             FeatureId = 20,
                             IsDeleted = false,
                             Status = true,
@@ -2445,7 +2445,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 130,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6687),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(245),
                             FeatureId = 20,
                             IsDeleted = false,
                             Status = true,
@@ -2454,7 +2454,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 131,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6688),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(245),
                             FeatureId = 20,
                             IsDeleted = false,
                             Status = true,
@@ -2463,7 +2463,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 132,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6689),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(246),
                             FeatureId = 20,
                             IsDeleted = false,
                             Status = true,
@@ -2472,7 +2472,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 133,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6689),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(247),
                             FeatureId = 21,
                             IsDeleted = false,
                             Status = true,
@@ -2481,7 +2481,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 134,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6690),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(247),
                             FeatureId = 21,
                             IsDeleted = false,
                             Status = true,
@@ -2490,7 +2490,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 135,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6691),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(248),
                             FeatureId = 21,
                             IsDeleted = false,
                             Status = true,
@@ -2499,7 +2499,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 136,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6691),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(249),
                             FeatureId = 21,
                             IsDeleted = false,
                             Status = true,
@@ -2508,7 +2508,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 137,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6693),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(251),
                             FeatureId = 21,
                             IsDeleted = false,
                             Status = true,
@@ -2517,7 +2517,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 138,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6694),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(251),
                             FeatureId = 21,
                             IsDeleted = false,
                             Status = true,
@@ -2526,7 +2526,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 139,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6695),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(252),
                             FeatureId = 22,
                             IsDeleted = false,
                             Status = true,
@@ -2535,7 +2535,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 140,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6702),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(253),
                             FeatureId = 22,
                             IsDeleted = false,
                             Status = true,
@@ -2544,7 +2544,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 141,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6703),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(254),
                             FeatureId = 22,
                             IsDeleted = false,
                             Status = true,
@@ -2553,7 +2553,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 142,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6704),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(275),
                             FeatureId = 22,
                             IsDeleted = false,
                             Status = true,
@@ -2562,7 +2562,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 143,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6704),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(276),
                             FeatureId = 22,
                             IsDeleted = false,
                             Status = true,
@@ -2571,7 +2571,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 144,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6705),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(277),
                             FeatureId = 23,
                             IsDeleted = false,
                             Status = true,
@@ -2580,7 +2580,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 145,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6706),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(278),
                             FeatureId = 23,
                             IsDeleted = false,
                             Status = true,
@@ -2589,7 +2589,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 146,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6706),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(278),
                             FeatureId = 23,
                             IsDeleted = false,
                             Status = true,
@@ -2598,7 +2598,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 147,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6707),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(279),
                             FeatureId = 23,
                             IsDeleted = false,
                             Status = true,
@@ -2607,7 +2607,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 148,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6708),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(280),
                             FeatureId = 23,
                             IsDeleted = false,
                             Status = true,
@@ -2616,7 +2616,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 149,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6709),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(281),
                             FeatureId = 23,
                             IsDeleted = false,
                             Status = true,
@@ -2625,7 +2625,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 150,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6709),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(281),
                             FeatureId = 23,
                             IsDeleted = false,
                             Status = true,
@@ -2634,7 +2634,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 151,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6710),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(282),
                             FeatureId = 23,
                             IsDeleted = false,
                             Status = true,
@@ -2643,7 +2643,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 152,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6711),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(283),
                             FeatureId = 23,
                             IsDeleted = false,
                             Status = true,
@@ -2652,7 +2652,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 153,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6711),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(283),
                             FeatureId = 23,
                             IsDeleted = false,
                             Status = true,
@@ -2661,7 +2661,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 154,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6733),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(284),
                             FeatureId = 23,
                             IsDeleted = false,
                             Status = true,
@@ -2670,7 +2670,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 155,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6734),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(285),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2679,7 +2679,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 156,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6734),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(286),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2688,7 +2688,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 157,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6735),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(286),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2697,7 +2697,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 158,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6736),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(287),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2706,7 +2706,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 159,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6736),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(288),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2715,7 +2715,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 160,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6737),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(288),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2724,7 +2724,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 161,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6738),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(296),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2733,7 +2733,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 162,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6738),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(297),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2742,7 +2742,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 163,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6739),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(298),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2751,7 +2751,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 164,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6740),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(298),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2760,7 +2760,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 165,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6741),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(299),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2769,7 +2769,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 166,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6741),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(300),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2778,7 +2778,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 167,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6742),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(301),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2787,7 +2787,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 168,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6743),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(301),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2796,7 +2796,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 169,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6744),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(302),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2805,7 +2805,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 170,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6744),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(303),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2814,7 +2814,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 171,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6745),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(303),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2823,7 +2823,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 172,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6753),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(304),
                             FeatureId = 24,
                             IsDeleted = false,
                             Status = true,
@@ -2832,7 +2832,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 173,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6754),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(305),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2841,7 +2841,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 174,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6754),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(306),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2850,7 +2850,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 175,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6755),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(306),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2859,7 +2859,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 176,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6756),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(307),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2868,7 +2868,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 177,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6756),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(308),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2877,7 +2877,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 178,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6757),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(308),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2886,7 +2886,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 179,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6758),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(309),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2895,7 +2895,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 180,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6759),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(310),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2904,7 +2904,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 181,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6759),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(311),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2913,7 +2913,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 182,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6760),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(311),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2922,7 +2922,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 183,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6761),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(312),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2931,7 +2931,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 184,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6761),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(313),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2940,7 +2940,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 185,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6762),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(313),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2949,7 +2949,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 186,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6763),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(314),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2958,7 +2958,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 187,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6763),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(315),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2967,7 +2967,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 188,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6764),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(316),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2976,7 +2976,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 189,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6765),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(316),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2985,7 +2985,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 190,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6766),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(317),
                             FeatureId = 25,
                             IsDeleted = false,
                             Status = true,
@@ -2994,7 +2994,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 191,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6766),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(318),
                             FeatureId = 26,
                             IsDeleted = false,
                             Status = true,
@@ -3003,7 +3003,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 192,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6767),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(318),
                             FeatureId = 26,
                             IsDeleted = false,
                             Status = true,
@@ -3012,7 +3012,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 193,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6768),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(326),
                             FeatureId = 26,
                             IsDeleted = false,
                             Status = true,
@@ -3021,7 +3021,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 194,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6768),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(326),
                             FeatureId = 26,
                             IsDeleted = false,
                             Status = true,
@@ -3030,7 +3030,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 195,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6769),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(327),
                             FeatureId = 26,
                             IsDeleted = false,
                             Status = true,
@@ -3039,7 +3039,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 196,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6770),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(328),
                             FeatureId = 26,
                             IsDeleted = false,
                             Status = true,
@@ -3048,7 +3048,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 197,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6771),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(328),
                             FeatureId = 28,
                             IsDeleted = false,
                             Status = true,
@@ -3057,7 +3057,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 198,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6771),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(329),
                             FeatureId = 28,
                             IsDeleted = false,
                             Status = true,
@@ -3066,7 +3066,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 199,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6772),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(330),
                             FeatureId = 28,
                             IsDeleted = false,
                             Status = true,
@@ -3075,7 +3075,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 200,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6773),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(330),
                             FeatureId = 28,
                             IsDeleted = false,
                             Status = true,
@@ -3084,7 +3084,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 201,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6774),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(331),
                             FeatureId = 28,
                             IsDeleted = false,
                             Status = true,
@@ -3093,7 +3093,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 202,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6774),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(332),
                             FeatureId = 28,
                             IsDeleted = false,
                             Status = true,
@@ -3102,7 +3102,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 203,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6775),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(333),
                             FeatureId = 28,
                             IsDeleted = false,
                             Status = true,
@@ -3111,7 +3111,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 204,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6776),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(333),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3120,7 +3120,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 205,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6783),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(334),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3129,7 +3129,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 206,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6784),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(335),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3138,7 +3138,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 207,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6785),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(335),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3147,7 +3147,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 208,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6785),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(336),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3156,7 +3156,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 209,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6786),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(337),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3165,7 +3165,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 210,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6787),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(338),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3174,7 +3174,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 211,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6788),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(338),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3183,7 +3183,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 212,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6788),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(339),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3192,7 +3192,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 213,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6789),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(340),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3201,7 +3201,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 214,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6790),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(340),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3210,7 +3210,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 215,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6790),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(341),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3219,7 +3219,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 216,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6791),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(342),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3228,7 +3228,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 217,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6792),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(343),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3237,7 +3237,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 218,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6792),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(343),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3246,7 +3246,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 219,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6793),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(344),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3255,7 +3255,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 220,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6794),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(345),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3264,7 +3264,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 221,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6795),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(345),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3273,7 +3273,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 222,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6795),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(346),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3282,7 +3282,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 223,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6796),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(347),
                             FeatureId = 31,
                             IsDeleted = false,
                             Status = true,
@@ -3291,7 +3291,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 224,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6797),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(348),
                             FeatureId = 32,
                             IsDeleted = false,
                             Status = true,
@@ -3300,7 +3300,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 225,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6797),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(348),
                             FeatureId = 32,
                             IsDeleted = false,
                             Status = true,
@@ -3309,7 +3309,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 226,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6798),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(356),
                             FeatureId = 32,
                             IsDeleted = false,
                             Status = true,
@@ -3318,7 +3318,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 227,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6799),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(357),
                             FeatureId = 32,
                             IsDeleted = false,
                             Status = true,
@@ -3327,7 +3327,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 228,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6800),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(357),
                             FeatureId = 32,
                             IsDeleted = false,
                             Status = true,
@@ -3336,7 +3336,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 229,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6800),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(358),
                             FeatureId = 32,
                             IsDeleted = false,
                             Status = true,
@@ -3345,7 +3345,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 230,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6801),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(359),
                             FeatureId = 32,
                             IsDeleted = false,
                             Status = true,
@@ -3354,7 +3354,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 231,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6802),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(360),
                             FeatureId = 33,
                             IsDeleted = false,
                             Status = true,
@@ -3363,7 +3363,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 232,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6802),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(360),
                             FeatureId = 33,
                             IsDeleted = false,
                             Status = true,
@@ -3372,7 +3372,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 233,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6803),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(361),
                             FeatureId = 34,
                             IsDeleted = false,
                             Status = true,
@@ -3381,7 +3381,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 234,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6804),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(362),
                             FeatureId = 34,
                             IsDeleted = false,
                             Status = true,
@@ -3390,7 +3390,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 235,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6805),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(362),
                             FeatureId = 34,
                             IsDeleted = false,
                             Status = true,
@@ -3399,7 +3399,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 236,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6805),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(363),
                             FeatureId = 34,
                             IsDeleted = false,
                             Status = true,
@@ -3408,7 +3408,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 237,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6806),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(364),
                             FeatureId = 34,
                             IsDeleted = false,
                             Status = true,
@@ -3417,7 +3417,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 238,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6807),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(365),
                             FeatureId = 34,
                             IsDeleted = false,
                             Status = true,
@@ -3426,7 +3426,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 239,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6807),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(365),
                             FeatureId = 34,
                             IsDeleted = false,
                             Status = true,
@@ -3435,7 +3435,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 240,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6808),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(366),
                             FeatureId = 34,
                             IsDeleted = false,
                             Status = true,
@@ -3444,7 +3444,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 241,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6809),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(367),
                             FeatureId = 34,
                             IsDeleted = false,
                             Status = true,
@@ -3453,7 +3453,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 242,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6810),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(367),
                             FeatureId = 35,
                             IsDeleted = false,
                             Status = true,
@@ -3462,7 +3462,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 243,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6810),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(368),
                             FeatureId = 35,
                             IsDeleted = false,
                             Status = true,
@@ -3471,7 +3471,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 244,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6811),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(369),
                             FeatureId = 35,
                             IsDeleted = false,
                             Status = true,
@@ -3480,7 +3480,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 245,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6812),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(370),
                             FeatureId = 35,
                             IsDeleted = false,
                             Status = true,
@@ -3489,7 +3489,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 246,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6812),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(370),
                             FeatureId = 35,
                             IsDeleted = false,
                             Status = true,
@@ -3498,7 +3498,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 247,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6813),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(371),
                             FeatureId = 36,
                             IsDeleted = false,
                             Status = true,
@@ -3507,7 +3507,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 248,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6814),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(372),
                             FeatureId = 36,
                             IsDeleted = false,
                             Status = true,
@@ -3516,7 +3516,7 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 249,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6814),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(372),
                             FeatureId = 36,
                             IsDeleted = false,
                             Status = true,
@@ -3525,11 +3525,146 @@ namespace CatalogService.API.Migrations
                         new
                         {
                             Id = 250,
-                            CreatedDate = new DateTime(2024, 6, 4, 10, 54, 37, 710, DateTimeKind.Utc).AddTicks(6815),
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(373),
                             FeatureId = 36,
                             IsDeleted = false,
                             Status = true,
                             Value = "17-18 Inch"
+                        },
+                        new
+                        {
+                            Id = 251,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(374),
+                            FeatureId = 10,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "120 GB"
+                        },
+                        new
+                        {
+                            Id = 252,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(374),
+                            FeatureId = 10,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "240 GB"
+                        },
+                        new
+                        {
+                            Id = 253,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(375),
+                            FeatureId = 10,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "256 GB"
+                        },
+                        new
+                        {
+                            Id = 254,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(376),
+                            FeatureId = 10,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "480 GB"
+                        },
+                        new
+                        {
+                            Id = 255,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(377),
+                            FeatureId = 10,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "500 GB"
+                        },
+                        new
+                        {
+                            Id = 256,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(398),
+                            FeatureId = 10,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "512 GB"
+                        },
+                        new
+                        {
+                            Id = 257,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(399),
+                            FeatureId = 10,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "1 TB"
+                        },
+                        new
+                        {
+                            Id = 258,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(400),
+                            FeatureId = 10,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "2 TB"
+                        },
+                        new
+                        {
+                            Id = 259,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(401),
+                            FeatureId = 10,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "4 TB"
+                        },
+                        new
+                        {
+                            Id = 260,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(402),
+                            FeatureId = 14,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "Var"
+                        },
+                        new
+                        {
+                            Id = 261,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(402),
+                            FeatureId = 14,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "Yok"
+                        },
+                        new
+                        {
+                            Id = 262,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(403),
+                            FeatureId = 15,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "1366x768"
+                        },
+                        new
+                        {
+                            Id = 263,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(404),
+                            FeatureId = 15,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "1600x900"
+                        },
+                        new
+                        {
+                            Id = 264,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(404),
+                            FeatureId = 15,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "1920x1080"
+                        },
+                        new
+                        {
+                            Id = 265,
+                            CreatedDate = new DateTime(2024, 6, 8, 6, 14, 6, 248, DateTimeKind.Utc).AddTicks(406),
+                            FeatureId = 15,
+                            IsDeleted = false,
+                            Status = true,
+                            Value = "2560x1440"
                         });
                 });
 
@@ -3704,7 +3839,7 @@ namespace CatalogService.API.Migrations
             modelBuilder.Entity("CatalogService.API.Models.Category", b =>
                 {
                     b.HasOne("CatalogService.API.Models.Category", "ParentCategory")
-                        .WithMany()
+                        .WithMany("SubCategories")
                         .HasForeignKey("ParentCategoryId");
 
                     b.Navigation("ParentCategory");
@@ -3814,6 +3949,8 @@ namespace CatalogService.API.Migrations
                     b.Navigation("Features");
 
                     b.Navigation("ProductCategories");
+
+                    b.Navigation("SubCategories");
                 });
 
             modelBuilder.Entity("CatalogService.API.Models.Feature", b =>

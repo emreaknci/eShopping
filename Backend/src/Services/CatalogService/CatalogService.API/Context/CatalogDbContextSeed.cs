@@ -445,6 +445,14 @@ namespace CatalogService.API.Context
             new () {Id=257,FeatureId=10,Value="1 TB"},
             new () {Id=258,FeatureId=10,Value="2 TB"},
             new () {Id=259,FeatureId=10,Value="4 TB"},
+
+            new () {Id=260,FeatureId=14,Value="Var"},
+            new () {Id=261,FeatureId=14,Value="Yok"},
+
+            new () {Id=262,FeatureId=15,Value="1366x768"},
+            new () {Id=263,FeatureId=15,Value="1600x900"},
+            new () {Id=264,FeatureId=15,Value="1920x1080"},
+            new () {Id=265,FeatureId=15,Value="2560x1440"},
         };
     }
 }
