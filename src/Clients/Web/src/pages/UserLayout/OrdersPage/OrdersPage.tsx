@@ -152,7 +152,7 @@ const OrdersPage = () => {
           </Typography>
         </TableCell>
         <TableCell align='right'>
-          {order.orderStatus === OrderStatus.PaymentPending || order.orderStatus === OrderStatus.Preparing && (
+          {(order.orderStatus === OrderStatus.PaymentSucceeded || order.orderStatus === OrderStatus.PaymentPending || order.orderStatus === OrderStatus.Preparing) && (
             <Button onClick={() => handleCancelOrder(order.orderId)}>İptal Et</Button>
           )}
         </TableCell>

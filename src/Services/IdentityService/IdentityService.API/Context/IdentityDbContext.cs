@@ -45,6 +45,10 @@ namespace IdentityService.API.Context
             }
             return await base.SaveChangesAsync(cancellationToken);
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>().HasData(SeedData.Users().ToList());
+        }
 
         public DbSet<User> Users { get; set; }
     }
