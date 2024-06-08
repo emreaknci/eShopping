@@ -29,7 +29,7 @@ const CategoriesPage = () => {
 
   const [filteredCategories, setFilteredCategories] = useState<CategoryListDto[]>();
   const [filteredCategoriesCount, setFilteredCategoriesCount] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(6);
+  const [itemsPerPage, setItemsPerPage] = useState(12);
 
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [searchText, setSearchText] = useState('');
@@ -82,7 +82,7 @@ const CategoriesPage = () => {
     return (
       <>
         {filteredCategories && filteredCategories.map((category, index) => (
-          <Grid item xs={12} sm={6} key={category.id}>
+          <Grid item xs={12} md={6} lg={4} key={category.id}>
             <Card>
               <CardHeader
                 title={`Kategori: ${category.name}`}
@@ -95,18 +95,18 @@ const CategoriesPage = () => {
               </CardActions>
               <Collapse in={expandedIndex === index} timeout="auto" unmountOnExit>
 
-                <CardActions disableSpacing>
-                  {/* <Button fullWidth color="primary"
+                {/* <CardActions disableSpacing>
+                  <Button fullWidth color="primary"
                   // onClick={() => handleDeleteCategory(index)}
                   >
                     SİL
-                  </Button> */}
+                  </Button> 
                   <Button fullWidth color="warning"
-                  //  onClick={() => handleEditCategory(category, index)}
+                   onClick={() => handleEditCategory(category, index)}
                   >
                     DÜZENLE
                   </Button>
-                </CardActions>
+                </CardActions> */}
 
                 <CardContent sx={{ pt: 0 }}>
                   <Grid container spacing={2}>

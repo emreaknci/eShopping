@@ -90,8 +90,13 @@ const CustomersPage = () => {
           />
         </Grid>
         {filteredCustomers && filteredCustomers.map((customer, index) => (
-          <Grid item xs={12} sm={6} md={4} lg={2} sx={sxValues} key={index}>
-            <Card>
+          <Grid item xs={12} sm={6} md={4} lg={3} sx={sxValues} key={index}>
+            <Card
+              sx={{
+                height: "12rem",
+                display: "flex",
+                flexDirection: "column",
+              }}>
               <CardHeader
                 avatar={
                   <Avatar
@@ -111,8 +116,7 @@ const CustomersPage = () => {
                 <Typography variant="body1" color="text.primary">
                   Email: {customer.email}
                 </Typography>
-              </CardContent>
-            
+              </CardContent>     
             </Card>
           </Grid>
         ))}
