@@ -45,7 +45,13 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
-
+  web.app:
+    container_name: c_web_app
+    ports:
+     - "5173:5173"  
+    depends_on:
+      - web.gateway
+    
   catalogservice.api:
     container_name: c_catalogservice_api
     environment:

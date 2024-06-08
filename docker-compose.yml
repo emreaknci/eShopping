@@ -4,7 +4,6 @@ services:
   consul:
     image: "consul:1.15.4"
 
-
   rabbitmq:
     image: "rabbitmq:3-management"
 
@@ -16,9 +15,12 @@ services:
     build:
       context: .
       dockerfile: src/ApiGateways/Web/Web.Gateway/Dockerfile
-    ports:
-     - "5000:5000"
 
+  web.app:
+    image: emreaknci/eshopping-webapp:latest
+    build:
+      context: .
+      dockerfile: src/Clients/Web/Dockerfile
 
   catalogservice.api:
     image: ${DOCKER_REGISTRY-}catalogserviceapi

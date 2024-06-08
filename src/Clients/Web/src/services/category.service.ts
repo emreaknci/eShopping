@@ -15,6 +15,7 @@ const CategoryService = {
         return await BaseService.get(`/${categoryEndpoint}/get-by-id?id=${id}`);
     },
     async getCategoriesWithProducts(): Promise<AxiosResponse<Result<CategoryListDto[]>>> {
+        console.log(categoryEndpoint)
         return await BaseService.get(`/${categoryEndpoint}/get-categories-with-products`);
     },
     async getCategoryNames(): Promise<AxiosResponse<Result<CategoryDto[]>>> {
