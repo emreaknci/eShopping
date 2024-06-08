@@ -9,9 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{FC0732FB-9D09-4DA2-BA5C-7C01F363EB0A}"
-	ProjectSection(SolutionItems) = preProject
-		docker-compose.yml = docker-compose.yml
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways", "{3D506459-FA37-40F3-B795-461BC652A148}"
 EndProject
@@ -53,15 +50,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PaymentService", "PaymentSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService.API", "src\Services\PaymentService\PaymentService.API\PaymentService.API.csproj", "{1A4C2906-FC05-4D5F-BF64-6F6A12ED4DFA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "StorageService", "StorageService", "{01AB2FB4-3207-41C1-BF75-D5C03759B53B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StorageServie.API", "src\Services\StorageServie\StorageServie.API\StorageServie.API.csproj", "{1E556457-33C9-4BD1-90A3-24903B61B0CC}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CommentService", "CommentService", "{8C751984-0913-4988-AC91-916EA0AD3B71}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommentService.API", "src\Services\CommentService\CommentService\CommentService.API.csproj", "{FF602679-BD07-4DDA-B524-B8634F77F77C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventBus.MassTransit", "src\BuildingBlocks\EventBus.MassTransit\EventBus.MassTransit\EventBus.MassTransit.csproj", "{049355AD-2FBB-44B6-87FA-BFD9E3AB0A5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus.MassTransit", "src\BuildingBlocks\EventBus.MassTransit\EventBus.MassTransit\EventBus.MassTransit.csproj", "{049355AD-2FBB-44B6-87FA-BFD9E3AB0A5B}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{3B7EA34C-6FA6-4633-86B1-D192B9951280}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,10 +104,6 @@ Global
 		{1A4C2906-FC05-4D5F-BF64-6F6A12ED4DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1A4C2906-FC05-4D5F-BF64-6F6A12ED4DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1A4C2906-FC05-4D5F-BF64-6F6A12ED4DFA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1E556457-33C9-4BD1-90A3-24903B61B0CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1E556457-33C9-4BD1-90A3-24903B61B0CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1E556457-33C9-4BD1-90A3-24903B61B0CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1E556457-33C9-4BD1-90A3-24903B61B0CC}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FF602679-BD07-4DDA-B524-B8634F77F77C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FF602679-BD07-4DDA-B524-B8634F77F77C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF602679-BD07-4DDA-B524-B8634F77F77C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -121,6 +112,10 @@ Global
 		{049355AD-2FBB-44B6-87FA-BFD9E3AB0A5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{049355AD-2FBB-44B6-87FA-BFD9E3AB0A5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{049355AD-2FBB-44B6-87FA-BFD9E3AB0A5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B7EA34C-6FA6-4633-86B1-D192B9951280}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B7EA34C-6FA6-4633-86B1-D192B9951280}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B7EA34C-6FA6-4633-86B1-D192B9951280}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B7EA34C-6FA6-4633-86B1-D192B9951280}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -146,8 +141,6 @@ Global
 		{31597CFF-D5DB-4222-92D0-B545741BFB34} = {32DA422E-D60D-47E4-9053-3EB02F1E8A0D}
 		{FBED0EFB-55C7-4074-AD73-ABE0C792D3D7} = {13B00D9E-F060-4AEF-9566-14A192F058B0}
 		{1A4C2906-FC05-4D5F-BF64-6F6A12ED4DFA} = {FBED0EFB-55C7-4074-AD73-ABE0C792D3D7}
-		{01AB2FB4-3207-41C1-BF75-D5C03759B53B} = {13B00D9E-F060-4AEF-9566-14A192F058B0}
-		{1E556457-33C9-4BD1-90A3-24903B61B0CC} = {01AB2FB4-3207-41C1-BF75-D5C03759B53B}
 		{8C751984-0913-4988-AC91-916EA0AD3B71} = {13B00D9E-F060-4AEF-9566-14A192F058B0}
 		{FF602679-BD07-4DDA-B524-B8634F77F77C} = {8C751984-0913-4988-AC91-916EA0AD3B71}
 		{049355AD-2FBB-44B6-87FA-BFD9E3AB0A5B} = {F1C5DEA8-E534-4395-8084-5C090B24B194}

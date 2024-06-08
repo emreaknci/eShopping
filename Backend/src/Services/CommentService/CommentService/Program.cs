@@ -58,6 +58,6 @@ app.MapControllers();
 
 app.Start();
 
-app.RegisterWithConsul();
+app.RegisterWithConsul(app.Configuration);
 
 app.WaitForShutdown();

@@ -175,6 +175,7 @@ const MyOrdersPage = () => {
   if (orders === undefined || orders === null)
     return <Typography variant="h6">Siparişler bulunamadı.</Typography>
 
+
   return (
     <Grid container spacing={3} justifyContent="center">
       <Grid item md={12} lg={10} xl={8} >
@@ -187,9 +188,12 @@ const MyOrdersPage = () => {
             <Grid item xs={12} sm={6}>
               <Typography variant="h5" fontWeight="bold">Siparişlerim</Typography>
             </Grid>
-            {renderFilterSection()}
+            {orders?.orders.length === 0 && <Grid item xs={12} >
+              <Typography variant="h6">Sipariş bulunamadı. Hemen ilk alışverişini yap!</Typography>
+            </Grid>}
+            {orders?.orders.length > 0 && renderFilterSection()}
             {renderOrders()}
-            {orders && <Grid item xs={12}>
+            {orders?.orders.length > 0 && <Grid item xs={12}>
               <PaginationComponent
                 itemsPerPage={itemsPerPage}
                 currentPage={currentPage}

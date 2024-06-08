@@ -20,13 +20,6 @@ namespace OrderService.Infrastructure
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IBuyerRepository, BuyerRepository>();
 
-            var optionsBuilder = new DbContextOptionsBuilder<OrderDbContext>()
-                    .UseNpgsql(configuration.GetConnectionString("PostgreSQL"));
-
-            using var dbContext = new OrderDbContext(optionsBuilder.Options, null);
-            dbContext.Database.EnsureCreated();
-            dbContext.Database.Migrate();
-
             services.AddTransient<IOrderHubService, OrderHubService>();
             services.AddTransient<OrderHub>();
 

@@ -1,0 +1,20 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "web.gateway": "StartDebugging",
+        "catalogservice.api": "StartDebugging",
+        "catalogservice.db": "StartWithoutDebugging",
+        "consul": "StartWithoutDebugging",
+        "identityservice.api": "StartDebugging",
+        "commentservice.api": "StartDebugging",
+        "basketservice.api": "StartDebugging",
+        "notificationservice.api": "StartDebugging",
+        "orderservice.api": "StartDebugging",
+        "paymentservice.api": "StartDebugging"
+      }
+    }
+  }
+}

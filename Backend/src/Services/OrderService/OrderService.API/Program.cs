@@ -57,6 +57,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.ApplyMigrations();
 }
 
 app.UseHttpsRedirection();
@@ -72,7 +73,7 @@ app.MapHub<OrderHub>("/orders-hub");
 
 app.Start();
 
-app.RegisterWithConsul();
+app.RegisterWithConsul(app.Configuration);
 
 app.WaitForShutdown();
 

@@ -1,4 +1,5 @@
 using IdentityService.API;
+using IdentityService.API.Extensions;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +47,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    app.ApplyMigrations();
 }
 
 app.UseHttpsRedirection();
@@ -57,6 +59,6 @@ app.MapControllers();
 
 app.Start();
 
-app.RegisterWithConsul();
+app.RegisterWithConsul(app.Configuration);
 
 app.WaitForShutdown();

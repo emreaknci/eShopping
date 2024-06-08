@@ -66,7 +66,7 @@ namespace CatalogService.API.Context
             new () {Id=2, Name = "Bilgisayar" },
             new () {Id=3, Name = "Tv, Görüntü ve Ses" },
             new () {Id=4, Name = "Bilgisayar Parçaları" },
-            new () {Id=5, Name = "Aksesusar" },
+            new () {Id=5, Name = "Aksesuar" },
 
             new () {Id=6, Name = "Notebook",ParentCategoryId=2 },
             new () {Id=7, Name = "Masaüstü Bilgisayar",ParentCategoryId=2 },
@@ -435,6 +435,16 @@ namespace CatalogService.API.Context
             new () {Id=248,FeatureId=36,Value="14-15 Inch"},
             new () {Id=249,FeatureId=36,Value="15-16 Inch"},
             new () {Id=250,FeatureId=36,Value="17-18 Inch"},
+
+            new () {Id=251,FeatureId=10,Value="120 GB"},
+            new () {Id=252,FeatureId=10,Value="240 GB"},
+            new () {Id=253,FeatureId=10,Value="256 GB"},
+            new () {Id=254,FeatureId=10,Value="480 GB"},
+            new () {Id=255,FeatureId=10,Value="500 GB"},
+            new () {Id=256,FeatureId=10,Value="512 GB"},
+            new () {Id=257,FeatureId=10,Value="1 TB"},
+            new () {Id=258,FeatureId=10,Value="2 TB"},
+            new () {Id=259,FeatureId=10,Value="4 TB"},
         };
     }
 }

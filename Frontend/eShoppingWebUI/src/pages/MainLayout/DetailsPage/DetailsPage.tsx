@@ -38,7 +38,10 @@ const DetailsPage = () => {
     await ProductService.getProductById(productId)
       .then((response) => {
         const data = response.data.data!;
-        setImages(data.images.map((image) => baseImagePath + image.url));
+        if (data.images.length === 0)
+          setImages(["https://via.placeholder.com/150"]);
+        else
+          setImages(data.images.map((image) => baseImagePath + image.url));
         setProduct(response.data.data!);
       })
       .catch((error) => {

@@ -37,6 +37,16 @@ builder.Services.AddSwaggerGen(c =>
 });
 builder.Services.AddBasketServices(builder.Configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyHeader()
+               .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -47,6 +57,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();
@@ -55,6 +66,6 @@ app.MapControllers();
 
 app.Start();
 
-app.RegisterWithConsul();
+app.RegisterWithConsul(app.Configuration);
 
 app.WaitForShutdown();

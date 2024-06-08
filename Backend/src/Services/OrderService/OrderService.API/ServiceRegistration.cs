@@ -7,6 +7,7 @@ using OrderService.API.Extensions.Registrations;
 using MassTransit;
 using OrderService.API.Consumers;
 using EventBus.MassTransit;
+using Microsoft.Extensions.Configuration;
 
 namespace OrderService.API
 {
@@ -53,7 +54,7 @@ namespace OrderService.API
 
 
 
-        public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app)
+        public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app, IConfiguration configuration)
         {
             var consulClient = app.ApplicationServices.GetRequiredService<IConsulClient>();
 
@@ -62,20 +63,17 @@ namespace OrderService.API
             var logger = loggingFactory.CreateLogger<IApplicationBuilder>();
 
 
-            // Get server IP address
-            var features = app.Properties["server.Features"] as FeatureCollection;
-            var addresses = features.Get<IServerAddressesFeature>();
-            var address = addresses.Addresses.First();
+            var uri = configuration.GetValue<Uri>("ConsulConfig:ServiceAddress");
+            var serviceName = configuration.GetValue<string>("ConsulConfig:ServiceName");
+            var serviceId = configuration.GetValue<string>("ConsulConfig:ServiceId");
 
-            // Register service with consul
-            var uri = new Uri(address);
             var registration = new AgentServiceRegistration()
             {
-                ID = $"OrderService",
-                Name = "OrderService",
+                ID = serviceId ?? "OrderService",
+                Name = serviceName ?? "OrderService",
                 Address = $"{uri.Host}",
                 Port = uri.Port,
-                Tags = new[] { "Order Service", "Order", "Order Item" }
+                Tags = new[] { serviceName, serviceId, "Order Item" }
 
             };
 

@@ -1,0 +1,226 @@
+version: '3.4'
+
+services:
+  consul:
+    container_name: c_consul
+    ports:
+      - 8500:8500
+      - 8600:8600/tcp
+      - 8600:8600/udp
+ 
+  rabbitmq:
+    container_name: c_rabbitmq
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"  
+    volumes:
+      - rabbitmq_volume:/var/lib/rabbitmq
+ 
+  s_log_db:
+    container_name: c_log_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: eShopping.LogDb
+    ports:
+      - "2003:5432"
+    volumes:
+      - logdb_volume:/var/lib/postgresql/data  
+
+
+  web.gateway:
+    container_name: c_web_gateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5000
+      - "ConnectionStrings:PostgreSQL=User ID=postgres;Password=123456;Host=s_log_db;Port=5432;Database=eShopping.LogDb;"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - consul
+      - rabbitmq
+      - s_log_db
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+
+  catalogservice.api:
+    container_name: c_catalogservice_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5004
+      - ConsulConfig__Address=http://consul:8500
+      - ConsulConfig__ServiceAddress=http://c_catalogservice_api:5004
+      - ConsulConfig__ServiceName=CatalogService
+      - ConsulConfig__ServiceId=Catalog
+      - "ConnectionStrings:PostgreSQL=User ID=postgres;Password=123456;Host=catalogservice.db;Port=5432;Database=eShopping.CatalogDb;"
+    ports:
+      - "5004:5004"
+    depends_on:
+      - consul
+      - catalogservice.db
+      - rabbitmq
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - catalogservicephotos_volume:/app/images
+      # - type: bind
+      #   source: C:\eShoppingImages
+      #   target: /app/images
+
+
+  catalogservice.db:
+    container_name: c_catalogservice_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: eShopping.CatalogDb
+    ports:
+       - "2000:5432"
+    volumes:
+      - catalogdb_volume:/var/lib/postgresql/data
+  
+  identityservice.api:
+    container_name: c_identityservice_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5005
+      - ConsulConfig__Address=http://consul:8500
+      - ConsulConfig__ServiceAddress=http://c_identityservice_api:5005
+      - ConsulConfig__ServiceName=IdentityService
+      - ConsulConfig__ServiceId=Identity
+      - "ConnectionStrings:PostgreSQL=User ID=postgres;Password=123456;Host=identityservice.db;Port=5432;Database=eShopping.IdentityDb;"
+    ports:
+      - "5005:5005"
+    depends_on:
+      - consul
+      - identityservice.db
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  
+  identityservice.db:
+    container_name: c_identityservice_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: eShopping.IdentityDb
+    ports:
+      - "2001:5432"
+    volumes:
+      - identitydb_volume:/var/lib/postgresql/data
+
+  commentservice.api:
+    container_name: c_commentservice_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5007
+      - CommentServiceDatabaseSettings__ConnectionString=mongodb://commentservice.db:27017
+      - CommentServiceDatabaseSettings__DatabaseName=CommentsDB
+      - CommentServiceDatabaseSettings__CommentCollectionName=Comments
+      - ConsulConfig__Address=http://consul:8500
+      - ConsulConfig__ServiceAddress=http://c_commentservice_api:5007
+      - ConsulConfig__ServiceName=CommentService
+      - ConsulConfig__ServiceId=Comment
+    ports:
+      - "5007:5007"
+    depends_on:
+      - consul
+      - commentservice.db
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+ 
+  commentservice.db:
+    container_name: c_commentservice_db
+    ports:
+     - "27017:27017"
+    volumes:
+      - commentdb_volume:/data/db
+
+  basketservice.api:
+    container_name: c_basketservice_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5003
+      - ConsulConfig__Address=http://consul:8500
+      - ConsulConfig__ServiceAddress=http://c_basketservice_api:5003
+      - ConsulConfig__ServiceName=BasketService
+      - ConsulConfig__ServiceId=Basket
+      - RedisSettings__Host=basketservice.db
+    ports:
+      - "5003:5003"
+    depends_on:
+      - consul
+      - rabbitmq
+      - basketservice.db
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  
+  basketservice.db:
+    container_name: c_basketservice_db
+    ports:
+      - "6379:6379"
+    volumes:
+      - basketdb_volume:/data
+  notificationservice.api:
+    container_name: c_notificationservice_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5006
+    ports:
+      - "5006:5006"   
+    depends_on:
+      - consul
+      - rabbitmq
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  orderservice.api:
+    container_name: c_orderservice_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5002
+      - ConsulConfig__Address=http://consul:8500
+      - ConsulConfig__ServiceAddress=http://c_orderservice_api:5002
+      - ConsulConfig__ServiceName=OrderService
+      - ConsulConfig__ServiceId=Order
+      - "ConnectionStrings:PostgreSQL=User ID=postgres;Password=123456;Host=orderservice.db;Port=5432;Database=eShopping.OrderDb;"
+    ports:
+      - "5002:5002"
+    depends_on:
+      - consul
+      - rabbitmq
+      - orderservice.db
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+ 
+  orderservice.db:
+    container_name: c_orderservice_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: eShopping.OrderDb
+    ports:
+      - "2002:5432"
+    volumes:
+      - orderdb_volume:/var/lib/postgresql/data
+  
+  paymentservice.api:
+    container_name: c_paymentservice_api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=5001
+    ports:
+      - "5001:5001"
+    depends_on:
+      - consul
+      - rabbitmq
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro

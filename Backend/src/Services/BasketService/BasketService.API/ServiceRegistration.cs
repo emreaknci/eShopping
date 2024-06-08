@@ -9,6 +9,7 @@ using EventBus.MassTransit;
 using MassTransit;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Http.Features;
+using Microsoft.Extensions.Configuration;
 
 namespace BasketService.API
 {
@@ -28,7 +29,7 @@ namespace BasketService.API
 
             services.AddTransient<IBasketRepository, RedisBasketRepository>();
             services.AddTransient<IIdentityService, IdentityService>();
-          
+
 
             services.AddSingleton(sp => sp.AddRedis(configuration));
 
@@ -54,7 +55,7 @@ namespace BasketService.API
             return services;
         }
 
-        public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app)
+        public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app, IConfiguration configuration)
         {
             var consulClient = app.ApplicationServices.GetRequiredService<IConsulClient>();
 
@@ -62,21 +63,17 @@ namespace BasketService.API
 
             var logger = loggingFactory.CreateLogger<IApplicationBuilder>();
 
+            var uri = configuration.GetValue<Uri>("ConsulConfig:ServiceAddress");
+            var serviceName = configuration.GetValue<string>("ConsulConfig:ServiceName");
+            var serviceId = configuration.GetValue<string>("ConsulConfig:ServiceId");
 
-            // Get server IP address
-            var features = app.Properties["server.Features"] as FeatureCollection;
-            var addresses = features.Get<IServerAddressesFeature>();
-            var address = addresses.Addresses.First();
-
-            // Register service with consul
-            var uri = new Uri(address);
             var registration = new AgentServiceRegistration()
             {
-                ID = $"BasketService",
-                Name = "BasketService",
+                ID = serviceId ?? "BasketService",
+                Name = serviceName ?? "BasketService",
                 Address = $"{uri.Host}",
                 Port = uri.Port,
-                Tags = new[] { "Basket Service", "Basket" }
+                Tags = new[] { serviceName, serviceId }
 
             };
 

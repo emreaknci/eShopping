@@ -8,6 +8,7 @@ export interface OrderDetailsProps {
     expandedOrderId: any;
     setExpandedOrderId: any;
 }
+const baseImagePath = import.meta.env.VITE_API_GATEWAY + '/' + import.meta.env.VITE_CATALOG_IMAGES + '/';
 
 const OrderDetails = (props: OrderDetailsProps) => {
     const [detail, setDetail] = useState<OrderDetailDto>()
@@ -97,7 +98,7 @@ const OrderDetails = (props: OrderDetailsProps) => {
                                                         component="img"
                                                         alt={item.productname}
                                                         height="50"
-                                                        image={item.pictureUrl}
+                                                        image={baseImagePath+ item.pictureUrl}
                                                         title={item.productname}
                                                     />
                                                 </TableCell>

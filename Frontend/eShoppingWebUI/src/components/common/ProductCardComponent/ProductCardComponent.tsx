@@ -18,12 +18,12 @@ const ProductCardComponent = ({ product }: { product: ProductListDto }) => {
   const navigateToDetails = (id: number) => {
     navigate(`/Details/${id}`);
   }
-
+  console.log(baseImagePath + product.imageUrl)
   const renderCard = () => {
     return (
       <Styled.ProductCard>
         <Styled.Media
-          image={baseImagePath + product.imageUrl || 'https://via.placeholder.com/150'}
+          image={product.imageUrl ? baseImagePath + product.imageUrl : 'https://via.placeholder.com/150'}
         />
         <CardContent>
           <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -53,7 +53,7 @@ const ProductCardComponent = ({ product }: { product: ProductListDto }) => {
       {product.unitsInStock! <= 50 ?
         <Styled.UnitsInStockBadge badgeContent={`Son ${product.unitsInStock} ürün!`} color="info" sx={{
           display: product.unitsInStock! <= 50 ? 'block' : 'none',
-          "& .MuiBadge-badge": { fontSize: "1.2rem", height: "1.5rem", minWidth: "1.5rem", mt: "1.2rem", mr: "3rem",borderRadius:"1rem" }
+          "& .MuiBadge-badge": { fontSize: "1.2rem", height: "1.5rem", minWidth: "1.5rem", mt: "1.2rem", mr: "3rem", borderRadius: "1rem" }
         }}>
           {renderCard()}
         </Styled.UnitsInStockBadge>

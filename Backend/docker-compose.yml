@@ -1,86 +1,93 @@
-version: '3.8'
+version: '3.4'
 
 services:
-  s_consul:
-    container_name: c_consul
+  consul:
     image: "consul:1.15.4"
-    ports:
-      - 8500:8500
-      - 8600:8600/tcp
-      - 8600:8600/udp
-  s_rabbitmq:
-    container_name: c_rabbitmq
-    image: "rabbitmq:3-management"
-    ports:
-      - "5672:5672"
-      - "15672:15672"  
-    volumes:
-      - rabbitmq_volume:/var/lib/rabbitmq
-  s_identitydb:
-    container_name: c_identity_postgresql
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: eShopping.IdentityDb
-    ports:
-      - "2001:5432"
-    volumes:
-      - identitydb_volume:/var/lib/postgresql/data
-  s_orderdb:
-    container_name: c_order_postgresql
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: eShopping.OrderDb
-    ports:
-      - "2002:5432"
-    volumes:
-      - orderdb_volume:/var/lib/postgresql/data
-  s_catalogdb:
-    container_name: c_catalog_postgresql
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: eShopping.CatalogDb
-    ports:
-      - "2000:5432"
-    volumes:
-      - catalogdb_volume:/var/lib/postgresql/data
-  s_basketdb:
-    container_name: c_basket_redis
-    image: "redis:latest"
-    ports:
-      - "6379:6379"
-    volumes:
-      - basketdb_volume:/data
-  s_commentdb:
-    container_name: c_comment_mongo
-    image: mongo
-    ports:
-      - "27000:27017"
-    volumes:
-      - commentdb_volume:/data/db
-  s_logdb:
-    container_name: c_logs_postgresql
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: eShopping.LogDb
-    ports:
-      - "2003:5432"
-    volumes:
-      - logdb_volume:/var/lib/postgresql/data
 
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+
+  s_log_db:
+    image: "postgres:latest"
+    
+  web.gateway:
+    image: ${DOCKER_REGISTRY-}webgateway
+    build:
+      context: .
+      dockerfile: src/ApiGateways/Web/Web.Gateway/Dockerfile
+    ports:
+     - "5000:5000"
+
+
+  catalogservice.api:
+    image: ${DOCKER_REGISTRY-}catalogserviceapi
+    build:
+      context: .
+      dockerfile: src/Services/CatalogService/CatalogService.API/Dockerfile
+
+  catalogservice.db:
+    image: postgres:latest
+       
+
+  identityservice.api:
+    image: ${DOCKER_REGISTRY-}identityserviceapi
+    build:
+      context: .
+      dockerfile: src/Services/IdentityService/IdentityService.API/Dockerfile
+   
+  identityservice.db:
+    image: postgres:latest  
+
+
+  commentservice.api:
+    image: ${DOCKER_REGISTRY-}commentserviceapi
+    build:
+      context: .
+      dockerfile: src/Services/CommentService/CommentService/Dockerfile
+
+  commentservice.db:
+     image: mongo
+
+
+  basketservice.api:
+    image: ${DOCKER_REGISTRY-}basketserviceapi
+    build:
+      context: .
+      dockerfile: src/Services/BasketService/BasketService.API/Dockerfile
+  
+  basketservice.db:
+    image: "redis:latest"
+
+
+  notificationservice.api:
+    image: ${DOCKER_REGISTRY-}notificationserviceapi
+    build:
+      context: .
+      dockerfile: src/Services/NotificationService/NotificationService.API/Dockerfile
+
+
+  orderservice.api:
+    image: ${DOCKER_REGISTRY-}orderserviceapi
+    build:
+      context: .
+      dockerfile: src/Services/OrderService/OrderService.API/Dockerfile
+  
+  orderservice.db:
+    image: postgres:latest
+
+  paymentservice.api:
+    image: ${DOCKER_REGISTRY-}paymentserviceapi
+    build:
+      context: .
+      dockerfile: src/Services/PaymentService/PaymentService.API/Dockerfile
 
 volumes:
-    identitydb_volume:
-    catalogdb_volume:
-    rabbitmq_volume:      
-    basketdb_volume:
-    orderdb_volume:
-    commentdb_volume:
-    logdb_volume:
+  catalogdb_volume:
+  rabbitmq_volume:  
+  identitydb_volume:  
+  commentdb_volume:
+  basketdb_volume:
+  orderdb_volume:
+  logdb_volume:
+  catalogservicephotos_volume:  

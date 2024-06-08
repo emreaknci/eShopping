@@ -264,7 +264,7 @@ namespace CatalogService.API.Controllers
             if (!products.Any())
                 return NotFound("Ürün Bulunamadı");
 
-            List<object> list = new ();
+            List<object> list = new();
             foreach (var product in products)
             {
                 object obj = new
@@ -369,7 +369,7 @@ namespace CatalogService.API.Controllers
         {
             if (coverImage == null) return;
 
-            var result = FileHelper.Upload(coverImage);
+            var result = FileHelper.SaveImage(coverImage);
             if (!result.Success)
                 throw new ArgumentException(result.Message);
 
@@ -389,7 +389,7 @@ namespace CatalogService.API.Controllers
 
             foreach (var image in images)
             {
-                var result = FileHelper.Upload(image);
+                var result = FileHelper.SaveImage(image);
                 if (!result.Success)
                     throw new ArgumentException(result.Message);
 

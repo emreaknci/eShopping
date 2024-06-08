@@ -11,7 +11,7 @@ namespace CatalogService.API
 {
     public static class ServiceRegistration
     {
-        public static void AddCatalogServices (this IServiceCollection services, IConfiguration configuration)
+        public static void AddCatalogServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<CatalogDbContext>(options =>
               options.UseNpgsql(configuration.GetConnectionString("PostgreSQL")));
@@ -42,7 +42,7 @@ namespace CatalogService.API
 
         }
 
-        public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app)
+        public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app, IConfiguration configuration)
         {
             var consulClient = app.ApplicationServices.GetRequiredService<IConsulClient>();
 
@@ -51,24 +51,23 @@ namespace CatalogService.API
             var logger = loggingFactory.CreateLogger<IApplicationBuilder>();
 
 
-            // Get server IP address
-            var features = app.Properties["server.Features"] as FeatureCollection;
-            var addresses = features.Get<IServerAddressesFeature>();
-            var address = addresses.Addresses.First();
 
-            // Register service with consul
-            var uri = new Uri(address);
+            var uri = configuration.GetValue<Uri>("ConsulConfig:ServiceAddress");
+            var serviceName = configuration.GetValue<string>("ConsulConfig:ServiceName");
+            var serviceId = configuration.GetValue<string>("ConsulConfig:ServiceId");
+
             var registration = new AgentServiceRegistration()
             {
-                ID = $"CatalogService",
-                Name = "CatalogService",
+                ID = serviceId ?? "CatalogService",
+                Name = serviceName ?? "CatalogService",
                 Address = $"{uri.Host}",
                 Port = uri.Port,
-                Tags = new[] { "Catalog Service", "Catalog" }
+                Tags = new[] { serviceName, serviceId }
 
             };
 
             logger.LogInformation("Registering with Consul");
+            Console.WriteLine("Registering with Consul");
             consulClient.Agent.ServiceDeregister(registration.ID).Wait();
             consulClient.Agent.ServiceRegister(registration).Wait();
 

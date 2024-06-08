@@ -8,7 +8,7 @@ namespace EventBus.MassTransit
 {
     public static class EventBusConstants
     {
-        public const string Uri = "amqp://localhost";
+        public const string Uri = "amqp://rabbitmq"; // rabbitmq is the name of the service in the docker-compose file
         public const string Username = "guest";
         public const string Password = "guest";
 

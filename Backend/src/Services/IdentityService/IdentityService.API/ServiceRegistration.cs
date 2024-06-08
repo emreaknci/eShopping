@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -55,7 +56,7 @@ namespace IdentityService.API
             }));
 
         }
-        public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app)
+        public static IApplicationBuilder RegisterWithConsul(this IApplicationBuilder app, IConfiguration configuration)
         {
             var consulClient = app.ApplicationServices.GetRequiredService<IConsulClient>();
 
@@ -64,20 +65,17 @@ namespace IdentityService.API
             var logger = loggingFactory.CreateLogger<IApplicationBuilder>();
 
 
-            // Get server IP address
-            var features = app.Properties["server.Features"] as FeatureCollection;
-            var addresses = features.Get<IServerAddressesFeature>();
-            var address = addresses.Addresses.First();
+            var uri = configuration.GetValue<Uri>("ConsulConfig:ServiceAddress");
+            var serviceName = configuration.GetValue<string>("ConsulConfig:ServiceName");
+            var serviceId = configuration.GetValue<string>("ConsulConfig:ServiceId");
 
-            // Register service with consul
-            var uri = new Uri(address);
             var registration = new AgentServiceRegistration()
             {
-                ID = $"IdentityService",
-                Name = "IdentityService",
+                ID = serviceId ?? "IdentityService",
+                Name = serviceName ?? "IdentityService",
                 Address = $"{uri.Host}",
                 Port = uri.Port,
-                Tags = new[] { "Identity Service", "Identity", "JWT", "Token" }
+                Tags = new[] { serviceName, serviceId, "JWT", "Token" }
 
             };
 

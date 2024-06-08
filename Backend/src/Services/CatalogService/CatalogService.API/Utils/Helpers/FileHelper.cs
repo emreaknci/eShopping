@@ -6,6 +6,16 @@ namespace CatalogService.API.Utils.Helpers
     {
         private static readonly string _currentDirectory = Environment.CurrentDirectory + "\\wwwroot\\";
         private static readonly string _folderName = "Images\\";
+
+        public static Result<string> SaveImage(IFormFile file)
+        {
+            var uniqueFileName = $"{Guid.NewGuid()}.jpg";
+            var filePath = Path.Combine("/app/images", uniqueFileName);
+            using var fileStream = new FileStream(filePath, FileMode.Create);
+            file.CopyTo(fileStream);
+            return Result<string>.SuccessResult(uniqueFileName);
+
+        }
         public static Result<string> Upload(IFormFile file)
         {
             var fileExists = CheckFileExists(file);

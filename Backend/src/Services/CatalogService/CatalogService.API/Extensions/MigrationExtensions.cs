@@ -1,16 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CatalogService.API.Context;
+using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using OrderService.Infrastructure.Context;
 using Polly;
 
-namespace OrderService.API.Extensions
+namespace CatalogService.API.Extensions
 {
     public static class MigrationExtensions
     {
         public static void ApplyMigrations(this IApplicationBuilder app)
         {
             using var scope = app.ApplicationServices.CreateScope();
-            using var context = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
+            using var context = scope.ServiceProvider.GetRequiredService<CatalogDbContext>();
 
             context.Database.Migrate();
         }
