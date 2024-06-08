@@ -18,17 +18,26 @@ const ProductCardComponent = ({ product }: { product: ProductListDto }) => {
   const navigateToDetails = (id: number) => {
     navigate(`/Details/${id}`);
   }
-  console.log(baseImagePath + product.imageUrl)
+
+  const truncateString = (str: string, num: number) => {
+    return str.length > num ? str.slice(0, num) + '...' : str;
+  };
+
   const renderCard = () => {
     return (
       <Styled.ProductCard>
-        <Styled.Media
+        <img src={baseImagePath + product.imageUrl} style={{
+          objectFit: 'contain', width: '10rem',minHeight:"10rem" , display: 'block', margin: 'auto', borderRadius: '8px'
+
+        }} />
+        {/* <Styled.Media
+          sx={{ objectFit: 'fill',width: '100%', height: '100%', borderRadius: '8px'}}
           image={product.imageUrl ? baseImagePath + product.imageUrl : 'https://via.placeholder.com/150'}
-        />
+        /> */}
         <CardContent>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <Styled.Name variant="h5">
-              {product.brandName} - {product.name}
+              {truncateString(`${product.brandName} - ${product.name}`, 20)}
             </Styled.Name>
             <IconButton onClick={() => navigateToDetails(product.id)}>
               <LaunchIcon fontSize="medium" />

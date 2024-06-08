@@ -1,9 +1,10 @@
-import { TableRow, TableCell, Collapse, Grid, Typography, Table, TableHead, TableBody, CardMedia } from '@mui/material'
+import { TableRow, TableCell, Collapse, Grid, Typography, Table, TableHead, TableBody, CardMedia, IconButton } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import OrderService from '../../../services/order.service'
 import OrderDetailDto from '../../../dtos/orders/orderDetailDto'
 import { LoadingComponent } from '../../common/LoadingComponent'
-
+import { useNavigate } from 'react-router-dom';
+import LaunchIcon from '@mui/icons-material/Launch';
 export interface OrderDetailsProps {
     expandedOrderId: any;
     setExpandedOrderId: any;
@@ -13,6 +14,7 @@ const baseImagePath = import.meta.env.VITE_API_GATEWAY + '/' + import.meta.env.V
 const OrderDetails = (props: OrderDetailsProps) => {
     const [detail, setDetail] = useState<OrderDetailDto>()
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!props.expandedOrderId) return;
@@ -84,29 +86,38 @@ const OrderDetails = (props: OrderDetailsProps) => {
                                 <Table size="small" aria-label="purchases">
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell>Ürün Resmi</TableCell>
-                                            <TableCell>Ürün Adı</TableCell>
-                                            <TableCell>Fiyat</TableCell>
-                                            <TableCell>Miktar</TableCell>
+                                            <TableCell align="center">#</TableCell>
+                                            <TableCell align="center">Ürün Resmi</TableCell>
+                                            <TableCell align="center">Ürün Adı</TableCell>
+                                            <TableCell align="center">Fiyat</TableCell>
+                                            <TableCell align="center">Miktar</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
                                         {detail.orderItems.map((item) => (
                                             <TableRow key={item.id}>
-                                                <TableCell component="th" scope="row">
+                                                <TableCell align="center">
+                                                    <IconButton onClick={() => navigate(`/details/${item.productId}`)}>
+                                                        <LaunchIcon fontSize="medium" />
+                                                    </IconButton>
+                                                </TableCell>
+                                                <TableCell component="th" scope="row" align="center">
                                                     <CardMedia
                                                         component="img"
                                                         alt={item.productname}
                                                         height="50"
-                                                        image={baseImagePath+ item.pictureUrl}
+                                                        image={baseImagePath + item.pictureUrl}
                                                         title={item.productname}
+                                                        style={{
+                                                            margin: 'auto',
+                                                            maxWidth: '100%',
+                                                            objectFit: 'contain',
+                                                        }}
                                                     />
                                                 </TableCell>
-                                                <TableCell>
-                                                    {item.productname}
-                                                </TableCell>
-                                                <TableCell>{item.unitPrice} TL</TableCell>
-                                                <TableCell>{item.units}</TableCell>
+                                                <TableCell align="center"> {item.productname}</TableCell>
+                                                <TableCell align="center">{item.unitPrice} TL</TableCell>
+                                                <TableCell align="center">{item.units}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>

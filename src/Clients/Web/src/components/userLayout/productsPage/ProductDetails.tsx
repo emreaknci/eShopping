@@ -131,7 +131,11 @@ const ProductDetails = (props: ProductDetailsProps) => {
                                             component="img"
                                             height="250"
                                             image={baseImagePath + image.url}
-                                        />
+                                            style={{
+                                                margin: 'auto',
+                                                maxWidth: '100%',
+                                                objectFit: 'contain',
+                                            }} />
                                     </Grid>
                                 ))}
                             </Grid>

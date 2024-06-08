@@ -13,12 +13,10 @@ import { ProductFilterOptions, SortType } from '../../../dtos/products/productFi
 import { toast } from 'react-toastify';
 import { ProductListDto } from '../../../dtos/products/productListDto';
 import { LoadingComponent } from '../../../components/common/LoadingComponent';
-import RemoveCircleOutlineOutlinedIcon from '@mui/icons-material/RemoveCircleOutlineOutlined';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
+
 
 import FilterBox from '../../../components/userLayout/productsPage/FilterBox';
 import ProductDetails from '../../../components/userLayout/productsPage/ProductDetails';
-import EditIcon from '@mui/icons-material/Edit';
 import ProductTableRow from '../../../components/userLayout/productsPage/ProductTableRow';
 const ProductsPage = () => {
   const [products, setProducts] = useState<ProductListDto[]>([]);
@@ -28,6 +26,7 @@ const ProductsPage = () => {
   const [expandedProductId, setExpandedProductId] = useState<number | null>(null);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [totalCount, setTotalCount] = useState(0);
 
   const [isLoading, setIsLoading] = useState(true);
   const [initialFilters, setInitialFilters] = useState<ProductFilterOptions>({
@@ -37,7 +36,7 @@ const ProductsPage = () => {
     maxPrice: 0,
     sortType: SortType.DEFAULT,
     pageNumber: 1,
-    pageSize: 10,
+    pageSize: 5,
     categoryIds: [],
     searchText: ''
   });
@@ -55,18 +54,27 @@ const ProductsPage = () => {
       setIsLoading(false);
       setProducts([]);
     }
+  }, []);
+  useEffect(() => {
+    getProductsByFilter(filters);
+
   }, [filters]);
 
   useEffect(() => {
     setFilters({ ...initialFilters, searchText: searchQuery });
   }, [searchQuery])
 
+  useEffect(() => {
+    setFilters({ ...filters, pageNumber: page + 1});
+  }, [page])
+
   const getProductsByFilter = async (filters: ProductFilterOptions) => {
     setIsLoading(true);
     await ProductService.getProducts(filters)
       .then(async (response) => {
-        const dto = response.data.data;
-        setProducts(dto!);
+        const dto = response.data;
+        setTotalCount(dto.totalCount);
+        setProducts(dto.data!);
         setCurrentPage(response.data.pageNumber);
       })
       .catch((error) => {
@@ -102,31 +110,6 @@ const ProductsPage = () => {
   const handleExpand = (productId: any) => {
     setExpandedProductId(expandedProductId === productId ? null : productId);
   };
-
-
-  const filteredProducts = products.filter(product => {
-    const includesSearch = Object.values(product).some(value => {
-      if (typeof value === 'string') {
-        return value.toLowerCase().includes(searchQuery.toLowerCase());
-      }
-      return false;
-    });
-    return includesSearch;
-  });
-
-
-  const sortedProducts = sortField ? filteredProducts.sort((a, b) => {
-    const fieldA = a[sortField];
-    const fieldB = b[sortField];
-    if (sortDirection === 'asc') {
-      return fieldA < fieldB ? -1 : 1;
-    } else {
-      return fieldA > fieldB ? -1 : 1;
-    }
-  }) : filteredProducts;
-
-  const paginatedProducts = sortedProducts.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage);
-
 
   const renderTableHeadCell = (name: string, fieldName?: string, align: 'left' | 'center' | 'right' = 'left') => {
     return (
@@ -180,7 +163,7 @@ const ProductsPage = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {paginatedProducts.map(product => (
+                  {products.map(product => (
                     <React.Fragment key={product.id}>
                       <ProductTableRow product={product} expandedProductId={expandedProductId} handleExpand={handleExpand} />
                       {expandedProductId == product.id && <ProductDetails expandedProductId={expandedProductId} productId={product.id} setExpandedProductId={setExpandedProductId} />}
@@ -189,9 +172,9 @@ const ProductsPage = () => {
                 </TableBody>
               </Table>
               <TablePagination
-                rowsPerPageOptions={[5, 10, 25]}
+                rowsPerPageOptions={[5]}
                 component="div"
-                count={sortedProducts.length}
+                count={totalCount}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}

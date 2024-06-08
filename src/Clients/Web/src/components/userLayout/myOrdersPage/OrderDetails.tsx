@@ -1,12 +1,15 @@
-import { AccordionDetails, Divider, Grid, Typography } from '@mui/material'
+import { AccordionDetails, Divider, Grid, IconButton, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import OrderDetailDto, { OrderItemDto } from '../../../dtos/orders/orderDetailDto'
 import OrderService from '../../../services/order.service'
+import { useNavigate } from 'react-router-dom';
+import LaunchIcon from '@mui/icons-material/Launch';
 
 const baseImagePath = import.meta.env.VITE_API_GATEWAY + '/' + import.meta.env.VITE_CATALOG_IMAGES + '/';
 
 const OrderDetails = ({ orderId }: { orderId: string }) => {
     const [detail, setDetail] = useState<OrderDetailDto>()
+    const navigate=useNavigate();
 
     useEffect(() => {
         OrderService.getOrderDetailsById(orderId).then((response) => {
@@ -70,8 +73,13 @@ const OrderDetails = ({ orderId }: { orderId: string }) => {
             <>
                 <Grid item xs={12}>
                     <Grid container spacing={2}>
-                        <Grid item xs={12} sm={2} >
-                            <img src={baseImagePath+item.pictureUrl} alt={item.productname} width="100%" />
+                        <Grid item xs={12} sm={2}>
+                            <img src={baseImagePath + item.pictureUrl} alt={item.productname} width="100%" />
+                            <Typography>
+                                <IconButton onClick={() => navigate(`/details/${item.productId}`)}>
+                                    <LaunchIcon fontSize="medium" />
+                                </IconButton>
+                            </Typography>
                         </Grid>
                         <Grid item xs={12} sm={10}>
                             <Typography variant='h5' fontWeight={"bold"}>{item.productname}</Typography>
@@ -80,6 +88,7 @@ const OrderDetails = ({ orderId }: { orderId: string }) => {
                             <Typography><strong>Toplam Fiyat: </strong>
                                 {(item.unitPrice * item.units).toFixed(2)} TL
                             </Typography>
+                            
                         </Grid>
                     </Grid>
                 </Grid>
@@ -100,7 +109,6 @@ const OrderDetails = ({ orderId }: { orderId: string }) => {
                             <React.Fragment key={index}>
                                 <Grid item sm={12} md={6}>
                                     {renderOrderItem(item)}
-                                    {index !== detail.orderItems.length - 1 && <Divider />}
                                 </Grid>
                             </React.Fragment>
                         ))}

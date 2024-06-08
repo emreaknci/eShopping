@@ -19,6 +19,7 @@ import { ProductFilterOptions, SortType } from '../../../dtos/products/productFi
 import ProductService from '../../../services/product.service';
 import { ProductListDto } from '../../../dtos/products/productListDto';
 import { toast } from 'react-toastify';
+import { PaginationComponent } from '../../../components/common/PaginationComponent';
 
 
 
@@ -36,7 +37,7 @@ const CategoryPage = () => {
     maxPrice: 0,
     sortType: SortType.DEFAULT,
     pageNumber: 1,
-    pageSize: 10,
+    pageSize: 6,
     categoryIds: []
   });
   const [category, setCategory] = useState<CategoryListDto>();
@@ -46,10 +47,10 @@ const CategoryPage = () => {
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [totalPages, setTotalPages] = useState(0);
   const [filters, setFilters] = useState<ProductFilterOptions>(initialFilters);
   const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
-  const [expandedFilter, setExpandedFilter] = useState(isMediumScreen ? false : true);
+  const [expandedFilter, setExpandedFilter] = useState(false);
 
 
   const [selectedSortType, setSelectedSortType] = useState<SortType>(SortType.DEFAULT);
@@ -83,19 +84,24 @@ const CategoryPage = () => {
   }
 
   useEffect(() => {
+    getProductsByFilter(Number(id), filters);
+  }, [filters]);
 
-
-  }, [filters])
+  useEffect(() => {
+    setFilters({ ...filters, pageNumber: currentPage });
+  }, [currentPage])
 
 
   const getProductsByFilter = async (categoryId: number, filters: ProductFilterOptions) => {
     setIsLoading(true);
 
-    setFilters({ ...filters, categoryIds: [...(filters.categoryIds || []), categoryId] });
+    const copyFilters = { ...filters, categoryIds: [...(filters.categoryIds || []), categoryId] };
 
-    await ProductService.getProducts(filters)
+    await ProductService.getProducts(copyFilters)
       .then(async (response) => {
         const dto = response.data.data;
+        console.log(response.data)
+        setTotalPages(Math.ceil(response.data.totalCount / response.data.pageSize));
         setProducts(dto!);
         setCurrentPage(response.data.pageNumber);
         setIsLoading(false);
@@ -285,7 +291,7 @@ const CategoryPage = () => {
     return (
       <Grid container spacing={3}>
         {products.map((product, index) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+          <Grid item xs={12} md={6} lg={4} key={index}>
             <ProductCardComponent product={product} />
           </Grid>
         ))}
@@ -478,6 +484,16 @@ const CategoryPage = () => {
             {products && <Grid item xs={12} md={9}>
               {renderProductsList()}
             </Grid>}
+
+            <Grid item xs={12}>
+            <PaginationComponent
+                itemsPerPage={2}
+                currentPage={currentPage}
+                onPageChange={(page) => { setCurrentPage(page) }}
+                pageCount={totalPages}
+              />
+              </Grid>
+           
           </Grid>
         </Box>
       }

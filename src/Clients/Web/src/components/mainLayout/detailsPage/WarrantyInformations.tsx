@@ -8,7 +8,7 @@ const WarrantyInformations = () => {
                 Garanti Bilgileri
             </Typography>
             <Typography variant="body1">
-                xx.com'da satışa sunulan tüm ürünler en az 2 yıl olmak üzere üretici ya da distribütör garantisi altındadır. Bu süre bazı markalar tarafından sunulan ek garantilerle uzatılabilir.
+                eshopping.com'da satışa sunulan tüm ürünler en az 2 yıl olmak üzere üretici ya da distribütör garantisi altındadır. Bu süre bazı markalar tarafından sunulan ek garantilerle uzatılabilir.
             </Typography>
         </>
     )

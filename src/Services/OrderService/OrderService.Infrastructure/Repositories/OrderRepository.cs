@@ -31,7 +31,7 @@ namespace OrderService.Infrastructure.Repositories
         {
             DateTime startDate = DateTime.UtcNow.Date.AddDays(-daysAgo);
             return _dbContext.OrderItems
-                            .Where(x => x.CreatedDate >= startDate)
+                            .Where(x => x.CreatedDate >= startDate && GetOrderIdsThatPaid().Contains(x.OrderId))
                             .Sum(x => x.UnitPrice * x.Units);
         }
 
@@ -42,7 +42,7 @@ namespace OrderService.Infrastructure.Repositories
 
         public decimal CalculateTotalOrderRevenue()
         {
-            return _dbContext.OrderItems.Sum(x => x.UnitPrice * x.Units);
+            return _dbContext.OrderItems.Where(x => GetOrderIdsThatPaid().Contains(x.OrderId)).Sum(x => x.UnitPrice * x.Units);
         }
 
         public override async Task<Order> GetByIdAsync(Guid id, params Expression<Func<Order, object>>[] includes)
@@ -71,7 +71,7 @@ namespace OrderService.Infrastructure.Repositories
 
             if (!string.IsNullOrEmpty(userId))
             {
-                var buyer= _dbContext.Buyers.FirstOrDefault(x => x.UserId == userId);
+                var buyer = _dbContext.Buyers.FirstOrDefault(x => x.UserId == userId);
                 if (buyer != null)
                     orders = orders.Where(x => x.BuyerId == buyer.Id);
             }
@@ -116,6 +116,18 @@ namespace OrderService.Infrastructure.Repositories
             orders = orders.OrderByDescending(x => x.OrderDate);
 
             return orders.Include(x => x.Buyer).Include(x => x.OrderItems);
+        }
+
+        private List<Guid> GetOrderIdsThatPaid()
+        {
+            var statusIds = new List<int>()
+            {
+                OrderStatus.PaymentSucceeded.Id,
+                OrderStatus.Shipped.Id,
+                OrderStatus.Delivered.Id,
+                OrderStatus.Preparing.Id,
+            };
+            return _dbContext.Orders.Where(x => statusIds.Contains(x.OrderStatusId)).Select(x => x.Id).ToList();
         }
     }
 }

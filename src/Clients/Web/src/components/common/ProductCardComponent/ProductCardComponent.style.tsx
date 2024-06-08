@@ -1,7 +1,8 @@
 import { Badge, Button, Card, CardMedia, Typography, styled } from "@mui/material";
 
-
+const cardHeight = 400; // Set your desired card height
 const ProductCard = styled(Card)({
+    height: cardHeight,
     margin: 'auto',
     boxShadow: '0 .5rem 1rem rgba(0, 0, 0, 0.1)',
     borderRadius: 8,
@@ -9,10 +10,9 @@ const ProductCard = styled(Card)({
     '&:hover': {
         boxShadow: '0 1rem 2rem rgba(0, 0, 0, 0.2)',
     },
-    height: '100%',
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
 });
 
 

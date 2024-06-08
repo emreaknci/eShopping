@@ -30,8 +30,8 @@ const App = () => {
   return (
     <>
       <ToastContainer
-        position="top-right"
-        autoClose={1}
+        position="top-left"
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -57,7 +57,6 @@ const App = () => {
           </ThemeContext.Provider>
         </CartProvider>
       </AuthProvider>
-      <ToastContainer />
     </>
   );
 };

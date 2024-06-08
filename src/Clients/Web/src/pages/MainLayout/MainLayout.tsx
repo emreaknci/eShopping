@@ -35,7 +35,7 @@ const MainLayout = () => {
         <Route path="/Category/:id" element={<CategoryPage />} />
         <Route path="*" element={<Navigate to={"/"} />} />
       </Routes>
-      {shouldShowFooter && <Footer />}
+      {/* {shouldShowFooter && <Footer />} */}
     </>
   );
 };

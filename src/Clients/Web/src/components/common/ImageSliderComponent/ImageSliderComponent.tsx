@@ -29,6 +29,7 @@ const ImageSliderComponent = ({ images }: { images: any }) => {
           width: '20rem',
           height: '20rem',
           maxWidth: '100%',
+          objectFit: 'contain',
         }}
         onClick={handleNextImage}
       />

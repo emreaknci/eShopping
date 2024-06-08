@@ -22,7 +22,7 @@ const baseImagePath = import.meta.env.VITE_API_GATEWAY + '/' + import.meta.env.V
 
 const DetailsPage = () => {
   const { id } = useParams();
-  const [tabValue, setTabValue] = useState(4);
+  const [tabValue, setTabValue] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [images, setImages] = useState<string[]>([]);
 
