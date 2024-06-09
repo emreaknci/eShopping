@@ -110,11 +110,9 @@ const MyOrdersPage = () => {
                     </Typography>
                   </Grid>
                   <Grid item sm={2}>
-                    {order?.orderStatus === OrderStatus.PaymentPending || order?.orderStatus === OrderStatus.PaymentSucceeded &&
-                      <Button onClick={() => handleCancelOrder(order?.orderId)}>
-                        İptal Et
-                      </Button>
-                    }
+                    {(order.orderStatus === OrderStatus.PaymentSucceeded || order.orderStatus === OrderStatus.PaymentPending || order.orderStatus === OrderStatus.Preparing) && (
+                      <Button onClick={() => handleCancelOrder(order.orderId)}>İptal Et</Button>
+                    )}
                   </Grid>
                 </Grid>
               </AccordionSummary>

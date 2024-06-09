@@ -28,6 +28,7 @@ namespace CatalogService.API
                 x.AddConsumer<OrderPaymentSucceededEventConsumer>();
                 x.AddConsumer<OrderPaymentFailedEventConsumer>();
                 x.AddConsumer<OrderStartedEventConsumer>();
+                x.AddConsumer<OrderCancelledCommandConsumer>();
                 x.UsingRabbitMq((context, config) =>
                 {
                     config.ReceiveEndpoint(EventBusConstants.CatalogServiceQueueName, e =>
@@ -35,6 +36,7 @@ namespace CatalogService.API
                         e.Consumer<OrderPaymentSucceededEventConsumer>(context);
                         e.Consumer<OrderPaymentFailedEventConsumer>(context);
                         e.Consumer<OrderStartedEventConsumer>(context);
+                        e.Consumer<OrderCancelledCommandConsumer>(context);
                     });
                 });
 

@@ -1,4 +1,7 @@
-﻿using MediatR;
+﻿using EventBus.MassTransit;
+using EventBus.MassTransit.Commands;
+using MassTransit;
+using MediatR;
 using OrderService.Application.Interfaces.Repositories;
 using OrderService.Domain.AggregateModels.OrderAggregate;
 using System;
@@ -24,10 +27,17 @@ namespace OrderService.Application.Features.Orders.Commands.ChangeOrderStatus
     public class ChangeOrderStatusCommandHandler : IRequestHandler<ChangeOrderStatusCommand, bool>
     {
         private readonly IOrderRepository _orderRepository;
+        private readonly ISendEndpoint _bus;
+
 
         public ChangeOrderStatusCommandHandler(IOrderRepository orderRepository)
         {
             _orderRepository = orderRepository;
+
+
+            var bus = BusConfigurator.ConfigureBus();
+            var sendToUri = new Uri($"{EventBusConstants.Uri}/{EventBusConstants.CatalogServiceQueueName}");
+            _bus = bus.GetSendEndpoint(sendToUri).Result;
         }
 
         public async Task<bool> Handle(ChangeOrderStatusCommand request, CancellationToken cancellationToken)
@@ -36,11 +46,31 @@ namespace OrderService.Application.Features.Orders.Commands.ChangeOrderStatus
             if (order is null)
                 return false;
 
-            order.OrderStatusId = request.NewStatus.Id;
+            var newStatusId = request.NewStatus.Id;
+
+            order.OrderStatusId = newStatusId;
 
             await _orderRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
 
+            if (newStatusId == OrderStatus.CancelledByBuyer.Id || newStatusId == OrderStatus.CancelledByStore.Id)
+                await SendOrderCancelledCommand(request.OrderId);
+
             return true;
+        }
+
+        private async Task SendOrderCancelledCommand(string orderId)
+        {
+            var orderItems=new Dictionary<int,int>(); // productId, quantity
+
+            var order = await _orderRepository.GetByIdAsync(Guid.Parse(orderId), i => i.OrderItems, i => i.Buyer);
+            foreach (var item in order.OrderItems)      
+                orderItems.Add(item.ProductId, item.Units);
+            
+            var command = new OrderCancelledCommand();
+            command.OrderId = orderId;
+            command.Items = orderItems;
+
+            await _bus.Send(command);
         }
     }
 }
